@@ -229,14 +229,20 @@
 
     /* ── FOOTER ── */
     .footer {
+      display: block;
       text-align: center;
       padding: 20px;
-      font-size: 0.58rem;
-      letter-spacing: 0.15em;
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
       color: var(--text-mid);
       text-transform: uppercase;
       background: var(--cream);
+      text-decoration: none;
+      opacity: 0.45;
+      transition: opacity 0.25s ease;
+      cursor: pointer;
     }
+    .footer:hover { opacity: 0.85; }
 
     /* Animations */
     @keyframes fadeUp {
@@ -333,7 +339,7 @@
     </div>
   </div>
 
-  <div class="footer">feito com ♥ por byninaalves</div>
+  <a class="footer" href="https://www.instagram.com/byninaalves" target="_blank" rel="noopener">feito com ♥ por byninaalves</a>
 
 </div>
 
