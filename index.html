@@ -8,29 +8,87 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── GUIA DESTRAVA PALETTE ── */
     :root {
-      --page-bg: #eef0eb;
-      --sage: #7a8c6e;
-      --cream: #f0ebe2;
-      --warm-white: #faf8f4;
-      --text-dark: #2d2a25;
-      --text-mid: #6b6357;
+      --page-bg:    #F0EAE0;   /* warm cream — fundo principal */
+      --cream:      #EDE7DC;   /* creme ligeiramente mais profundo para o body */
+      --warm-white: #FAF6F0;   /* branco quente para cards */
+      --dark:       #1C1610;   /* marrom escuro quase preto — strip/cabeçalho */
+      --accent:     #C4874A;   /* caramelo/terracota — botão CTA e destaques */
+      --accent-dim: #A86C33;   /* caramelo escuro para hover */
+      --text-dark:  #2A231A;   /* marrom escuro para texto */
+      --text-mid:   #7A6A58;   /* marrom médio */
     }
 
     html, body {
       min-height: 100%;
-      background: #e8ece6;
       font-family: 'Jost', sans-serif;
       color: var(--text-dark);
     }
 
+    /* ── 3D CARD EFFECT – paleta Guia Destrava ── */
+    html {
+      background: radial-gradient(ellipse at 35% 25%, #D8C9B4 0%, #B8A48A 35%, #8A7055 70%, #3A2A18 100%);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 0;
+      background: transparent;
+      position: relative;
+    }
+
+    /* blobs quentes */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: -20%;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 70% 55% at 25% 35%, rgba(196,135,74,0.45) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 65% at 78% 72%, rgba(138,100,60,0.35) 0%, transparent 60%);
+      filter: blur(55px);
+      animation: blobDrift 14s ease-in-out infinite alternate;
+    }
+
+    /* vignette */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(
+        ellipse 60% 75% at 50% 48%,
+        transparent 30%,
+        rgba(0,0,0,0.50) 100%
+      );
+      pointer-events: none;
+    }
+
+    @keyframes blobDrift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(2%, 3%) scale(1.04); }
+      100% { transform: translate(-2%, -2%) scale(0.97); }
+    }
+
     .page {
       max-width: 430px;
-      margin: 0 auto;
-      min-height: 100vh;
+      margin: 28px auto !important;
+      min-height: calc(100vh - 56px) !important;
       display: flex;
       flex-direction: column;
       background: var(--page-bg);
+      border-radius: 28px !important;
+      overflow: hidden !important;
+      box-shadow:
+        0 2px 0 rgba(255,245,235,0.15),
+        0 40px 100px rgba(0,0,0,0.50),
+        0 16px 40px rgba(0,0,0,0.28),
+        0 4px 12px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,245,235,0.18) !important;
     }
 
     /* ── HERO ── */
@@ -56,9 +114,9 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(0,0,0,0.02) 0%,
-        rgba(0,0,0,0.25) 55%,
-        rgba(0,0,0,0.60) 100%
+        rgba(28,22,16,0.02) 0%,
+        rgba(28,22,16,0.22) 55%,
+        rgba(28,22,16,0.62) 100%
       );
       pointer-events: none;
     }
@@ -82,6 +140,7 @@
     .hero-name em {
       font-style: italic;
       font-weight: 400;
+      color: #E8BB8A; /* caramelo claro sobre foto */
     }
 
     .hero-sub {
@@ -90,24 +149,25 @@
       letter-spacing: 0.25em;
       font-weight: 400;
       margin-top: 7px;
-      opacity: 0.88;
+      opacity: 0.85;
       text-transform: uppercase;
     }
 
-    /* ── SOCIAL STRIP ── */
+    /* ── SOCIAL STRIP – tom claro creme ── */
     .social-strip {
-      background: var(--sage);
+      background: #E8DCCF;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 14px 26px;
+      border-bottom: 1px solid rgba(196,135,74,0.15);
     }
 
     .social-label {
       font-size: 0.62rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
       font-weight: 400;
-      color: rgba(255,255,255,0.8);
+      color: var(--text-mid);
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -118,15 +178,17 @@
     }
 
     .social-icons a {
-      color: #fff;
+      color: var(--text-mid);
       text-decoration: none;
       display: flex;
       align-items: center;
-      transition: opacity 0.2s, transform 0.2s;
-      opacity: 0.88;
+      transition: opacity 0.2s, transform 0.2s, color 0.2s;
     }
 
-    .social-icons a:hover { opacity: 1; transform: scale(1.12); }
+    .social-icons a:hover {
+      color: var(--accent);
+      transform: scale(1.12);
+    }
 
     /* ── BODY ── */
     .body {
@@ -137,7 +199,7 @@
 
     .section-title { display: none; }
 
-    /* ── LIQUID GLASS BUTTONS ── */
+    /* ── BUTTONS – estilo vidro sobre creme ── */
     .btn-list {
       display: flex;
       flex-direction: column;
@@ -158,19 +220,19 @@
       text-transform: uppercase;
       border-radius: 16px;
       overflow: hidden;
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(20px) saturate(170%);
-      -webkit-backdrop-filter: blur(20px) saturate(170%);
-      border: 1px solid rgba(255, 255, 255, 0.78);
+      background: rgba(250, 245, 235, 0.55);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255, 248, 238, 0.80);
       box-shadow:
-        0 2px 14px rgba(122, 140, 110, 0.13),
+        0 2px 14px rgba(196, 135, 74, 0.10),
         0 1px 3px rgba(0,0,0,0.05),
-        inset 0 1.5px 0 rgba(255,255,255,0.9),
-        inset 0 -1px 0 rgba(0,0,0,0.04);
+        inset 0 1.5px 0 rgba(255,248,238,0.95),
+        inset 0 -1px 0 rgba(90,60,30,0.05);
       transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
     }
 
-    /* top glare */
+    /* glare no topo */
     .btn-link::before {
       content: '';
       position: absolute;
@@ -178,14 +240,14 @@
       height: 42%;
       background: linear-gradient(
         to bottom,
-        rgba(255,255,255,0.6) 0%,
-        rgba(255,255,255,0.05) 100%
+        rgba(255,248,238,0.65) 0%,
+        rgba(255,248,238,0.04) 100%
       );
       border-radius: 16px 16px 0 0;
       pointer-events: none;
     }
 
-    /* sage glow blob */
+    /* glow caramelo */
     .btn-link::after {
       content: '';
       position: absolute;
@@ -193,19 +255,19 @@
       right: 8%;
       width: 50%;
       height: 65%;
-      background: radial-gradient(ellipse, rgba(122,140,110,0.2) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(196,135,74,0.18) 0%, transparent 70%);
       filter: blur(12px);
       pointer-events: none;
     }
 
     .btn-link:hover {
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.62);
+      background: rgba(255, 248, 238, 0.75);
       box-shadow:
-        0 10px 30px rgba(122, 140, 110, 0.22),
+        0 10px 30px rgba(196, 135, 74, 0.20),
         0 2px 6px rgba(0,0,0,0.06),
-        inset 0 1.5px 0 rgba(255,255,255,0.95),
-        inset 0 -1px 0 rgba(0,0,0,0.04);
+        inset 0 1.5px 0 rgba(255,248,238,0.98),
+        inset 0 -1px 0 rgba(90,60,30,0.05);
     }
 
     .btn-label {
@@ -217,7 +279,7 @@
       position: relative;
       z-index: 1;
       font-size: 0.9rem;
-      color: var(--sage);
+      color: var(--accent);
       transition: transform 0.2s;
       flex-shrink: 0;
       margin-left: 10px;
@@ -259,73 +321,10 @@
 
     .hero-placeholder {
       width: 100%; height: 100%;
-      background: linear-gradient(135deg, #b5bcaa 0%, #8fa080 50%, #6b7a5c 100%);
+      background: linear-gradient(135deg, #D8C9B4 0%, #B8A48A 50%, #8A7055 100%);
       display: flex; align-items: center; justify-content: center;
     }
     .hero-placeholder svg { opacity: 0.3; width: 60px; }
-  
-    
-  
-    /* ── 3D CARD EFFECT ── */
-    html {
-      background: radial-gradient(ellipse at 35% 25%, #b8c8a8 0%, #7a8c6e 35%, #3a4a30 70%, #1a2a15 100%);
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 0;
-      background: transparent;
-      position: relative;
-    }
-
-    /* large soft blobs for depth */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: -20%;
-      z-index: -2;
-      background:
-        radial-gradient(ellipse 70% 55% at 25% 35%, rgba(120,150,100,0.7) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 65% at 78% 72%, rgba(80,110,65,0.5) 0%, transparent 60%);
-      filter: blur(55px);
-      animation: blobDrift 14s ease-in-out infinite alternate;
-    }
-
-    /* sharp vignette ring around card */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: radial-gradient(
-        ellipse 60% 75% at 50% 48%,
-        transparent 30%,
-        rgba(0,0,0,0.55) 100%
-      );
-      pointer-events: none;
-    }
-
-    @keyframes blobDrift {
-      0%   { transform: translate(0, 0) scale(1); }
-      50%  { transform: translate(2%, 3%) scale(1.04); }
-      100% { transform: translate(-2%, -2%) scale(0.97); }
-    }
-
-    .page {
-      border-radius: 28px !important;
-      overflow: hidden !important;
-      box-shadow:
-        0 2px 0 rgba(255,255,255,0.12),
-        0 40px 100px rgba(0,0,0,0.55),
-        0 16px 40px rgba(0,0,0,0.30),
-        0 4px 12px rgba(0,0,0,0.20),
-        inset 0 1px 0 rgba(255,255,255,0.14) !important;
-      margin: 28px auto !important;
-      min-height: calc(100vh - 56px) !important;
-    }
 
   </style>
 </head>
@@ -394,7 +393,7 @@
       </a>
 
       <a class="btn-link"
-         href="https://docs.google.com/forms/d/e/1FAIpQLSceUQ0QO3t0ggpjM-a5HqEyvYZ5eId_rEpH8ta831IHMxyZ5w/viewform"
+         href="/guia-destrava"
          target="_blank" rel="noopener">
         <span class="btn-label">Lista de Espera — Guia Destrava</span>
         <span class="btn-arrow">→</span>
