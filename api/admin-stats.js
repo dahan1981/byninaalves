@@ -93,6 +93,9 @@ module.exports = async function handler(req, res) {
     });
   } catch (error) {
     console.error("admin-stats error", error);
-    res.status(500).json({ ok: false, error: "Unable to load admin stats." });
+    res.status(500).json({
+      ok: false,
+      error: error && error.message ? error.message : "Unable to load admin stats.",
+    });
   }
 };

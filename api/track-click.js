@@ -40,6 +40,9 @@ module.exports = async function handler(req, res) {
     res.status(200).json({ ok: true });
   } catch (error) {
     console.error("track-click error", error);
-    res.status(500).json({ ok: false, error: "Unable to record click event." });
+    res.status(500).json({
+      ok: false,
+      error: error && error.message ? error.message : "Unable to record click event.",
+    });
   }
 };
