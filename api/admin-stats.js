@@ -2,17 +2,6 @@ const { listClickEvents } = require("./_lib/supabase");
 
 const PASSWORD = process.env.ADMIN_PASSWORD;
 
-function json(statusCode, body) {
-  return {
-    statusCode,
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-store",
-    },
-    body: JSON.stringify(body),
-  };
-}
-
 function getRangeStart(period) {
   const now = new Date();
 
@@ -50,18 +39,17 @@ function aggregateEvents(events) {
 
   events.forEach((event) => {
     countsByLink[event.link_id] = (countsByLink[event.link_id] || 0) + 1;
-
     const dayKey = String(event.clicked_at).slice(0, 10);
     countsByDay[dayKey] = (countsByDay[dayKey] || 0) + 1;
   });
 
-  const perLink = Object.entries(labels).map(([linkId, label]) => ({
-    link_id: linkId,
-    label,
-    total_clicks: countsByLink[linkId] || 0,
-  }));
-
-  perLink.sort((a, b) => b.total_clicks - a.total_clicks);
+  const perLink = Object.entries(labels)
+    .map(([link_id, label]) => ({
+      link_id,
+      label,
+      total_clicks: countsByLink[link_id] || 0,
+    }))
+    .sort((a, b) => b.total_clicks - a.total_clicks);
 
   const perDay = Object.entries(countsByDay)
     .map(([date, total_clicks]) => ({ date, total_clicks }))
@@ -74,34 +62,37 @@ function aggregateEvents(events) {
   };
 }
 
-exports.handler = async (event) => {
-  if (event.httpMethod !== "GET") {
-    return json(405, { ok: false, error: "Method not allowed." });
+module.exports = async function handler(req, res) {
+  if (req.method !== "GET") {
+    res.status(405).json({ ok: false, error: "Method not allowed." });
+    return;
   }
 
   if (!PASSWORD) {
-    return json(500, { ok: false, error: "Missing ADMIN_PASSWORD environment variable." });
+    res.status(500).json({ ok: false, error: "Missing ADMIN_PASSWORD environment variable." });
+    return;
   }
 
-  const providedPassword = event.headers["x-admin-password"];
+  const providedPassword = req.headers["x-admin-password"];
   if (!providedPassword || providedPassword !== PASSWORD) {
-    return json(401, { ok: false, error: "Unauthorized." });
+    res.status(401).json({ ok: false, error: "Unauthorized." });
+    return;
   }
 
   try {
-    const period = event.queryStringParameters?.period || "7d";
+    const period = req.query.period || "7d";
     const from = getRangeStart(period);
     const events = await listClickEvents({
       fromIso: from ? from.toISOString() : null,
     });
 
-    return json(200, {
+    res.status(200).json({
       ok: true,
       period,
       stats: aggregateEvents(events || []),
     });
   } catch (error) {
     console.error("admin-stats error", error);
-    return json(500, { ok: false, error: "Unable to load admin stats." });
+    res.status(500).json({ ok: false, error: "Unable to load admin stats." });
   }
 };

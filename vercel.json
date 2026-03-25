@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/guia-destrave",
+      "destination": "/guia-destrave/index.html"
+    },
+    {
+      "source": "/nina-admin",
+      "destination": "/admin/index.html"
+    }
+  ]
+}

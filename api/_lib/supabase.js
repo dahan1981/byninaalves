@@ -9,8 +9,7 @@ function ensureEnv() {
 }
 
 function getRestUrl(path = "") {
-  const base = SUPABASE_URL.replace(/\/$/, "");
-  return `${base}/rest/v1/${path}`;
+  return `${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/${path}`;
 }
 
 async function supabaseFetch(path, options = {}) {
