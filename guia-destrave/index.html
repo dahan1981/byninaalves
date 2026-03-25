@@ -247,14 +247,39 @@
     background: var(--warm-white);
   }
 
+  .dor-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  .dor-visual {
+    display: flex;
+    justify-content: center;
+    padding-top: 34px;
+  }
+
+  .dor-visual img {
+    width: min(100%, 260px);
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 22px 30px rgba(32, 23, 18, 0.12));
+    transform: rotate(-7deg);
+  }
+
+  .dor-content {
+    text-align: center;
+  }
+
   .dor-question {
     font-family: var(--serif);
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-size: clamp(2rem, 4.4vw, 3rem);
     font-weight: 400;
     font-style: italic;
     color: var(--text);
     line-height: 1.3;
-    max-width: 640px;
+    max-width: 760px;
     margin: 0 auto 48px;
   }
 
@@ -262,8 +287,8 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    max-width: 560px;
+    gap: 16px;
+    max-width: 640px;
     margin: 0 auto 44px;
     text-align: left;
   }
@@ -272,11 +297,11 @@
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    font-size: 1rem;
+    font-size: 1.08rem;
     color: var(--text-soft);
     background: var(--accent-pale);
     border: 1px solid rgba(196,149,106,0.12);
-    padding: 16px 20px;
+    padding: 18px 22px;
     border-radius: var(--radius-sm);
     line-height: 1.6;
   }
@@ -1447,6 +1472,15 @@
     .nina-content { text-align: center; }
     .nina-label { text-align: center; }
 
+    .dor-layout {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .dor-visual {
+      padding-top: 0;
+    }
+
     .oferta-box { padding: 40px 28px; }
 
     #hero { padding: 60px 0 72px; }
@@ -1533,46 +1567,54 @@
      DOR / IDENTIFICAÇÃO
 ============================================ -->
 <section id="dor">
-  <div class="container text-center">
-    <div class="divider fade-up"><div class="divider-dot"></div></div>
-    <br>
-    <p class="dor-question fade-up">
-      Você sente que parece que todo mundo sabe vender
-      e só você ainda não descobriu a "fórmula mágica"?
-    </p>
-    <p style="color:var(--text-soft); font-size:0.95rem; margin-bottom:28px;" class="fade-up">
-      Calma. Você não é a única que...
-    </p>
-    <ul class="pain-list fade-up">
-      <li>
-        <div class="pain-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        Tem uma ideia, um produto ou um serviço, mas não sabe como divulgar
-      </li>
-      <li>
-        <div class="pain-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        Já tentou várias coisas e continua sem entender o que realmente funciona
-      </li>
-      <li>
-        <div class="pain-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        Tem um micro negócio e sente que está fazendo tudo no improviso
-      </li>
-      <li>
-        <div class="pain-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        Quer fazer uma renda extra mas se sente insegura por não saber como vender
-      </li>
-    </ul>
-    <p class="dor-human fade-up">
-      Acredite se quiser, <strong>eu também já fui essa pessoa.</strong><br>
-      Por isso o Guia Destrave existe. :)
-    </p>
+  <div class="container">
+    <div class="dor-layout">
+      <div class="dor-visual fade-up">
+        <img src="/fotos/2.png" alt="Mockup do calendário sazonal ao lado da seção de dor" loading="lazy">
+      </div>
+
+      <div class="dor-content">
+        <div class="divider fade-up"><div class="divider-dot"></div></div>
+        <br>
+        <p class="dor-question fade-up">
+          Você sente que parece que todo mundo sabe vender
+          e só você ainda não descobriu a "fórmula mágica"?
+        </p>
+        <p style="color:var(--text-soft); font-size:1.02rem; margin-bottom:30px;" class="fade-up">
+          Calma. Você não é a única que...
+        </p>
+        <ul class="pain-list fade-up">
+          <li>
+            <div class="pain-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            Tem uma ideia, um produto ou um serviço, mas não sabe como divulgar
+          </li>
+          <li>
+            <div class="pain-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            Já tentou várias coisas e continua sem entender o que realmente funciona
+          </li>
+          <li>
+            <div class="pain-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            Tem um micro negócio e sente que está fazendo tudo no improviso
+          </li>
+          <li>
+            <div class="pain-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            Quer fazer uma renda extra mas se sente insegura por não saber como vender
+          </li>
+        </ul>
+        <p class="dor-human fade-up">
+          Acredite se quiser, <strong>eu também já fui essa pessoa.</strong><br>
+          Por isso o Guia Destrave existe. :)
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
