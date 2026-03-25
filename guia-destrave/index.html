@@ -482,6 +482,22 @@
     object-fit: contain;
   }
 
+  .offer-floating-mockup {
+    position: absolute;
+    left: max(3vw, 28px);
+    top: -48px;
+    width: clamp(170px, 20vw, 290px);
+    pointer-events: none;
+    filter: drop-shadow(0 24px 34px rgba(33, 23, 16, 0.12));
+    transform: rotate(-8deg);
+  }
+
+  .offer-floating-mockup img {
+    width: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
   .garantia-floating-mockup {
     position: absolute;
     right: max(3vw, 28px);
@@ -502,6 +518,7 @@
     .hero-mockup,
     .transition-side-mockup,
     .bonus-floating-mockup,
+    .offer-floating-mockup,
     .garantia-floating-mockup {
       position: static;
       width: min(280px, 80vw);
@@ -1784,6 +1801,10 @@
 ============================================ -->
 <section id="oferta">
   <div class="container">
+    <div class="offer-floating-mockup fade-up" style="transition-delay:0.12s;">
+      <img src="/fotos/1.png" alt="Mockup do Guia Destrave entre bônus e oferta" loading="lazy">
+    </div>
+
     <div class="oferta-box fade-up">
       <p class="oferta-label">Oferta de lançamento</p>
       <h2 class="oferta-title">Guia Destrave</h2>
