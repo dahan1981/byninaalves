@@ -439,52 +439,6 @@
     object-fit: contain;
   }
 
-  .material-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
-    gap: 30px;
-    align-items: start;
-  }
-
-  .material-visuals {
-    position: sticky;
-    top: 24px;
-    display: grid;
-    gap: 18px;
-  }
-
-  .material-visual-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 26px;
-    border: 1px solid rgba(196,149,106,0.14);
-    background:
-      radial-gradient(circle at top left, rgba(255,255,255,0.92), transparent 55%),
-      linear-gradient(135deg, #f7f1e8 0%, #efe6d9 45%, #e2d1bc 100%);
-    min-height: 250px;
-    padding: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 18px 44px rgba(28,26,24,0.08);
-  }
-
-  .material-visual-card img {
-    width: 100%;
-    max-width: 320px;
-    object-fit: contain;
-    display: block;
-    filter: drop-shadow(0 24px 34px rgba(32, 23, 18, 0.18));
-  }
-
-  .material-visual-card.cover img {
-    max-width: 260px;
-  }
-
-  .material-visual-card.calendar img {
-    transform: rotate(-4deg) translateY(4px);
-  }
-
   .bonus-floating-mockup {
     position: absolute;
     left: max(2vw, 18px);
@@ -519,18 +473,6 @@
   }
 
   @media (max-width: 860px) {
-    .material-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .material-visual-card {
-      min-height: 300px;
-    }
-
-    .material-visuals {
-      position: static;
-    }
-
     .hero-mockup,
     .transition-side-mockup,
     .bonus-floating-mockup,
@@ -1660,74 +1602,61 @@
 ============================================ -->
 <section id="base-material">
   <div class="container">
-    <div class="material-layout">
-      <div>
-        <div class="material-intro">
-          <p class="hero-kicker fade-up">Base do material</p>
-          <h2 class="material-title fade-up">Construído com base no que <em>funciona de verdade</em></h2>
-          <p class="material-copy fade-up">
-            O Guia Destrave foi criado por alguém que também conhece a dúvida, a correria e a pressão de precisar vender.
-          </p>
-        </div>
-
-        <ul class="material-checklist fade-up">
-          <li>
-            <div class="material-check">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div class="material-item">
-              <h3>Testado na vida real</h3>
-              <p>O que entrou aqui não entrou só porque parecia uma boa ideia. Entrou porque fazia sentido na prática também, e porque não adianta nada soar bonito e não ajudar na hora de vender.</p>
-            </div>
-          </li>
-          <li>
-            <div class="material-check">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div class="material-item">
-              <h3>Criado por quem também vive isso</h3>
-              <p>Esse material não foi feito por alguém distante da sua realidade. Foi feito por quem entende o que é tentar várias coisas, ficar sem saber por onde começar e não ter tempo pra perder com enrolação.</p>
-            </div>
-          </li>
-          <li>
-            <div class="material-check">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div class="material-item">
-              <h3>Vivência real + marketing</h3>
-              <p>Além da prática, também tem olhar de marketing e conteúdo por trás. Isso ajuda a organizar melhor o que faz sentido testar, o que chama atenção e o que pode estar travando suas vendas.</p>
-            </div>
-          </li>
-          <li>
-            <div class="material-check">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div class="material-item">
-              <h3>Sem fórmula mágica</h3>
-              <p>Aqui você não vai encontrar “o segredo que ninguém te contou”. O foco é te mostrar caminhos mais claros, mais possíveis e mais pé no chão pra vender sem depender de fantasia de internet.</p>
-            </div>
-          </li>
-          <li>
-            <div class="material-check">
-              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div class="material-item">
-              <h3>Leve de ler, fácil de entender</h3>
-              <p>Ninguém merece material maçante, cheio de termo vazio e cara de aula. A ideia aqui é ser útil de verdade: um conteúdo leve, direto e gostoso de ler, mas que ainda te faz sair com insight prático.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="material-visuals fade-up" style="transition-delay:0.12s;">
-        <div class="material-visual-card cover">
-          <img src="/fotos/4.png" alt="Capa do Guia Destrave em mockup frontal" loading="lazy">
-        </div>
-        <div class="material-visual-card calendar">
-          <img src="/fotos/2.png" alt="Mockup do calendário sazonal incluso no material" loading="lazy">
-        </div>
-      </div>
+    <div class="material-intro">
+      <p class="hero-kicker fade-up">Base do material</p>
+      <h2 class="material-title fade-up">Construído com base no que <em>funciona de verdade</em></h2>
+      <p class="material-copy fade-up">
+        O Guia Destrave foi criado por alguém que também conhece a dúvida, a correria e a pressão de precisar vender.
+      </p>
     </div>
+
+    <ul class="material-checklist fade-up">
+      <li>
+        <div class="material-check">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="material-item">
+          <h3>Testado na vida real</h3>
+          <p>O que entrou aqui não entrou só porque parecia uma boa ideia. Entrou porque fazia sentido na prática também, e porque não adianta nada soar bonito e não ajudar na hora de vender.</p>
+        </div>
+      </li>
+      <li>
+        <div class="material-check">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="material-item">
+          <h3>Criado por quem também vive isso</h3>
+          <p>Esse material não foi feito por alguém distante da sua realidade. Foi feito por quem entende o que é tentar várias coisas, ficar sem saber por onde começar e não ter tempo pra perder com enrolação.</p>
+        </div>
+      </li>
+      <li>
+        <div class="material-check">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="material-item">
+          <h3>Vivência real + marketing</h3>
+          <p>Além da prática, também tem olhar de marketing e conteúdo por trás. Isso ajuda a organizar melhor o que faz sentido testar, o que chama atenção e o que pode estar travando suas vendas.</p>
+        </div>
+      </li>
+      <li>
+        <div class="material-check">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="material-item">
+          <h3>Sem fórmula mágica</h3>
+          <p>Aqui você não vai encontrar “o segredo que ninguém te contou”. O foco é te mostrar caminhos mais claros, mais possíveis e mais pé no chão pra vender sem depender de fantasia de internet.</p>
+        </div>
+      </li>
+      <li>
+        <div class="material-check">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="material-item">
+          <h3>Leve de ler, fácil de entender</h3>
+          <p>Ninguém merece material maçante, cheio de termo vazio e cara de aula. A ideia aqui é ser útil de verdade: um conteúdo leve, direto e gostoso de ler, mas que ainda te faz sair com insight prático.</p>
+        </div>
+      </li>
+    </ul>
   </div>
 </section>
 
