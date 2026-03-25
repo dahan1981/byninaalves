@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel oculto · byninaalves</title>
+  <style>
+    :root {
+      --bg: #16100d;
+      --panel: #241915;
+      --panel-soft: #30211b;
+      --border: rgba(255, 233, 211, 0.12);
+      --text: #f7eee5;
+      --muted: #c5b4a6;
+      --accent: #d49a62;
+      --accent-soft: rgba(212, 154, 98, 0.14);
+      --danger: #ff9f8e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(212, 154, 98, 0.16), transparent 35%),
+        linear-gradient(180deg, #120d0a 0%, #1d1410 100%);
+      color: var(--text);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 56px;
+    }
+
+    .login,
+    .panel {
+      background: rgba(36, 25, 21, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .login {
+      max-width: 460px;
+      margin: 12vh auto 0;
+      padding: 32px;
+    }
+
+    h1,
+    h2,
+    p { margin: 0; }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .login h1,
+    .panel h1 {
+      font-size: 32px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 18px;
+      background: var(--accent);
+      color: #20140d;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .error {
+      color: var(--danger);
+      min-height: 22px;
+      margin-top: 12px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .panel {
+      padding: 28px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--accent-soft);
+      color: var(--text);
+      border: 1px solid transparent;
+      padding: 10px 14px;
+    }
+
+    .filter-btn.active {
+      border-color: rgba(212, 154, 98, 0.5);
+      background: rgba(212, 154, 98, 0.22);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card,
+    .table-card,
+    .chart-card {
+      background: var(--panel-soft);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .card-value {
+      font-size: 34px;
+      font-weight: 700;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+    }
+
+    .bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 86px 1fr 40px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .bar-label,
+    .bar-total {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .bar-track {
+      height: 10px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d49a62 0%, #f2c08f 100%);
+    }
+
+    .status {
+      color: var(--muted);
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .panel-header,
+      .layout {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="login" id="loginBox">
+      <p class="eyebrow">Área restrita</p>
+      <h1>Painel oculto</h1>
+      <p class="subtitle">Use a senha do admin para visualizar os cliques do link na bio.</p>
+      <label for="password">Senha</label>
+      <input id="password" type="password" autocomplete="current-password" />
+      <button id="loginButton" type="button">Entrar no painel</button>
+      <p class="error" id="loginError"></p>
+    </section>
+
+    <section class="panel hidden" id="panelBox">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Dashboard</p>
+          <h1>Métricas do link na bio</h1>
+          <p class="subtitle" id="panelSubtitle">Carregando dados...</p>
+        </div>
+        <div class="filters">
+          <button class="filter-btn active" data-period="today" type="button">Hoje</button>
+          <button class="filter-btn" data-period="7d" type="button">7 dias</button>
+          <button class="filter-btn" data-period="30d" type="button">30 dias</button>
+          <button class="filter-btn" data-period="total" type="button">Total</button>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="summaryCards"></div>
+
+      <div class="layout">
+        <div class="table-card">
+          <p class="card-label">Cliques por link</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Link</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="perLinkTable"></tbody>
+          </table>
+        </div>
+
+        <div class="chart-card">
+          <p class="card-label">Cliques por dia</p>
+          <div class="bars" id="perDayChart"></div>
+        </div>
+      </div>
+
+      <p class="status" id="statusText"></p>
+    </section>
+  </div>
+
+  <script src="/admin/config.js"></script>
+  <script>
+    const loginBox = document.getElementById("loginBox");
+    const panelBox = document.getElementById("panelBox");
+    const passwordInput = document.getElementById("password");
+    const loginButton = document.getElementById("loginButton");
+    const loginError = document.getElementById("loginError");
+    const summaryCards = document.getElementById("summaryCards");
+    const perLinkTable = document.getElementById("perLinkTable");
+    const perDayChart = document.getElementById("perDayChart");
+    const statusText = document.getElementById("statusText");
+    const panelSubtitle = document.getElementById("panelSubtitle");
+    const filterButtons = Array.from(document.querySelectorAll("[data-period]"));
+
+    let adminPassword = sessionStorage.getItem("admin_password") || "";
+    let currentPeriod = "today";
+
+    async function sha256(value) {
+      const buffer = new TextEncoder().encode(value);
+      const digest = await crypto.subtle.digest("SHA-256", buffer);
+      return Array.from(new Uint8Array(digest))
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("");
+    }
+
+    function formatPeriodLabel(period) {
+      if (period === "today") return "Hoje";
+      if (period === "7d") return "Últimos 7 dias";
+      if (period === "30d") return "Últimos 30 dias";
+      return "Período total";
+    }
+
+    function renderSummary(stats) {
+      const topLink = stats.per_link.find((item) => item.total_clicks > 0);
+      const totalDays = stats.per_day.length;
+
+      summaryCards.innerHTML = [
+        { label: "Total de cliques", value: stats.total_clicks },
+        { label: "Link mais clicado", value: topLink ? topLink.label : "-" },
+        { label: "Dias com atividade", value: totalDays },
+      ]
+        .map((item) => `
+          <article class="card">
+            <p class="card-label">${item.label}</p>
+            <div class="card-value">${item.value}</div>
+          </article>
+        `)
+        .join("");
+    }
+
+    function renderPerLink(stats) {
+      perLinkTable.innerHTML = stats.per_link
+        .map((item) => `
+          <tr>
+            <td>${item.label}</td>
+            <td>${item.total_clicks}</td>
+          </tr>
+        `)
+        .join("");
+    }
+
+    function renderPerDay(stats) {
+      const maxClicks = stats.per_day.reduce((max, item) => Math.max(max, item.total_clicks), 0);
+
+      perDayChart.innerHTML = stats.per_day.length
+        ? stats.per_day
+            .map((item) => {
+              const width = maxClicks ? Math.max((item.total_clicks / maxClicks) * 100, 6) : 0;
+              return `
+                <div class="bar-row">
+                  <span class="bar-label">${item.date}</span>
+                  <div class="bar-track"><div class="bar-fill" style="width:${width}%"></div></div>
+                  <span class="bar-total">${item.total_clicks}</span>
+                </div>
+              `;
+            })
+            .join("")
+        : "<p class=\"status\">Nenhum clique neste período.</p>";
+    }
+
+    async function loadStats(period) {
+      statusText.textContent = "Carregando métricas...";
+      panelSubtitle.textContent = `${formatPeriodLabel(period)} · dados do link na bio`;
+
+      const response = await fetch(`/api/admin-stats?period=${encodeURIComponent(period)}`, {
+        headers: {
+          "x-admin-password": adminPassword,
+        },
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Falha ao carregar métricas.");
+      }
+
+      renderSummary(data.stats);
+      renderPerLink(data.stats);
+      renderPerDay(data.stats);
+      statusText.textContent = `Atualizado para ${formatPeriodLabel(period).toLowerCase()}.`;
+    }
+
+    async function login() {
+      loginError.textContent = "";
+
+      const expectedHash = window.ADMIN_PASSWORD_SHA256;
+      if (!expectedHash || expectedHash === "REPLACE_WITH_SHA256_OF_YOUR_ADMIN_PASSWORD") {
+        loginError.textContent = "Configure primeiro o hash da senha em /admin/config.js.";
+        return;
+      }
+
+      const candidatePassword = passwordInput.value.trim();
+      const hashedPassword = await sha256(candidatePassword);
+
+      if (hashedPassword !== expectedHash) {
+        loginError.textContent = "Senha incorreta.";
+        return;
+      }
+
+      adminPassword = candidatePassword;
+      sessionStorage.setItem("admin_password", adminPassword);
+      loginBox.classList.add("hidden");
+      panelBox.classList.remove("hidden");
+
+      try {
+        await loadStats(currentPeriod);
+      } catch (error) {
+        statusText.textContent = error.message;
+      }
+    }
+
+    loginButton.addEventListener("click", login);
+    passwordInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        login();
+      }
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        currentPeriod = button.dataset.period;
+        filterButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        try {
+          await loadStats(currentPeriod);
+        } catch (error) {
+          statusText.textContent = error.message;
+        }
+      });
+    });
+
+    if (adminPassword) {
+      loginBox.classList.add("hidden");
+      panelBox.classList.remove("hidden");
+      loadStats(currentPeriod).catch((error) => {
+        statusText.textContent = error.message;
+        sessionStorage.removeItem("admin_password");
+      });
+    }
+  </script>
+</body>
+</html>

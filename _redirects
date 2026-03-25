@@ -1,1 +1,5 @@
 /guia-destrava  /guia-destrava/index.html  200
+/guia-destrave  /guia-destrave/index.html  200
+/api/track-click  /.netlify/functions/track-click  200
+/api/admin-stats  /.netlify/functions/admin-stats  200
+/nina-admin  /admin/index.html  200
