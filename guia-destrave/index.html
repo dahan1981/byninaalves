@@ -398,97 +398,102 @@
     font-size: 0.95rem;
   }
 
-  /* ============================================
-     MOCKUPS
-  ============================================ */
-  #mockups {
-    padding: 44px 0 96px;
-    background: var(--warm-white);
-    overflow: hidden;
-  }
-
-  .mockups-intro {
-    max-width: 700px;
-    margin: 0 auto 36px;
-    text-align: center;
-  }
-
-  .mockups-title {
-    font-size: clamp(1.8rem, 4vw, 2.7rem);
-    line-height: 1.15;
-    margin-bottom: 14px;
-  }
-
-  .mockups-copy {
-    max-width: 560px;
-    margin: 0 auto;
-  }
-
-  .mockups-grid {
+  .transition-mockups {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1fr 1fr;
     gap: 18px;
-    align-items: stretch;
+    align-items: center;
+    max-width: 920px;
+    margin: 42px auto 0;
   }
 
-  .mockup-card {
+  .transition-mockup {
+    position: relative;
+    min-height: 260px;
+    padding: 20px;
+    border-radius: 28px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 22px 48px rgba(48, 28, 15, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .transition-mockup img {
+    width: 100%;
+    max-width: 360px;
+    object-fit: contain;
+    filter: drop-shadow(0 24px 40px rgba(18, 10, 6, 0.28));
+  }
+
+  .transition-mockup.left img {
+    transform: rotate(-7deg) translateY(8px);
+  }
+
+  .transition-mockup.right img {
+    transform: rotate(6deg) translateY(6px);
+  }
+
+  .material-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    gap: 30px;
+    align-items: start;
+  }
+
+  .material-visuals {
+    position: sticky;
+    top: 24px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .material-visual-card {
     position: relative;
     overflow: hidden;
-    border-radius: 28px;
+    border-radius: 26px;
     border: 1px solid rgba(196,149,106,0.14);
     background:
       radial-gradient(circle at top left, rgba(255,255,255,0.92), transparent 55%),
       linear-gradient(135deg, #f7f1e8 0%, #efe6d9 45%, #e2d1bc 100%);
-    min-height: 280px;
-    padding: 20px;
+    min-height: 250px;
+    padding: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 18px 44px rgba(28,26,24,0.08);
   }
 
-  .mockup-card.tall {
-    grid-row: span 2;
-    min-height: 580px;
-  }
-
-  .mockup-card img {
+  .material-visual-card img {
     width: 100%;
-    max-width: 420px;
-    max-height: 100%;
+    max-width: 320px;
     object-fit: contain;
     display: block;
     filter: drop-shadow(0 24px 34px rgba(32, 23, 18, 0.18));
   }
 
-  .mockup-card.angle-left img {
-    transform: rotate(-7deg) translateY(10px);
+  .material-visual-card.cover img {
+    max-width: 260px;
   }
 
-  .mockup-card.angle-right img {
-    transform: rotate(6deg) translateY(8px);
-  }
-
-  .mockup-card.straight img {
-    max-width: 320px;
-  }
-
-  .mockup-card.calendar img {
-    transform: rotate(-4deg) translateY(6px);
+  .material-visual-card.calendar img {
+    transform: rotate(-4deg) translateY(4px);
   }
 
   @media (max-width: 860px) {
-    .mockups-grid {
+    .transition-mockups,
+    .material-layout {
       grid-template-columns: 1fr;
     }
 
-    .mockup-card.tall {
-      grid-row: auto;
-      min-height: 360px;
+    .transition-mockup,
+    .material-visual-card {
+      min-height: 300px;
     }
 
-    .mockup-card {
-      min-height: 320px;
+    .material-visuals {
+      position: static;
     }
   }
 
@@ -1590,6 +1595,15 @@
     <p class="fade-up" style="transition-delay:0.1s;">
       Chega de consumir diquinha sobre venda, se empolgar por 10 minutos<br>e continuar sem saber o que fazer depois.
     </p>
+
+    <div class="transition-mockups fade-up" style="transition-delay:0.18s;">
+      <div class="transition-mockup left">
+        <img src="/fotos/1.png" alt="Mockup do Guia Destrave em tablet inclinado" loading="lazy">
+      </div>
+      <div class="transition-mockup right">
+        <img src="/fotos/3.png" alt="Mockup alternativo da capa do Guia Destrave" loading="lazy">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1598,90 +1612,73 @@
 ============================================ -->
 <section id="base-material">
   <div class="container">
-    <div class="material-intro">
-      <p class="hero-kicker fade-up">Base do material</p>
-      <h2 class="material-title fade-up">Construído com base no que <em>funciona de verdade</em></h2>
-      <p class="material-copy fade-up">
-        O Guia Destrave foi criado por alguém que também conhece a dúvida, a correria e a pressão de precisar vender.
-      </p>
-    </div>
+    <div class="material-layout">
+      <div>
+        <div class="material-intro">
+          <p class="hero-kicker fade-up">Base do material</p>
+          <h2 class="material-title fade-up">Construído com base no que <em>funciona de verdade</em></h2>
+          <p class="material-copy fade-up">
+            O Guia Destrave foi criado por alguém que também conhece a dúvida, a correria e a pressão de precisar vender.
+          </p>
+        </div>
 
-    <ul class="material-checklist fade-up">
-      <li>
-        <div class="material-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <div class="material-item">
-          <h3>Testado na vida real</h3>
-          <p>O que entrou aqui não entrou só porque parecia uma boa ideia. Entrou porque fazia sentido na prática também, e porque não adianta nada soar bonito e não ajudar na hora de vender.</p>
-        </div>
-      </li>
-      <li>
-        <div class="material-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <div class="material-item">
-          <h3>Criado por quem também vive isso</h3>
-          <p>Esse material não foi feito por alguém distante da sua realidade. Foi feito por quem entende o que é tentar várias coisas, ficar sem saber por onde começar e não ter tempo pra perder com enrolação.</p>
-        </div>
-      </li>
-      <li>
-        <div class="material-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <div class="material-item">
-          <h3>Vivência real + marketing</h3>
-          <p>Além da prática, também tem olhar de marketing e conteúdo por trás. Isso ajuda a organizar melhor o que faz sentido testar, o que chama atenção e o que pode estar travando suas vendas.</p>
-        </div>
-      </li>
-      <li>
-        <div class="material-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <div class="material-item">
-          <h3>Sem fórmula mágica</h3>
-          <p>Aqui você não vai encontrar “o segredo que ninguém te contou”. O foco é te mostrar caminhos mais claros, mais possíveis e mais pé no chão pra vender sem depender de fantasia de internet.</p>
-        </div>
-      </li>
-      <li>
-        <div class="material-check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <div class="material-item">
-          <h3>Leve de ler, fácil de entender</h3>
-          <p>Ninguém merece material maçante, cheio de termo vazio e cara de aula. A ideia aqui é ser útil de verdade: um conteúdo leve, direto e gostoso de ler, mas que ainda te faz sair com insight prático.</p>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
+        <ul class="material-checklist fade-up">
+          <li>
+            <div class="material-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="material-item">
+              <h3>Testado na vida real</h3>
+              <p>O que entrou aqui não entrou só porque parecia uma boa ideia. Entrou porque fazia sentido na prática também, e porque não adianta nada soar bonito e não ajudar na hora de vender.</p>
+            </div>
+          </li>
+          <li>
+            <div class="material-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="material-item">
+              <h3>Criado por quem também vive isso</h3>
+              <p>Esse material não foi feito por alguém distante da sua realidade. Foi feito por quem entende o que é tentar várias coisas, ficar sem saber por onde começar e não ter tempo pra perder com enrolação.</p>
+            </div>
+          </li>
+          <li>
+            <div class="material-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="material-item">
+              <h3>Vivência real + marketing</h3>
+              <p>Além da prática, também tem olhar de marketing e conteúdo por trás. Isso ajuda a organizar melhor o que faz sentido testar, o que chama atenção e o que pode estar travando suas vendas.</p>
+            </div>
+          </li>
+          <li>
+            <div class="material-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="material-item">
+              <h3>Sem fórmula mágica</h3>
+              <p>Aqui você não vai encontrar “o segredo que ninguém te contou”. O foco é te mostrar caminhos mais claros, mais possíveis e mais pé no chão pra vender sem depender de fantasia de internet.</p>
+            </div>
+          </li>
+          <li>
+            <div class="material-check">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="material-item">
+              <h3>Leve de ler, fácil de entender</h3>
+              <p>Ninguém merece material maçante, cheio de termo vazio e cara de aula. A ideia aqui é ser útil de verdade: um conteúdo leve, direto e gostoso de ler, mas que ainda te faz sair com insight prático.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-<!-- ============================================
-     MOCKUPS
-============================================ -->
-<section id="mockups">
-  <div class="container-wide">
-    <div class="mockups-intro fade-up">
-      <p class="hero-kicker">Por dentro do material</p>
-      <h2 class="mockups-title">Um gostinho visual do que você vai receber</h2>
-      <p class="mockups-copy">
-        Os mockups ajudam a visualizar o cuidado do material e deixam mais concreto o que existe dentro do Guia Destrave.
-      </p>
-    </div>
-
-    <div class="mockups-grid fade-up">
-      <article class="mockup-card angle-left">
-        <img src="/fotos/1.png" alt="Mockup do Guia Destrave em tablet inclinado" loading="lazy">
-      </article>
-      <article class="mockup-card tall straight">
-        <img src="/fotos/4.png" alt="Capa do Guia Destrave em mockup frontal" loading="lazy">
-      </article>
-      <article class="mockup-card calendar">
-        <img src="/fotos/2.png" alt="Mockup do calendário sazonal incluso no material" loading="lazy">
-      </article>
-      <article class="mockup-card angle-right">
-        <img src="/fotos/3.png" alt="Mockup alternativo da capa do Guia Destrave" loading="lazy">
-      </article>
+      <div class="material-visuals fade-up" style="transition-delay:0.12s;">
+        <div class="material-visual-card cover">
+          <img src="/fotos/4.png" alt="Capa do Guia Destrave em mockup frontal" loading="lazy">
+        </div>
+        <div class="material-visual-card calendar">
+          <img src="/fotos/2.png" alt="Mockup do calendário sazonal incluso no material" loading="lazy">
+        </div>
+      </div>
     </div>
   </div>
 </section>
