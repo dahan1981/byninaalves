@@ -398,41 +398,45 @@
     font-size: 0.95rem;
   }
 
-  .transition-mockups {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    align-items: center;
-    max-width: 920px;
-    margin: 42px auto 0;
+  .hero-mockup {
+    position: absolute;
+    right: max(2vw, 20px);
+    bottom: -120px;
+    width: clamp(180px, 22vw, 320px);
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 22px 34px rgba(34, 22, 15, 0.14));
   }
 
-  .transition-mockup {
-    position: relative;
-    min-height: 260px;
-    padding: 20px;
-    border-radius: 28px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow: 0 22px 48px rgba(48, 28, 15, 0.18);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .transition-mockup img {
+  .hero-mockup img {
     width: 100%;
-    max-width: 360px;
+    display: block;
     object-fit: contain;
-    filter: drop-shadow(0 24px 40px rgba(18, 10, 6, 0.28));
   }
 
-  .transition-mockup.left img {
-    transform: rotate(-7deg) translateY(8px);
+  .transition-side-mockup {
+    position: absolute;
+    bottom: -86px;
+    width: clamp(140px, 17vw, 230px);
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 26px 34px rgba(46, 26, 15, 0.18));
   }
 
-  .transition-mockup.right img {
-    transform: rotate(6deg) translateY(6px);
+  .transition-side-mockup.left {
+    left: max(2vw, 18px);
+    transform: rotate(-12deg);
+  }
+
+  .transition-side-mockup.right {
+    right: max(2vw, 18px);
+    transform: rotate(10deg);
+  }
+
+  .transition-side-mockup img {
+    width: 100%;
+    display: block;
+    object-fit: contain;
   }
 
   .material-layout {
@@ -481,19 +485,61 @@
     transform: rotate(-4deg) translateY(4px);
   }
 
+  .bonus-floating-mockup {
+    position: absolute;
+    left: max(2vw, 18px);
+    bottom: -110px;
+    width: clamp(170px, 22vw, 300px);
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 28px 36px rgba(33, 23, 16, 0.12));
+    transform: rotate(-11deg);
+  }
+
+  .bonus-floating-mockup img {
+    width: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
+  .garantia-floating-mockup {
+    position: absolute;
+    right: max(3vw, 28px);
+    top: 50%;
+    width: clamp(170px, 20vw, 290px);
+    transform: translateY(-50%) rotate(9deg);
+    pointer-events: none;
+    filter: drop-shadow(0 26px 34px rgba(33, 23, 16, 0.12));
+  }
+
+  .garantia-floating-mockup img {
+    width: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
   @media (max-width: 860px) {
-    .transition-mockups,
     .material-layout {
       grid-template-columns: 1fr;
     }
 
-    .transition-mockup,
     .material-visual-card {
       min-height: 300px;
     }
 
     .material-visuals {
       position: static;
+    }
+
+    .hero-mockup,
+    .transition-side-mockup,
+    .bonus-floating-mockup,
+    .garantia-floating-mockup {
+      position: static;
+      width: min(280px, 80vw);
+      margin: 22px auto 0;
+      transform: none;
+      display: block;
     }
   }
 
@@ -1534,6 +1580,10 @@
         acesso imediato direto no email
       </div>
     </div>
+
+    <div class="hero-mockup fade-up" style="transition-delay:0.45s;">
+      <img src="/fotos/4.png" alt="Mockup frontal do Guia Destrave" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -1596,13 +1646,11 @@
       Chega de consumir diquinha sobre venda, se empolgar por 10 minutos<br>e continuar sem saber o que fazer depois.
     </p>
 
-    <div class="transition-mockups fade-up" style="transition-delay:0.18s;">
-      <div class="transition-mockup left">
-        <img src="/fotos/1.png" alt="Mockup do Guia Destrave em tablet inclinado" loading="lazy">
-      </div>
-      <div class="transition-mockup right">
-        <img src="/fotos/3.png" alt="Mockup alternativo da capa do Guia Destrave" loading="lazy">
-      </div>
+    <div class="transition-side-mockup left fade-up" style="transition-delay:0.18s;">
+      <img src="/fotos/1.png" alt="Mockup do Guia Destrave em tablet inclinado" loading="lazy">
+    </div>
+    <div class="transition-side-mockup right fade-up" style="transition-delay:0.22s;">
+      <img src="/fotos/3.png" alt="Mockup alternativo da capa do Guia Destrave" loading="lazy">
     </div>
   </div>
 </section>
@@ -1753,6 +1801,10 @@
       </button>
     </div>
   </div>
+
+  <div class="bonus-floating-mockup fade-up" style="transition-delay:0.18s;">
+    <img src="/fotos/2.png" alt="Mockup do calendário sazonal incluso no material" loading="lazy">
+  </div>
 </section>
 
 <!-- ============================================
@@ -1801,6 +1853,10 @@
         <br><br>
         <em style="font-style:italic;color:var(--text-light);">Sem ressentimentos, tá? Eu quero que você entre porque fez sentido, não por pressão.</em>
       </p>
+    </div>
+
+    <div class="garantia-floating-mockup fade-up" style="transition-delay:0.15s;">
+      <img src="/fotos/3.png" alt="Mockup do Guia Destrave posicionado ao lado da garantia" loading="lazy">
     </div>
   </div>
 </section>
