@@ -429,7 +429,7 @@
   .bonus-floating-mockup {
     position: absolute;
     left: max(2vw, 18px);
-    bottom: -110px;
+    bottom: -92px;
     width: clamp(170px, 22vw, 300px);
     z-index: 4;
     pointer-events: none;
@@ -865,7 +865,8 @@
     padding: 100px 0 120px;
     background: var(--sand);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    z-index: 2;
   }
 
   .bonus-tag {
@@ -1492,12 +1493,16 @@
       transform: rotate(10deg);
     }
 
+    #oferta { padding-top: 132px; }
+
     .bonus-floating-mockup {
-      position: static;
-      width: min(220px, 58vw);
+      position: absolute;
+      left: 18px;
+      bottom: -72px;
+      width: min(210px, 54vw);
       display: block;
-      transform: none;
-      margin: 28px auto 0;
+      transform: rotate(-8deg);
+      margin: 0;
     }
 
     .hero-cover-mockup {
@@ -1551,7 +1556,12 @@
     }
     .transition-side-mockup.left { left: 10px; }
     .transition-side-mockup.right { right: 10px; }
-    .bonus-floating-mockup { width: min(180px, 54vw); }
+    #oferta { padding-top: 112px; }
+    .bonus-floating-mockup {
+      left: 10px;
+      bottom: -52px;
+      width: min(170px, 48vw);
+    }
     .hero-cover-mockup {
       width: min(150px, 44vw);
       margin: 22px auto -10px;
