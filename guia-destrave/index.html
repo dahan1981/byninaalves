@@ -443,6 +443,23 @@
     object-fit: contain;
   }
 
+  .hero-cover-mockup {
+    position: absolute;
+    right: max(4vw, 28px);
+    bottom: -86px;
+    width: clamp(150px, 18vw, 230px);
+    z-index: 4;
+    pointer-events: none;
+    filter: drop-shadow(0 24px 34px rgba(33, 23, 16, 0.14));
+    transform: rotate(9deg);
+  }
+
+  .hero-cover-mockup img {
+    width: 100%;
+    display: block;
+    object-fit: contain;
+  }
+
   .garantia-floating-mockup {
     position: absolute;
     right: max(3vw, 28px);
@@ -462,6 +479,7 @@
   @media (max-width: 860px) {
     .transition-side-mockup,
     .bonus-floating-mockup,
+    .hero-cover-mockup,
     .garantia-floating-mockup {
       position: static;
       width: min(280px, 80vw);
@@ -1475,13 +1493,19 @@
     }
 
     .bonus-floating-mockup {
-      position: absolute;
-      left: 12px;
-      bottom: -96px;
-      width: min(250px, 66vw);
+      position: static;
+      width: min(220px, 58vw);
       display: block;
-      transform: rotate(-11deg);
-      margin: 0;
+      transform: none;
+      margin: 28px auto 0;
+    }
+
+    .hero-cover-mockup {
+      position: static;
+      width: min(180px, 48vw);
+      display: block;
+      transform: rotate(7deg);
+      margin: 24px auto -14px;
     }
 
     .garantia-floating-mockup {
@@ -1527,10 +1551,10 @@
     }
     .transition-side-mockup.left { left: 10px; }
     .transition-side-mockup.right { right: 10px; }
-    .bonus-floating-mockup {
-      left: 6px;
-      bottom: -70px;
-      width: min(190px, 56vw);
+    .bonus-floating-mockup { width: min(180px, 54vw); }
+    .hero-cover-mockup {
+      width: min(150px, 44vw);
+      margin: 22px auto -10px;
     }
     .garantia-floating-mockup {
       right: 4px;
@@ -1584,8 +1608,8 @@
       </div>
     </div>
 
-    <div class="bonus-floating-mockup fade-up" style="transition-delay:0.18s;">
-      <img src="/fotos/2.png" alt="Mockup do calendário sazonal incluso no material" loading="lazy">
+    <div class="hero-cover-mockup fade-up" style="transition-delay:0.18s;">
+      <img src="/fotos/3.png" alt="Mockup da capa do Guia Destrave ao lado da apresentação principal" loading="lazy">
     </div>
   </div>
 </section>
@@ -1648,10 +1672,6 @@
     <p class="fade-up" style="transition-delay:0.1s;">
       Chega de consumir diquinha sobre venda, se empolgar por 10 minutos<br>e continuar sem saber o que fazer depois.
     </p>
-
-    <div class="transition-side-mockup right fade-up" style="transition-delay:0.22s;">
-      <img src="/fotos/3.png" alt="Mockup alternativo da capa do Guia Destrave" loading="lazy">
-    </div>
   </div>
 </section>
 
@@ -1787,6 +1807,10 @@
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
+  </div>
+
+  <div class="bonus-floating-mockup fade-up" style="transition-delay:0.18s;">
+    <img src="/fotos/2.png" alt="Mockup do calendário sazonal incluso no material" loading="lazy">
   </div>
 
 </section>
