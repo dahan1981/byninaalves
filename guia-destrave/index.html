@@ -1452,6 +1452,54 @@
 
     #hero { padding: 60px 0 72px; }
 
+    #transicao {
+      padding: 56px 0 98px;
+    }
+
+    #transicao .display {
+      font-size: clamp(1.7rem, 8vw, 2.35rem);
+      max-width: 400px;
+    }
+
+    #transicao p {
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.65;
+    }
+
+    .transition-side-mockup {
+      position: absolute;
+      bottom: -58px;
+      width: min(120px, 28vw);
+      margin: 0;
+    }
+
+    .transition-side-mockup.left {
+      left: 18px;
+      transform: rotate(-10deg);
+    }
+
+    .transition-side-mockup.right {
+      right: 18px;
+      transform: rotate(10deg);
+    }
+
+    .bonus-floating-mockup,
+    .offer-floating-mockup,
+    .garantia-floating-mockup {
+      position: static;
+      width: min(220px, 62vw);
+      display: block;
+      transform: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .bonus-floating-mockup { margin-top: 22px; }
+    .offer-floating-mockup { margin: 0 auto 22px; }
+    .garantia-floating-mockup { margin-top: 28px; }
+
     .badges {
       gap: 10px;
       max-width: 440px;
@@ -1476,6 +1524,20 @@
     .btn { padding: 16px 24px; font-size: 0.88rem; width: 100%; text-align: center; }
     .hero-title { font-size: 2rem; }
     .hero-subtitle { font-size: 0.98rem; line-height: 1.64; }
+    #transicao { padding: 48px 0 82px; }
+    #transicao .display { max-width: 290px; }
+    #transicao p { max-width: 290px; }
+    .transition-side-mockup {
+      bottom: -40px;
+      width: min(92px, 24vw);
+    }
+    .transition-side-mockup.left { left: 10px; }
+    .transition-side-mockup.right { right: 10px; }
+    .bonus-floating-mockup,
+    .offer-floating-mockup,
+    .garantia-floating-mockup {
+      width: min(180px, 58vw);
+    }
     .badges { flex-direction: column; align-items: stretch; }
     .badge { justify-content: center; }
     .oferta-box { padding: 32px 20px; }
