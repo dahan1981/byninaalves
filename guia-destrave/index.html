@@ -440,22 +440,6 @@
     object-fit: contain;
   }
 
-  .offer-floating-mockup {
-    position: absolute;
-    left: max(3vw, 28px);
-    top: -48px;
-    width: clamp(170px, 20vw, 290px);
-    pointer-events: none;
-    filter: drop-shadow(0 24px 34px rgba(33, 23, 16, 0.12));
-    transform: rotate(-8deg);
-  }
-
-  .offer-floating-mockup img {
-    width: 100%;
-    display: block;
-    object-fit: contain;
-  }
-
   .garantia-floating-mockup {
     position: absolute;
     right: max(3vw, 28px);
@@ -475,7 +459,6 @@
   @media (max-width: 860px) {
     .transition-side-mockup,
     .bonus-floating-mockup,
-    .offer-floating-mockup,
     .garantia-floating-mockup {
       position: static;
       width: min(280px, 80vw);
@@ -1498,16 +1481,6 @@
       margin: 0;
     }
 
-    .offer-floating-mockup {
-      position: absolute;
-      left: 8px;
-      top: -36px;
-      width: min(230px, 62vw);
-      display: block;
-      transform: rotate(-8deg);
-      margin: 0;
-    }
-
     .garantia-floating-mockup {
       position: absolute;
       right: 10px;
@@ -1555,11 +1528,6 @@
       left: 6px;
       bottom: -70px;
       width: min(190px, 56vw);
-    }
-    .offer-floating-mockup {
-      left: 4px;
-      top: -20px;
-      width: min(185px, 54vw);
     }
     .garantia-floating-mockup {
       right: 4px;
@@ -1824,10 +1792,6 @@
 ============================================ -->
 <section id="oferta">
   <div class="container">
-    <div class="offer-floating-mockup fade-up" style="transition-delay:0.12s;">
-      <img src="/fotos/1.png" alt="Mockup do Guia Destrave entre bônus e oferta" loading="lazy">
-    </div>
-
     <div class="oferta-box fade-up">
       <p class="oferta-label">Oferta de lançamento</p>
       <h2 class="oferta-title">Guia Destrave</h2>
