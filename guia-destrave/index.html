@@ -1485,20 +1485,35 @@
       transform: rotate(10deg);
     }
 
-    .bonus-floating-mockup,
-    .offer-floating-mockup,
-    .garantia-floating-mockup {
-      position: static;
-      width: min(220px, 62vw);
+    .bonus-floating-mockup {
+      position: absolute;
+      left: 12px;
+      bottom: -96px;
+      width: min(250px, 66vw);
       display: block;
-      transform: none;
-      margin-left: auto;
-      margin-right: auto;
+      transform: rotate(-11deg);
+      margin: 0;
     }
 
-    .bonus-floating-mockup { margin-top: 22px; }
-    .offer-floating-mockup { margin: 0 auto 22px; }
-    .garantia-floating-mockup { margin-top: 28px; }
+    .offer-floating-mockup {
+      position: absolute;
+      left: 8px;
+      top: -36px;
+      width: min(230px, 62vw);
+      display: block;
+      transform: rotate(-8deg);
+      margin: 0;
+    }
+
+    .garantia-floating-mockup {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      width: min(220px, 58vw);
+      display: block;
+      transform: translateY(-50%) rotate(9deg);
+      margin: 0;
+    }
 
     .badges {
       gap: 10px;
@@ -1528,15 +1543,24 @@
     #transicao .display { max-width: 290px; }
     #transicao p { max-width: 290px; }
     .transition-side-mockup {
-      bottom: -40px;
-      width: min(92px, 24vw);
+      bottom: -48px;
+      width: min(110px, 29vw);
     }
     .transition-side-mockup.left { left: 10px; }
     .transition-side-mockup.right { right: 10px; }
-    .bonus-floating-mockup,
-    .offer-floating-mockup,
+    .bonus-floating-mockup {
+      left: 6px;
+      bottom: -70px;
+      width: min(190px, 56vw);
+    }
+    .offer-floating-mockup {
+      left: 4px;
+      top: -20px;
+      width: min(185px, 54vw);
+    }
     .garantia-floating-mockup {
-      width: min(180px, 58vw);
+      right: 4px;
+      width: min(180px, 52vw);
     }
     .badges { flex-direction: column; align-items: stretch; }
     .badge { justify-content: center; }
