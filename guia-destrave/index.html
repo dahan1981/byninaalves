@@ -185,7 +185,7 @@
   ============================================ */
   #hero {
     background: var(--cream);
-    padding: 80px 0 150px;
+    padding: clamp(72px, 9vh, 104px) 0 clamp(170px, 22vw, 280px);
     position: relative;
     overflow: visible;
     z-index: 2;
@@ -211,13 +211,13 @@
   }
 
   .hero-title {
-    font-size: clamp(2.6rem, 7vw, 4.4rem);
+    font-size: clamp(2.8rem, 6.2vw, 4.8rem);
     font-family: var(--serif);
     font-weight: 300;
     line-height: 1.1;
     color: var(--text);
     margin-bottom: 8px;
-    max-width: 22ch;
+    max-width: 18ch;
     text-wrap: balance;
   }
 
@@ -231,10 +231,10 @@
   }
 
   .hero-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    font-size: clamp(1rem, 1.8vw, 1.18rem);
     color: var(--text-soft);
-    max-width: 800px;
-    margin: 24px auto 40px;
+    max-width: min(92vw, 820px);
+    margin: clamp(20px, 2.4vw, 28px) auto clamp(30px, 3.6vw, 42px);
     line-height: 1.75;
   }
 
@@ -244,16 +244,18 @@
 
   .hero-shell {
     display: grid;
-    grid-template-columns: minmax(0, 860px);
+    grid-template-columns: minmax(0, 1fr);
     justify-content: center;
     gap: 0;
     align-items: center;
     position: relative;
     z-index: 1;
+    width: min(100%, 1100px);
+    margin: 0 auto;
   }
 
   .hero-copy {
-    width: min(100%, 820px);
+    width: min(100%, clamp(720px, 70vw, 900px));
     margin: 0;
     text-align: center;
     display: flex;
@@ -269,7 +271,11 @@
 
   .hero-copy .badges {
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    gap: clamp(10px, 1.3vw, 14px);
+    max-width: min(100%, 760px);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-copy .badge {
@@ -281,15 +287,17 @@
 
   .hero-visual {
     position: absolute;
-    right: clamp(88px, 11vw, 220px);
-    bottom: -300px;
-    width: min(44vw, 640px);
+    left: calc(50% + clamp(150px, 16vw, 250px));
+    right: auto;
+    bottom: clamp(-320px, -18vw, -230px);
+    width: clamp(360px, 34vw, 620px);
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     overflow: visible;
     z-index: 4;
     pointer-events: none;
+    transform: translateX(-50%);
   }
 
   .hero-copy > .fade-up,
@@ -308,7 +316,7 @@
      SEÇÃO DOR
   ============================================ */
   #dor {
-    padding: 100px 0;
+    padding: clamp(116px, 14vw, 176px) 0 100px;
     background: var(--warm-white);
     position: relative;
     z-index: 1;
