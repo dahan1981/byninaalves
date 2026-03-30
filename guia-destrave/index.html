@@ -240,6 +240,36 @@
     font-weight: 600;
   }
 
+  .hero-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+    gap: clamp(36px, 5vw, 72px);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-copy {
+    text-align: left;
+    max-width: 600px;
+  }
+
+  .hero-copy .hero-subtitle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .hero-copy .badges {
+    justify-content: flex-start;
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+  }
+
   /* ============================================
      SEÇÃO DOR
   ============================================ */
@@ -426,15 +456,32 @@
     object-fit: contain;
   }
 
+  .bonus-shell {
+    max-width: 1120px;
+    margin: 54px auto 0;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
+    gap: clamp(24px, 4vw, 44px);
+    align-items: center;
+  }
+
+  .bonus-main {
+    min-width: 0;
+  }
+
+  .bonus-main .bonus-stage {
+    margin-top: 0;
+  }
+
   .bonus-floating-mockup {
-    position: absolute;
-    left: max(2vw, 18px);
-    bottom: -92px;
-    width: clamp(170px, 22vw, 300px);
-    z-index: 4;
+    position: static;
+    width: min(100%, 220px);
+    margin: 0 auto;
+    z-index: 1;
     pointer-events: none;
-    filter: drop-shadow(0 28px 36px rgba(33, 23, 16, 0.12));
-    transform: rotate(-11deg);
+    filter: drop-shadow(0 24px 34px rgba(33, 23, 16, 0.12));
+    transform: rotate(-8deg);
   }
 
   .bonus-floating-mockup img {
@@ -444,14 +491,13 @@
   }
 
   .hero-cover-mockup {
-    position: absolute;
-    right: max(4vw, 28px);
-    bottom: -86px;
-    width: clamp(150px, 18vw, 230px);
-    z-index: 4;
+    position: static;
+    width: min(100%, 360px);
+    z-index: 1;
     pointer-events: none;
-    filter: drop-shadow(0 24px 34px rgba(33, 23, 16, 0.14));
-    transform: rotate(9deg);
+    filter: drop-shadow(0 28px 38px rgba(33, 23, 16, 0.14));
+    transform: rotate(8deg);
+    margin: 0 auto;
   }
 
   .hero-cover-mockup img {
@@ -461,13 +507,7 @@
   }
 
   .garantia-floating-mockup {
-    position: absolute;
-    right: max(3vw, 28px);
-    top: 50%;
-    width: clamp(170px, 20vw, 290px);
-    transform: translateY(-50%) rotate(9deg);
-    pointer-events: none;
-    filter: drop-shadow(0 26px 34px rgba(33, 23, 16, 0.12));
+    display: none;
   }
 
   .garantia-floating-mockup img {
@@ -478,14 +518,42 @@
 
   @media (max-width: 860px) {
     .transition-side-mockup,
-    .bonus-floating-mockup,
-    .hero-cover-mockup,
-    .garantia-floating-mockup {
+    .hero-cover-mockup {
       position: static;
       width: min(280px, 80vw);
       margin: 22px auto 0;
       transform: none;
       display: block;
+    }
+
+    .hero-shell,
+    .bonus-shell {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .hero-copy {
+      max-width: none;
+      text-align: center;
+    }
+
+    .hero-copy .hero-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-copy .badges {
+      justify-content: center;
+    }
+
+    .bonus-shell {
+      margin-top: 44px;
+    }
+
+    .bonus-floating-mockup {
+      width: min(220px, 58vw);
+      transform: none;
+      order: 2;
     }
   }
 
@@ -1169,7 +1237,8 @@
     padding: 44px 36px;
     background: var(--warm-white);
     border-radius: var(--radius);
-    border: 1px dashed var(--sand-dark);
+    border: none;
+    box-shadow: 0 18px 40px rgba(28,26,24,0.07);
     position: relative;
   }
 
@@ -1495,32 +1564,9 @@
 
     #oferta { padding-top: 132px; }
 
-    .bonus-floating-mockup {
-      position: absolute;
-      left: 18px;
-      bottom: -72px;
-      width: min(210px, 54vw);
-      display: block;
-      transform: rotate(-8deg);
-      margin: 0;
-    }
-
     .hero-cover-mockup {
-      position: static;
       width: min(180px, 48vw);
-      display: block;
-      transform: rotate(7deg);
-      margin: 24px auto -14px;
-    }
-
-    .garantia-floating-mockup {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      width: min(220px, 58vw);
-      display: block;
-      transform: translateY(-50%) rotate(9deg);
-      margin: 0;
+      margin: 24px auto 0;
     }
 
     .badges {
@@ -1557,18 +1603,17 @@
     .transition-side-mockup.left { left: 10px; }
     .transition-side-mockup.right { right: 10px; }
     #oferta { padding-top: 112px; }
-    .bonus-floating-mockup {
-      left: 10px;
-      bottom: -52px;
-      width: min(170px, 48vw);
-    }
     .hero-cover-mockup {
       width: min(150px, 44vw);
-      margin: 22px auto -10px;
+      margin: 22px auto 0;
     }
-    .garantia-floating-mockup {
-      right: 4px;
-      width: min(180px, 52vw);
+    .bonus-shell {
+      padding: 0 18px;
+      gap: 20px;
+    }
+    .bonus-floating-mockup {
+      width: min(200px, 56vw);
+      margin-top: 4px;
     }
     .badges { flex-direction: column; align-items: stretch; }
     .badge { justify-content: center; }
@@ -1583,334 +1628,6 @@
       padding: 18px 18px;
     }
   }
-
-  /* ============================================
-     MOCKUPS REESTRUTURADOS
-  ============================================ */
-  #hero {
-    padding: 88px 0 96px;
-    overflow: hidden;
-  }
-
-  .hero-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-    gap: 56px;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-copy {
-    max-width: 560px;
-    text-align: left;
-  }
-
-  .hero-subtitle {
-    margin: 24px 0 0;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 28px;
-    margin-top: 36px;
-  }
-
-  .hero-actions .badges {
-    justify-content: flex-start;
-    margin-top: 0;
-  }
-
-  .hero-visual {
-    position: relative;
-  }
-
-  .hero-visual-stage {
-    position: relative;
-    min-height: 560px;
-    padding: 38px;
-    border-radius: 36px;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(245,237,227,0.92) 100%),
-      radial-gradient(circle at top right, rgba(196,149,106,0.16), transparent 54%);
-    border: 1px solid rgba(196,149,106,0.18);
-    box-shadow: 0 36px 80px rgba(36, 28, 21, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .hero-visual-stage::before {
-    content: '';
-    position: absolute;
-    inset: 18px;
-    border-radius: 28px;
-    border: 1px solid rgba(196,149,106,0.12);
-    pointer-events: none;
-  }
-
-  .hero-main-mockup {
-    position: relative;
-    width: min(100%, 430px);
-    filter: drop-shadow(0 32px 40px rgba(35, 24, 17, 0.14));
-    z-index: 2;
-  }
-
-  .hero-main-mockup img {
-    width: 100%;
-    object-fit: contain;
-  }
-
-  .hero-main-mockup::after {
-    content: '';
-    position: absolute;
-    left: 12%;
-    right: 12%;
-    bottom: -12px;
-    height: 28px;
-    background: radial-gradient(ellipse, rgba(36, 24, 18, 0.15) 0%, rgba(36, 24, 18, 0) 74%);
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .hero-visual-note {
-    position: absolute;
-    right: 22px;
-    bottom: 22px;
-    max-width: 190px;
-    padding: 16px 18px;
-    border-radius: 18px;
-    background: rgba(253, 251, 248, 0.86);
-    border: 1px solid rgba(196,149,106,0.2);
-    box-shadow: 0 16px 28px rgba(36, 24, 18, 0.08);
-    backdrop-filter: blur(8px);
-    text-align: left;
-  }
-
-  .hero-visual-note strong {
-    display: block;
-    color: var(--text);
-    font-size: 0.86rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .hero-visual-note span {
-    display: block;
-    color: var(--text-soft);
-    font-size: 0.9rem;
-    line-height: 1.55;
-  }
-
-  #bonus {
-    padding: 110px 0;
-    overflow: hidden;
-  }
-
-  .bonus-shell {
-    display: grid;
-    grid-template-columns: minmax(280px, 0.88fr) minmax(0, 1.12fr);
-    gap: 48px;
-    align-items: center;
-  }
-
-  .bonus-aside {
-    max-width: 360px;
-    text-align: left;
-  }
-
-  .bonus-aside h2 {
-    margin-bottom: 18px;
-  }
-
-  .bonus-aside > p {
-    max-width: 320px;
-    margin: 0;
-    font-size: 0.98rem;
-  }
-
-  .bonus-visual-card {
-    margin-top: 28px;
-    padding: 26px;
-    border-radius: 28px;
-    background: linear-gradient(180deg, rgba(253,251,248,0.86) 0%, rgba(250,248,244,0.98) 100%);
-    border: 1px solid rgba(196,149,106,0.18);
-    box-shadow: 0 22px 40px rgba(36, 24, 18, 0.08);
-  }
-
-  .bonus-visual-frame {
-    min-height: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-  }
-
-  .bonus-visual-frame img {
-    width: min(100%, 260px);
-    object-fit: contain;
-    filter: drop-shadow(0 26px 34px rgba(36, 24, 18, 0.12));
-  }
-
-  .bonus-visual-caption {
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: var(--text-soft);
-  }
-
-  .bonus-stage-wrap {
-    position: relative;
-  }
-
-  #oferta {
-    padding-top: 100px !important;
-  }
-
-  .garantia-wrap {
-    max-width: 760px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .garantia-box {
-    max-width: 620px;
-    padding: 48px 40px;
-    box-shadow: 0 18px 44px rgba(36, 24, 18, 0.06);
-  }
-
-  .garantia-support {
-    max-width: 430px;
-    margin: 20px auto 0;
-    font-size: 0.9rem;
-    color: var(--text-light);
-  }
-
-  .transition-side-mockup,
-  .bonus-floating-mockup,
-  .hero-cover-mockup,
-  .garantia-floating-mockup {
-    display: none !important;
-  }
-
-  @media (max-width: 768px) {
-    #hero {
-      padding: 60px 0 76px;
-    }
-
-    .hero-layout {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    .hero-copy,
-    .hero-actions {
-      max-width: 100%;
-      text-align: center;
-      align-items: center;
-    }
-
-    .hero-subtitle {
-      margin: 18px auto 0;
-    }
-
-    .hero-actions {
-      gap: 22px;
-      margin-top: 0;
-      order: 3;
-    }
-
-    .hero-actions .badges {
-      justify-content: center;
-    }
-
-    .hero-visual {
-      order: 2;
-    }
-
-    .hero-visual-stage {
-      min-height: 0;
-      padding: 22px 18px 74px;
-      border-radius: 28px;
-    }
-
-    .hero-main-mockup {
-      width: min(250px, 72vw);
-    }
-
-    .hero-visual-note {
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      max-width: none;
-      text-align: center;
-    }
-
-    .bonus-shell {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-
-    .bonus-aside {
-      max-width: 100%;
-      text-align: center;
-    }
-
-    .bonus-aside > p {
-      margin: 0 auto;
-    }
-
-    .bonus-visual-card {
-      max-width: 420px;
-      margin: 24px auto 0;
-      padding: 22px 20px;
-    }
-
-    .bonus-visual-frame {
-      min-height: 190px;
-      margin-bottom: 14px;
-    }
-
-    .bonus-visual-frame img {
-      width: min(220px, 60vw);
-    }
-
-    .garantia-box {
-      padding: 42px 28px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero-visual-stage {
-      padding: 18px 14px 74px;
-      border-radius: 24px;
-    }
-
-    .hero-main-mockup {
-      width: min(220px, 66vw);
-    }
-
-    .hero-visual-note {
-      padding: 14px 16px;
-    }
-
-    .bonus-visual-card {
-      padding: 18px 16px;
-      border-radius: 22px;
-    }
-
-    .bonus-visual-frame {
-      min-height: 160px;
-    }
-
-    .bonus-visual-frame img {
-      width: min(190px, 62vw);
-    }
-  }
-
 </style>
 </head>
 <body>
@@ -1919,46 +1636,38 @@
      HERO
 ============================================ -->
 <section id="hero">
-  <div class="container-wide">
-    <div class="hero-layout">
+  <div class="container">
+    <div class="hero-shell">
       <div class="hero-copy">
         <p class="hero-kicker fade-up">Guia Destrave</p>
-        <h1 class="hero-title fade-up" style="transition-delay:0.1s">
-          Vender pode ser mais simples do<br>
-          que voc? pensa <em>(e eu juro que n?o ? papo de coach)</em>
-        </h1>
-        <p class="hero-subtitle fade-up" style="transition-delay:0.2s">
-          O Guia Destrave foi feito pra quem quer fazer renda extra ou vender mais no pr?prio micro neg?cio, mas ainda trava na melhor parte: botar dindin no bolso. S?o estrat?gias reais, com exemplos aplic?veis e um direcionamento pr?tico pra voc? finalmente saber <strong style="color:var(--text);font-weight:500;">exatamente</strong> o que fazer.
-        </p>
+    <h1 class="hero-title fade-up" style="transition-delay:0.1s">
+      Vender pode ser mais simples do<br>
+      que você pensa <em>(e eu juro que não é papo de coach)</em>
+    </h1>
+    <p class="hero-subtitle fade-up" style="transition-delay:0.2s">
+      O Guia Destrave foi feito pra quem quer fazer renda extra ou vender mais no próprio micro negócio, mas ainda trava na melhor parte: botar dindin no bolso. São estratégias reais, com exemplos aplicáveis e um direcionamento prático pra você finalmente saber <strong style="color:var(--text);font-weight:500;">exatamente</strong> o que fazer.
+    </p>
+    <div class="fade-up" style="transition-delay:0.3s">
+      <a href="#" class="btn" id="cta-hero">Quero destravar minhas vendas</a>
+    </div>
+    <div class="badges fade-up" style="transition-delay:0.4s">
+      <div class="badge">
+        <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        1 ano de atualizações
       </div>
+      <div class="badge">
+        <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        7 dias de garantia para teste
+      </div>
+      <div class="badge">
+        <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        acesso imediato direto no email
+      </div>
+    </div>
+
       <div class="hero-visual fade-up" style="transition-delay:0.18s;">
-        <div class="hero-visual-stage">
-          <div class="hero-main-mockup">
-            <img src="/fotos/3.png" alt="Mockup principal do Guia Destrave" loading="eager">
-          </div>
-          <div class="hero-visual-note">
-            <strong>Guia principal</strong>
-            <span>Apresenta a oferta de forma tang?vel logo na primeira dobra, sem disputar aten??o com a copy.</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero-actions">
-        <div class="fade-up" style="transition-delay:0.3s">
-          <a href="#" class="btn" id="cta-hero">Quero destravar minhas vendas</a>
-        </div>
-        <div class="badges fade-up" style="transition-delay:0.4s">
-          <div class="badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-            1 ano de atualiza??es
-          </div>
-          <div class="badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-            7 dias de garantia para teste
-          </div>
-          <div class="badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            acesso imediato direto no email
-          </div>
+        <div class="hero-cover-mockup">
+          <img src="/fotos/3.png" alt="Mockup da capa do Guia Destrave ao lado da apresentação principal" loading="lazy">
         </div>
       </div>
     </div>
@@ -2093,84 +1802,79 @@
      BÔNUS
 ============================================ -->
 <section id="bonus">
-  <div class="container-wide">
-    <div class="bonus-shell">
-      <div class="bonus-aside">
-        <span class="bonus-tag fade-up">B?NUS INCLU?DOS</span>
-        <h2 class="fade-up">Tem mais coisa <em style="font-style:italic;color:var(--accent);">te esperando</em></h2>
-        <p class="fade-up">
-          Al?m do guia principal, voc? ainda leva:
-        </p>
-        <div class="bonus-visual-card fade-up" style="transition-delay:0.12s;">
-          <div class="bonus-visual-frame">
-            <img src="/fotos/2.png" alt="Mockup do calend?rio sazonal incluso no material" loading="lazy">
-          </div>
-          <p class="bonus-visual-caption">
-            Um apoio visual menor e contextual, refor?ando o b?nus sem roubar aten??o da oferta principal.
-          </p>
+  <div class="container text-center">
+    <span class="bonus-tag fade-up">BÔNUS INCLUÍDOS</span>
+    <h2 class="fade-up">Tem mais coisa <em style="font-style:italic;color:var(--accent);">te esperando</em></h2>
+    <p style="max-width:480px;margin:16px auto 0;font-size:0.95rem;" class="fade-up">
+      Além do guia principal, você ainda leva:
+    </p>
+  </div>
+
+  <div class="bonus-shell fade-up">
+    <div class="bonus-main">
+      <div class="bonus-stage" id="bonusStage">
+
+      <div class="bc-card" data-idx="0">
+        <div class="bc-emoji" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 3v3"/>
+            <path d="M17 3v3"/>
+            <path d="M4.5 8.5h15"/>
+            <rect x="4.5" y="5.5" width="15" height="14" rx="2.5"/>
+            <path d="M9.5 13h2.5v4h2"/>
+          </svg>
         </div>
+        <h4>Calendário Sazonal 2026</h4>
+        <p>Material imprimível para visualizar oportunidades de venda ao longo do ano e planejar com antecedência — de forma estratégica, não no improviso.</p>
       </div>
 
-      <div class="bonus-stage-wrap fade-up">
-        <div class="bonus-stage" id="bonusStage">
-
-          <div class="bc-card" data-idx="0">
-            <div class="bc-emoji" aria-hidden="true">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 3v3"/>
-                <path d="M17 3v3"/>
-                <path d="M4.5 8.5h15"/>
-                <rect x="4.5" y="5.5" width="15" height="14" rx="2.5"/>
-                <path d="M9.5 13h2.5v4h2"/>
-              </svg>
-            </div>
-            <h4>Calend?rio Sazonal 2026</h4>
-            <p>Material imprim?vel para visualizar oportunidades de venda ao longo do ano e planejar com anteced?ncia ? de forma estrat?gica, n?o no improviso.</p>
-          </div>
-
-          <div class="bc-card" data-idx="1">
-            <div class="bc-emoji" aria-hidden="true">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 18.5 4.5 20v-4.2a6.8 6.8 0 0 1-1.5-4.3c0-4.1 4-7.5 9-7.5s9 3.4 9 7.5-4 7.5-9 7.5c-1.8 0-3.5-.4-5-1.1Z"/>
-              </svg>
-            </div>
-            <h4>Comunidade Destrave</h4>
-            <p>Um espa?o de continuidade para manter o aprendizado em movimento, trocar ideias e n?o deixar tudo morrer depois da compra.</p>
-          </div>
-
-          <div class="bc-card" data-idx="2">
-            <div class="bc-emoji" aria-hidden="true">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="m9.2 5.2 1.9-2.2 1.8 3.1"/>
-                <path d="M11.1 3l2.7.1a4.9 4.9 0 0 1 4.1 2.2l.8 1.3"/>
-                <path d="m18.8 10.2 2.7.4-1.8 3.1"/>
-                <path d="m21.5 10.6-1.3 2.4a4.9 4.9 0 0 1-4.1 2.5h-1.6"/>
-                <path d="m10 18.9-1.3 2.1-1.8-3.1"/>
-                <path d="M8.7 21 7.3 18.7A4.9 4.9 0 0 1 7.1 14l.8-1.3"/>
-              </svg>
-            </div>
-            <h4>1 ano de atualiza??es</h4>
-            <p>O conte?do evolui com voc?. Novas estrat?gias s?o adicionadas ao longo do ano ? sem pagar nada a mais por isso.</p>
-          </div>
-
+      <div class="bc-card" data-idx="1">
+        <div class="bc-emoji" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 18.5 4.5 20v-4.2a6.8 6.8 0 0 1-1.5-4.3c0-4.1 4-7.5 9-7.5s9 3.4 9 7.5-4 7.5-9 7.5c-1.8 0-3.5-.4-5-1.1Z"/>
+          </svg>
         </div>
+        <h4>Comunidade Destrave</h4>
+        <p>Um espaço de continuidade para manter o aprendizado em movimento, trocar ideias e não deixar tudo morrer depois da compra.</p>
+      </div>
 
-        <div class="bonus-nav">
-          <button class="bonus-arrow" id="bonusPrev" aria-label="Anterior">
-            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <div class="bonus-dots" id="bonusDots">
-            <button class="bonus-dot active" data-index="0" aria-label="B?nus 1"></button>
-            <button class="bonus-dot" data-index="1" aria-label="B?nus 2"></button>
-            <button class="bonus-dot" data-index="2" aria-label="B?nus 3"></button>
-          </div>
-          <button class="bonus-arrow" id="bonusNext" aria-label="Pr?ximo">
-            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
+      <div class="bc-card" data-idx="2">
+        <div class="bc-emoji" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="m9.2 5.2 1.9-2.2 1.8 3.1"/>
+            <path d="M11.1 3l2.7.1a4.9 4.9 0 0 1 4.1 2.2l.8 1.3"/>
+            <path d="m18.8 10.2 2.7.4-1.8 3.1"/>
+            <path d="m21.5 10.6-1.3 2.4a4.9 4.9 0 0 1-4.1 2.5h-1.6"/>
+            <path d="m10 18.9-1.3 2.1-1.8-3.1"/>
+            <path d="M8.7 21 7.3 18.7A4.9 4.9 0 0 1 7.1 14l.8-1.3"/>
+          </svg>
         </div>
+        <h4>1 ano de atualizações</h4>
+        <p>O conteúdo evolui com você. Novas estratégias são adicionadas ao longo do ano — sem pagar nada a mais por isso.</p>
+      </div>
+
+      </div>
+
+      <div class="bonus-nav">
+        <button class="bonus-arrow" id="bonusPrev" aria-label="Anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="bonus-dots" id="bonusDots">
+          <button class="bonus-dot active" data-index="0" aria-label="Bônus 1"></button>
+          <button class="bonus-dot" data-index="1" aria-label="Bônus 2"></button>
+          <button class="bonus-dot" data-index="2" aria-label="Bônus 3"></button>
+        </div>
+        <button class="bonus-arrow" id="bonusNext" aria-label="Próximo">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
     </div>
+
+    <div class="bonus-floating-mockup fade-up" style="transition-delay:0.18s;">
+      <img src="/fotos/2.png" alt="Mockup do calendário sazonal incluso no material" loading="lazy">
+    </div>
   </div>
+
 </section>
 
 <!-- ============================================
@@ -2203,28 +1907,24 @@
 ============================================ -->
 <section id="garantia">
   <div class="container">
-    <div class="garantia-wrap">
-      <div class="garantia-box fade-up">
-        <div class="garantia-seal" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 3.5v3"/>
-            <path d="M17 3.5v3"/>
-            <rect x="4.5" y="5.5" width="15" height="14" rx="2.5"/>
-            <path d="M4.5 9h15"/>
-            <path d="M10 12h4l-3.2 5"/>
-          </svg>
-        </div>
-        <h3>Voc? tem 7 dias pra decidir com calma</h3>
-        <p>
-          Ainda n?o se sente segura? Voc? tem 7 dias pra entrar, ler e sentir se faz sentido pra voc?. Se n?o fizer, ? s? pedir reembolso dentro desse prazo.
-          <br><br>
-          <em style="font-style:italic;color:var(--text-light);">Sem ressentimentos, t?? Eu quero que voc? entre porque fez sentido, n?o por press?o.</em>
-        </p>
+    <div class="garantia-box fade-up">
+      <div class="garantia-seal" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 3.5v3"/>
+          <path d="M17 3.5v3"/>
+          <rect x="4.5" y="5.5" width="15" height="14" rx="2.5"/>
+          <path d="M4.5 9h15"/>
+          <path d="M10 12h4l-3.2 5"/>
+        </svg>
       </div>
-      <p class="garantia-support fade-up" style="transition-delay:0.12s;">
-        Compra com espa?o pra respirar: essa parte foi mantida mais leve e limpa para refor?ar confian?a, sem repetir o peso visual do hero.
+      <h3>Você tem 7 dias pra decidir com calma</h3>
+      <p>
+        Ainda não se sente segura? Você tem 7 dias pra entrar, ler e sentir se faz sentido pra você. Se não fizer, é só pedir reembolso dentro desse prazo.
+        <br><br>
+        <em style="font-style:italic;color:var(--text-light);">Sem ressentimentos, tá? Eu quero que você entre porque fez sentido, não por pressão.</em>
       </p>
     </div>
+
   </div>
 </section>
 
