@@ -244,7 +244,7 @@
 
   .hero-shell {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(380px, 0.82fr);
+    grid-template-columns: minmax(0, 1.18fr) minmax(520px, 1.02fr);
     gap: clamp(52px, 6vw, 96px);
     align-items: center;
     position: relative;
@@ -284,6 +284,7 @@
     align-items: center;
     min-width: 0;
     padding-right: clamp(8px, 1.8vw, 20px);
+    overflow: visible;
   }
 
   .hero-copy > .fade-up,
@@ -520,12 +521,18 @@
 
   .hero-cover-mockup {
     position: static;
-    width: min(100%, 870px);
+    width: min(100%, 980px);
     z-index: 1;
     pointer-events: none;
     filter: drop-shadow(0 28px 38px rgba(33, 23, 16, 0.14));
     transform: rotate(8deg);
     margin: 0;
+  }
+
+  .hero-cover-mockup img {
+    width: 100%;
+    max-width: none;
+    display: block;
   }
 
   .hero-cover-mockup img {
