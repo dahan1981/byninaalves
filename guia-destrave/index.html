@@ -185,7 +185,7 @@
   ============================================ */
   #hero {
     background: var(--cream);
-    padding: 80px 0 90px;
+    padding: 80px 0 150px;
     position: relative;
     overflow: visible;
     z-index: 2;
@@ -244,8 +244,9 @@
 
   .hero-shell {
     display: grid;
-    grid-template-columns: minmax(640px, 1.42fr) minmax(520px, 0.98fr);
-    gap: clamp(56px, 6vw, 98px);
+    grid-template-columns: minmax(0, 860px);
+    justify-content: center;
+    gap: 0;
     align-items: center;
     position: relative;
     z-index: 1;
@@ -279,12 +280,16 @@
   }
 
   .hero-visual {
+    position: absolute;
+    right: clamp(44px, 6vw, 120px);
+    bottom: -148px;
+    width: min(48vw, 700px);
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    min-width: 0;
-    padding-right: clamp(8px, 1.8vw, 20px);
     overflow: visible;
+    z-index: 4;
+    pointer-events: none;
   }
 
   .hero-copy > .fade-up,
@@ -521,7 +526,7 @@
 
   .hero-cover-mockup {
     position: static;
-    width: min(100%, 980px);
+    width: 100%;
     z-index: 1;
     pointer-events: none;
     filter: drop-shadow(0 28px 38px rgba(33, 23, 16, 0.14));
@@ -1547,6 +1552,15 @@
     .hero-copy {
       text-align: left;
       align-items: flex-start;
+    }
+
+    .hero-visual {
+      position: static;
+      width: auto;
+      justify-content: center;
+      padding-right: 0;
+      margin-top: 24px;
+      pointer-events: none;
     }
 
     .hero-subtitle {
