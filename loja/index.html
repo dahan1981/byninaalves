@@ -2,85 +2,82 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon%20guia.svg">
 <title>Loja By Nina Alves</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #faf8f4;
-    --warm-white: #fdfbf8;
-    --sand: #f0ebe1;
-    --sand-mid: #e8e0d4;
-    --sand-dark: #c9bfb2;
-    --text: #1c1a18;
-    --text-soft: #5a5550;
-    --text-light: #8a837a;
-    --accent: #c4956a;
-    --accent-hover: #a87a52;
-    --accent-light: #f5ede3;
-    --accent-pale: #fbf6f0;
-    --shadow: 0 24px 60px rgba(32, 24, 19, 0.08);
-    --radius: 24px;
-    --radius-sm: 16px;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
+    --cream: #faf7f2;
+    --warm: #fffcf8;
+    --sand: #f1e8dd;
+    --line: rgba(190, 159, 127, 0.22);
+    --text: #231d18;
+    --text-soft: #645a50;
+    --text-light: #988a78;
+    --accent: #c69569;
+    --accent-dark: #ab774d;
+    --shadow: 0 28px 70px rgba(35, 29, 24, 0.08);
+    --shadow-soft: 0 14px 36px rgba(35, 29, 24, 0.06);
+    --radius-xl: 32px;
+    --radius-lg: 24px;
+    --radius-md: 18px;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "DM Sans", system-ui, sans-serif;
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
+    margin: 0;
     font-family: var(--sans);
-    background:
-      radial-gradient(circle at top center, rgba(196,149,106,0.09), transparent 38%),
-      linear-gradient(180deg, #fffdfa 0%, var(--cream) 58%, #f8f3eb 100%);
     color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(circle at top center, rgba(198, 149, 105, 0.12), transparent 28%),
+      linear-gradient(180deg, #fffdfa 0%, var(--cream) 48%, #f7f0e6 100%);
   }
 
-  img { display: block; max-width: 100%; height: auto; }
   a { color: inherit; text-decoration: none; }
   button, input { font: inherit; }
   button { border: 0; background: none; cursor: pointer; }
 
   .container {
-    width: min(1160px, calc(100% - 40px));
+    width: min(1220px, calc(100% - 44px));
     margin: 0 auto;
   }
 
-  .site-shell {
-    padding: 24px 0 72px;
-  }
+  .site-shell { padding: 24px 0 88px; }
 
   .topbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     gap: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 28px;
   }
 
   .brand {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 4px;
   }
 
   .brand-mark {
     font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(2.1rem, 4vw, 3rem);
     line-height: 0.9;
     letter-spacing: -0.04em;
   }
 
-  .brand-note {
-    font-size: 0.74rem;
+  .brand-note,
+  .eyebrow,
+  .section-kicker,
+  .product-tag {
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.17em;
+    font-size: 0.74rem;
     color: var(--accent);
   }
 
@@ -93,375 +90,361 @@
 
   .chip,
   .ghost-btn,
-  .primary-btn {
+  .primary-btn,
+  .secondary-btn,
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 999px;
-    transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease, color 0.22s ease;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
   }
 
   .chip,
-  .ghost-btn {
-    border: 1px solid rgba(196,149,106,0.24);
-    background: rgba(255,252,247,0.82);
+  .ghost-btn,
+  .secondary-btn,
+  .status-pill {
+    border: 1px solid var(--line);
+    background: rgba(255, 252, 248, 0.86);
     color: var(--text-soft);
-    padding: 11px 16px;
-    font-size: 0.9rem;
   }
 
-  .chip:hover,
-  .ghost-btn:hover,
-  .primary-btn:hover {
-    transform: translateY(-1px);
+  .chip,
+  .ghost-btn,
+  .status-pill { padding: 11px 16px; font-size: 0.9rem; }
+
+  .primary-btn,
+  .secondary-btn {
+    padding: 15px 26px;
+    font-size: 0.94rem;
   }
 
   .primary-btn {
     background: var(--accent);
     color: #fff;
-    padding: 15px 24px;
-    font-size: 0.92rem;
-    letter-spacing: 0.03em;
-    box-shadow: 0 10px 26px rgba(196,149,106,0.28);
+    box-shadow: 0 14px 28px rgba(198, 149, 105, 0.24);
   }
 
-  .primary-btn:hover {
-    background: var(--accent-hover);
-    box-shadow: 0 14px 30px rgba(196,149,106,0.34);
+  .secondary-btn { background: var(--warm); color: var(--text); border: 1px solid var(--line); }
+
+  .chip:hover,
+  .ghost-btn:hover,
+  .primary-btn:hover,
+  .secondary-btn:hover { transform: translateY(-1px); }
+
+  .hero-shell {
+    position: relative;
+    padding: 10px 0 96px;
   }
 
-  .hero {
+  .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-    gap: clamp(28px, 4vw, 56px);
-    align-items: stretch;
-    margin-bottom: 38px;
-  }
-
-  .hero-copy,
-  .hero-aside {
-    border-radius: 32px;
-    background: rgba(255,252,247,0.72);
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(201,191,178,0.22);
-    backdrop-filter: blur(10px);
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
+    gap: clamp(42px, 6vw, 92px);
+    align-items: center;
   }
 
   .hero-copy {
-    padding: clamp(28px, 4.2vw, 56px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 620px;
+    display: grid;
+    gap: 24px;
+    align-content: center;
+    max-width: 690px;
   }
 
-  .eyebrow {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    margin-bottom: 22px;
-  }
-
-  .hero h1,
+  .hero-copy h1,
   .section-title,
   .members-title {
+    margin: 0;
     font-family: var(--serif);
     font-weight: 400;
-    line-height: 1.03;
-    letter-spacing: -0.03em;
-    color: var(--text);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
   }
 
-  .hero h1 {
-    font-size: clamp(3.1rem, 7vw, 5.6rem);
-    max-width: 10ch;
-    margin-bottom: 18px;
+  .hero-copy h1 {
+    font-size: clamp(3.8rem, 6.6vw, 6.1rem);
+    max-width: 8.9ch;
   }
 
-  .hero-subtitle {
-    font-size: 1.08rem;
-    color: var(--text-soft);
-    max-width: 58ch;
-    margin-bottom: 34px;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .hero-meta span,
-  .status-pill,
-  .section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border-radius: 999px;
-    padding: 9px 14px;
-    background: var(--accent-pale);
-    border: 1px solid rgba(196,149,106,0.18);
-    font-size: 0.84rem;
-    color: var(--text-soft);
-  }
-
-  .hero-aside {
-    padding: clamp(22px, 3vw, 34px);
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 18px;
-    min-height: 620px;
-  }
-
-  .hero-card-title {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    align-items: baseline;
-  }
-
-  .hero-card-title h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3vw, 2.8rem);
-    font-weight: 400;
-  }
-
-  .hero-card-title p,
+  .hero-subtitle,
   .section-copy,
-  .empty-copy,
-  .catalog-copy {
+  .catalog-copy,
+  .member-copy,
+  .account-copy,
+  .product-copy {
+    margin: 0;
     color: var(--text-soft);
+    line-height: 1.78;
   }
 
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-
-  .featured-tile {
-    border-radius: 22px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,237,227,0.92));
-    border: 1px solid rgba(201,191,178,0.32);
-    min-height: 152px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .featured-kicker {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--text-light);
-  }
-
-  .featured-tile strong {
-    font-size: 1rem;
-    color: var(--text);
-  }
-
-  .featured-tile span {
-    font-size: 0.92rem;
-    color: var(--text-soft);
-  }
-
-  .hero-note {
-    border-top: 1px solid rgba(201,191,178,0.4);
-    padding-top: 18px;
-    display: grid;
-    gap: 10px;
-  }
-
-  .section-block {
-    margin-bottom: 26px;
-    border-radius: 30px;
-    background: rgba(255,252,247,0.78);
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(201,191,178,0.22);
-    padding: clamp(22px, 3vw, 36px);
-  }
-
-  .section-head {
+  .hero-actions,
+  .product-actions,
+  .auth-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 18px;
-    align-items: flex-end;
-    margin-bottom: 26px;
+    gap: 12px;
   }
 
-  .section-label {
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-size: clamp(2.1rem, 5vw, 3.7rem);
-    max-width: 12ch;
-  }
-
-  .catalog-copy {
-    max-width: 54ch;
-  }
-
-  .catalog-grid,
-  .member-grid,
-  .recommend-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .product-card,
-  .member-card {
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,246,239,0.92));
-    border: 1px solid rgba(201,191,178,0.28);
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    min-height: 100%;
-  }
-
-  .product-art,
-  .member-art {
-    aspect-ratio: 1.1 / 1;
-    border-radius: 20px;
-    background:
-      radial-gradient(circle at top right, rgba(196,149,106,0.2), transparent 38%),
-      linear-gradient(180deg, #fffdfa 0%, #f3ebdf 100%);
-    border: 1px solid rgba(201,191,178,0.24);
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
-
-  .product-stack {
-    width: min(86%, 240px);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    transform: rotate(-4deg);
-  }
-
-  .product-sheet {
-    height: 120px;
-    border-radius: 12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(243,235,223,0.95));
-    border: 2px solid rgba(28,26,24,0.75);
-    box-shadow: 0 10px 20px rgba(28,26,24,0.08);
-  }
-
-  .product-body {
-    display: grid;
-    gap: 10px;
-  }
-
-  .product-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .product-name {
-    font-family: var(--serif);
-    font-size: 2rem;
-    line-height: 1;
-  }
-
-  .product-tag {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .price {
-    font-size: 1rem;
-    color: var(--text-soft);
-  }
-
-  .price strong {
-    display: block;
-    color: var(--text);
-    font-size: 1.3rem;
-  }
-
-  .product-copy {
-    font-size: 0.96rem;
-    color: var(--text-soft);
-  }
-
+  .hero-meta,
   .product-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
 
+  .hero-meta span,
   .product-meta span {
+    display: inline-flex;
+    align-items: center;
     border-radius: 999px;
-    background: var(--sand);
-    border: 1px solid rgba(201,191,178,0.28);
-    padding: 8px 12px;
-    font-size: 0.8rem;
+    border: 1px solid var(--line);
+    background: rgba(255, 252, 248, 0.88);
     color: var(--text-soft);
+    padding: 9px 13px;
+    font-size: 0.82rem;
+    box-shadow: var(--shadow-soft);
   }
 
-  .product-actions {
-    margin-top: auto;
+  .hero-aside {
+    display: grid;
+    justify-items: end;
+  }
+
+  .hero-panel {
+    width: min(100%, 460px);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,238,227,0.92));
+    box-shadow: var(--shadow);
+    padding: 22px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .hero-panel-head {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .hero-panel-head h2,
+  .catalog-side h3,
+  .members-panel h3,
+  .account-panel h3 {
+    margin: 6px 0 0;
+    font-family: var(--serif);
+    font-size: 2.1rem;
+    line-height: 0.96;
+    font-weight: 400;
+  }
+
+  .hero-points {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
-  .product-actions .ghost-btn,
-  .product-actions .primary-btn {
-    flex: 1 1 180px;
-    text-align: center;
-    justify-content: center;
+  .hero-point,
+  .journey-card,
+  .product-card,
+  .member-card,
+  .catalog-side,
+  .members-panel,
+  .account-panel {
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(190, 159, 127, 0.18);
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,240,231,0.92));
+    box-shadow: var(--shadow-soft);
   }
 
-  .members-shell {
-    display: none;
+  .hero-point {
+    padding: 16px;
+    display: grid;
+    gap: 8px;
+    min-height: 120px;
   }
 
-  .members-shell.visible {
+  .hero-point strong { font-size: 0.98rem; }
+  .hero-point span { color: var(--text-soft); font-size: 0.9rem; line-height: 1.6; }
+
+  .hero-transition {
+    position: absolute;
+    left: 50%;
+    bottom: -66px;
+    transform: translateX(7%);
+    width: min(520px, 42vw);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .hero-transition img {
+    width: 100%;
     display: block;
+    filter: drop-shadow(0 30px 50px rgba(24, 19, 15, 0.12));
   }
 
-  .members-title {
-    font-size: clamp(2rem, 4vw, 3.3rem);
-    max-width: 11ch;
+  .section-block {
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--line);
+    background: rgba(255, 252, 248, 0.78);
+    box-shadow: var(--shadow);
+    padding: clamp(26px, 3vw, 40px);
   }
+
+  .section-block + .section-block,
+  .section-block + .members-shell { margin-top: 24px; }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 18px 28px;
+    align-items: end;
+    margin-bottom: 28px;
+  }
+
+  .section-title,
+  .members-title {
+    font-size: clamp(2.2rem, 4.6vw, 3.9rem);
+    max-width: 12ch;
+  }
+
+  .section-copy,
+  .catalog-copy,
+  .member-copy { max-width: 58ch; }
+
+  .journey-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .journey-card {
+    padding: 22px;
+    display: grid;
+    gap: 12px;
+  }
+
+  .journey-step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(198, 149, 105, 0.14);
+    color: var(--accent-dark);
+    font-size: 0.95rem;
+  }
+
+  .catalog-layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+  }
+
+  .catalog-side,
+  .members-panel,
+  .account-panel {
+    padding: 22px;
+  }
+
+  .catalog-side {
+    position: sticky;
+    top: 18px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .side-list {
+    display: grid;
+    gap: 10px;
+    color: var(--text-soft);
+    font-size: 0.93rem;
+  }
+
+  .side-list span::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 10px;
+  }
+
+  .catalog-grid,
+  .member-grid,
+  .recommend-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .product-card,
+  .member-card {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .product-art,
+  .member-art {
+    aspect-ratio: 1.14 / 1;
+    border-radius: 22px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background:
+      radial-gradient(circle at top right, rgba(198, 149, 105, 0.16), transparent 30%),
+      linear-gradient(180deg, #fffdfa 0%, #f3eadf 100%);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .product-art img,
+  .member-art img {
+    width: min(84%, 300px);
+    display: block;
+    filter: drop-shadow(0 18px 22px rgba(26, 21, 16, 0.1));
+  }
+
+  .product-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .product-name {
+    margin: 8px 0 0;
+    font-family: var(--serif);
+    font-size: 2rem;
+    line-height: 0.97;
+    font-weight: 400;
+  }
+
+  .price {
+    margin: 0;
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+  }
+
+  .price strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 1.34rem;
+    color: var(--text);
+  }
+
+  .members-shell { display: none; }
+  .members-shell.visible { display: block; }
 
   .members-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
-    gap: 22px;
-    margin-top: 18px;
-  }
-
-  .members-panel,
-  .empty-panel {
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,246,239,0.92));
-    border: 1px solid rgba(201,191,178,0.28);
-    padding: 24px;
-  }
-
-  .empty-panel {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
     gap: 20px;
   }
 
@@ -470,158 +453,102 @@
     justify-content: space-between;
     gap: 12px;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
-  .panel-top h3 {
-    font-family: var(--serif);
-    font-size: 1.8rem;
-    font-weight: 400;
-  }
-
-  .lock-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: var(--accent-pale);
-    border: 1px solid rgba(196,149,106,0.2);
+  .account-stack {
     display: grid;
-    place-items: center;
-    color: var(--accent);
+    gap: 18px;
   }
 
-  .lock-icon svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-  }
-
-  .status-row {
-    display: flex;
-    flex-wrap: wrap;
+  .account-box {
+    border-radius: 20px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 252, 248, 0.88);
+    padding: 18px;
+    display: grid;
     gap: 10px;
-    margin-bottom: 20px;
   }
+
+  .account-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: var(--text-soft);
+    font-size: 0.92rem;
+  }
+
+  .member-chip { display: none; }
+  .member-chip.visible { display: inline-flex; }
 
   .auth-drawer {
     position: fixed;
     inset: 0;
-    background: rgba(24,22,19,0.36);
     display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    z-index: 20;
+    background: rgba(23, 18, 14, 0.42);
+    z-index: 30;
   }
 
-  .auth-drawer.open {
-    display: flex;
-  }
+  .auth-drawer.open { display: flex; }
 
   .auth-card {
-    width: min(520px, 100%);
-    border-radius: 28px;
-    background: var(--warm-white);
-    box-shadow: 0 26px 60px rgba(20,18,15,0.16);
-    border: 1px solid rgba(201,191,178,0.26);
-    padding: 28px;
+    width: min(560px, 100%);
+    border-radius: var(--radius-xl);
+    background: var(--warm);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 70px rgba(25, 20, 15, 0.18);
+    padding: 30px;
     display: grid;
     gap: 22px;
   }
 
   .auth-card h3 {
+    margin: 0;
     font-family: var(--serif);
-    font-size: 2.4rem;
+    font-size: 2.7rem;
+    line-height: 0.94;
     font-weight: 400;
   }
 
-  .auth-card p {
-    color: var(--text-soft);
-  }
-
-  .auth-grid {
-    display: grid;
-    gap: 14px;
-  }
-
-  .field {
-    display: grid;
-    gap: 8px;
-  }
-
+  .auth-grid { display: grid; gap: 14px; }
+  .field { display: grid; gap: 8px; }
   .field label {
-    font-size: 0.84rem;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.76rem;
     color: var(--text-light);
   }
 
   .field input {
     border-radius: 16px;
-    border: 1px solid rgba(201,191,178,0.35);
+    border: 1px solid var(--line);
     background: #fffdfa;
-    padding: 14px 16px;
     color: var(--text);
+    padding: 14px 16px;
   }
 
-  .auth-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  @media (max-width: 1140px) {
+    .hero-grid,
+    .catalog-layout,
+    .members-layout { grid-template-columns: 1fr; }
 
-  .auth-actions .primary-btn,
-  .auth-actions .ghost-btn {
-    flex: 1 1 180px;
-    text-align: center;
-  }
+    .hero-aside { justify-items: start; }
+    .catalog-side { position: static; }
 
-  .member-chip {
-    display: none;
-  }
-
-  .member-chip.visible {
-    display: inline-flex;
-  }
-
-  .buy-note {
-    font-size: 0.86rem;
-    color: var(--text-light);
-  }
-
-  @media (max-width: 980px) {
-    .hero,
-    .members-layout,
-    .catalog-grid,
-    .member-grid,
-    .recommend-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-copy,
-    .hero-aside {
-      min-height: auto;
-    }
-
-    .hero h1,
-    .section-title,
-    .members-title {
-      max-width: none;
-    }
-
-    .featured-grid {
-      grid-template-columns: 1fr 1fr;
+    .hero-transition {
+      position: static;
+      transform: none;
+      width: min(560px, 74vw);
+      margin: 16px auto -44px;
     }
   }
 
-  @media (max-width: 640px) {
-    .site-shell {
-      padding-top: 18px;
-    }
-
-    .container {
-      width: min(100% - 26px, 100%);
-    }
+  @media (max-width: 760px) {
+    .container { width: min(100% - 26px, 100%); }
+    .site-shell { padding-top: 18px; }
 
     .topbar {
       flex-direction: column;
@@ -633,43 +560,69 @@
       justify-content: flex-start;
     }
 
-    .hero-copy,
-    .hero-aside,
-    .section-block {
-      border-radius: 24px;
-      padding: 22px 18px;
+    .hero-shell { padding-bottom: 58px; }
+
+    .hero-copy {
+      justify-items: center;
+      text-align: center;
+      max-width: none;
     }
 
-    .hero h1 {
-      font-size: clamp(2.55rem, 12vw, 3.8rem);
+    .hero-copy h1,
+    .hero-subtitle,
+    .section-title,
+    .members-title,
+    .section-copy,
+    .catalog-copy,
+    .member-copy { max-width: none; }
+
+    .hero-copy h1 { font-size: clamp(3rem, 13vw, 4.4rem); }
+
+    .hero-panel,
+    .section-block,
+    .catalog-side,
+    .product-card,
+    .member-card,
+    .members-panel,
+    .account-panel,
+    .auth-card { border-radius: 24px; }
+
+    .hero-transition {
+      position: static;
+      transform: none;
+      width: min(92vw, 460px);
+      margin: 14px auto -22px;
     }
+
+    .hero-points,
+    .journey-grid,
+    .catalog-grid,
+    .member-grid,
+    .recommend-grid { grid-template-columns: 1fr; }
 
     .hero-actions,
+    .hero-meta,
     .product-actions,
     .auth-actions {
-      flex-direction: column;
-    }
-
-    .hero-meta,
-    .topnav {
-      gap: 10px;
+      justify-content: center;
     }
 
     .chip,
     .ghost-btn,
-    .primary-btn {
+    .primary-btn,
+    .secondary-btn,
+    .status-pill {
       width: 100%;
       text-align: center;
-      justify-content: center;
     }
 
-    .featured-grid {
-      grid-template-columns: 1fr;
+    .product-head,
+    .panel-top {
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .product-stack {
-      width: min(92%, 220px);
-    }
+    .price { text-align: left; }
   }
 </style>
 </head>
@@ -683,107 +636,140 @@
         </a>
 
         <nav class="topnav">
-          <a class="chip" href="#catalogo">Comprar produtos</a>
-          <button class="chip member-chip" id="memberChip" type="button">Área de membros</button>
+          <a class="chip" href="#catalogo">Produtos</a>
           <a class="chip" href="#como-funciona">Como funciona</a>
+          <button class="status-pill member-chip" id="memberChip" type="button">Área de membros</button>
           <button class="ghost-btn" id="loginToggle" type="button">Entrar para comprar</button>
         </nav>
       </header>
 
-      <section class="hero">
-        <div class="hero-copy">
-          <div>
-            <p class="eyebrow">Loja by Nina Alves</p>
-            <h1>Escolha o que quer comprar agora e acesse o restante depois, dentro da sua área.</h1>
-            <p class="hero-subtitle">Estruturei esta loja para funcionar como vitrine pública e como ambiente de continuidade. A pessoa explora tudo sem login, entra para concluir a compra e, depois disso, passa a enxergar claramente o que já comprou e o que ainda pode adicionar.</p>
-          </div>
+      <section class="hero-shell">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div>
+              <p class="eyebrow">Loja by Nina Alves</p>
+              <h1>Uma loja para explorar, comprar e acessar tudo no mesmo lugar.</h1>
+            </div>
 
-          <div>
+            <p class="hero-subtitle">A pessoa entra em uma vitrine pública, navega por todos os produtos sem login, escolhe o que faz sentido e só entra na conta na hora de comprar. Depois da compra, a mesma experiência se transforma em área de membros com acesso ao que já foi liberado e novas ofertas para continuar comprando.</p>
+
             <div class="hero-actions">
               <a class="primary-btn" href="#catalogo">Ver produtos disponíveis</a>
-              <button class="ghost-btn" id="heroLogin" type="button">Fazer login para comprar</button>
+              <button class="secondary-btn" id="heroLogin" type="button">Entrar para comprar</button>
             </div>
 
             <div class="hero-meta">
-              <span>Aba pública de compra</span>
-              <span>Checkout mediante login</span>
-              <span>Área de membros após aquisição</span>
+              <span>Loja pública</span>
+              <span>Compra com login</span>
+              <span>Acesso ao que comprou</span>
             </div>
           </div>
+
+          <aside class="hero-aside">
+            <div class="hero-panel">
+              <div class="hero-panel-head">
+                <div>
+                  <p class="section-kicker">Estrutura base</p>
+                  <h2>Catálogo, conta e continuidade</h2>
+                </div>
+                <span class="status-pill">Em construção</span>
+              </div>
+
+              <p class="section-copy">A base da loja já nasce preparada para vender mais de um produto, manter acesso separado por compra e deixar o ambiente pronto para expansão sem precisar refazer tudo depois.</p>
+
+              <div class="hero-points">
+                <div class="hero-point">
+                  <strong>Vitrine pública</strong>
+                  <span>A pessoa navega sem barreira antes de decidir comprar.</span>
+                </div>
+                <div class="hero-point">
+                  <strong>Conta organizada</strong>
+                  <span>O login entra quando faz sentido: no checkout e no acesso.</span>
+                </div>
+                <div class="hero-point">
+                  <strong>Biblioteca privada</strong>
+                  <span>O cliente enxerga o que já tem e o que ainda falta levar.</span>
+                </div>
+                <div class="hero-point">
+                  <strong>Escala futura</strong>
+                  <span>Novos produtos entram sem bagunçar a experiência.</span>
+                </div>
+              </div>
+            </div>
+          </aside>
         </div>
 
-        <aside class="hero-aside">
-          <div class="hero-card-title">
-            <div>
-              <p class="eyebrow">Estrutura da loja</p>
-              <h2>Visão de e-commerce com lógica de membros</h2>
-            </div>
-            <span class="status-pill">Estrutura em montagem</span>
-          </div>
-
-          <div class="featured-grid">
-            <article class="featured-tile">
-              <span class="featured-kicker">Compra aberta</span>
-              <strong>Vitrine pública</strong>
-              <span>Qualquer pessoa consegue navegar, comparar e decidir antes de entrar.</span>
-            </article>
-
-            <article class="featured-tile">
-              <span class="featured-kicker">Fluxo de compra</span>
-              <strong>Login antes do checkout</strong>
-              <span>O acesso entra antes da compra para organizar pedidos e biblioteca.</span>
-            </article>
-
-            <article class="featured-tile">
-              <span class="featured-kicker">Pós-compra</span>
-              <strong>Área do cliente</strong>
-              <span>Depois da aquisição, a pessoa visualiza o que já tem e o que ainda pode comprar.</span>
-            </article>
-
-            <article class="featured-tile">
-              <span class="featured-kicker">Expansão</span>
-              <strong>Mais produtos</strong>
-              <span>A estrutura já fica pronta para novos itens entrarem sem refazer o site.</span>
-            </article>
-          </div>
-
-          <div class="hero-note">
-            <p>Agora o foco é a estrutura. Os produtos reais, preços finais e integrações entram depois sem precisar reconstruir a experiência.</p>
-            <span class="buy-note">Nesta fase, a compra e o acesso funcionam como simulação estrutural.</span>
-          </div>
-        </aside>
+        <div class="hero-transition">
+          <img src="/mocku.png" alt="Mockup dos produtos digitais da loja">
+        </div>
       </section>
 
       <section class="section-block" id="como-funciona">
         <div class="section-head">
           <div>
-            <span class="section-label">Fluxo</span>
-            <h2 class="section-title">A loja separa descoberta, compra e acesso sem confundir a pessoa</h2>
+            <p class="section-kicker">Fluxo da loja</p>
+            <h2 class="section-title">A navegação continua leve, mas a compra e o acesso ficam organizados</h2>
           </div>
-          <p class="section-copy">A ideia aqui é criar um caminho claro: primeiro a pessoa navega e entende os produtos, depois entra para comprar e, finalmente, passa a enxergar a biblioteca privada e as ofertas complementares.</p>
+          <p class="section-copy">O caminho aqui é simples: primeiro a pessoa explora a loja, depois entra para comprar e, quando tiver adquirido algo, passa a ver a biblioteca privada e as próximas oportunidades de compra dentro da mesma conta.</p>
+        </div>
+
+        <div class="journey-grid">
+          <article class="journey-card">
+            <span class="journey-step">01</span>
+            <strong>Explora sem login</strong>
+            <p class="section-copy">Todos os produtos ficam públicos para comparação e decisão antes da conta entrar em cena.</p>
+          </article>
+          <article class="journey-card">
+            <span class="journey-step">02</span>
+            <strong>Compra com conta</strong>
+            <p class="section-copy">A conta entra para organizar pedido, acesso, biblioteca e futuras compras no mesmo lugar.</p>
+          </article>
+          <article class="journey-card">
+            <span class="journey-step">03</span>
+            <strong>Segue como membro</strong>
+            <p class="section-copy">Depois da compra, a loja continua viva na área de membros com o que já foi liberado e o que ainda pode ser adquirido.</p>
+          </article>
         </div>
       </section>
 
       <section class="section-block" id="catalogo">
         <div class="section-head">
           <div>
-            <span class="section-label">Comprar produtos</span>
-            <h2 class="section-title">Uma vitrine pública pensada para vender sem exigir login na navegação</h2>
+            <p class="section-kicker">Comprar produtos</p>
+            <h2 class="section-title">Uma vitrine pública pensada para vender mais de um produto com clareza</h2>
           </div>
-          <p class="catalog-copy">Todos os itens abaixo já aparecem publicamente. O login só entra na hora de comprar para organizar acesso, pedidos e área de membros.</p>
+          <p class="catalog-copy">Nesta fase, os produtos ainda são placeholders. O importante aqui é a estrutura: catálogo aberto, leitura rápida, login só para comprar e área privada pronta para organizar o pós-compra.</p>
         </div>
 
-        <div class="catalog-grid" id="catalogGrid"></div>
+        <div class="catalog-layout">
+          <aside class="catalog-side">
+            <div>
+              <h3>Loja viva</h3>
+              <p class="account-copy">A pessoa entra por aqui sem cadastro, entende a oferta e faz login só quando decide comprar.</p>
+            </div>
+
+            <div class="side-list">
+              <span>Produtos principais e complementares</span>
+              <span>Compra individual ou em sequência</span>
+              <span>Acesso liberado após aquisição</span>
+              <span>Espaço para expansão da loja</span>
+            </div>
+
+            <button class="primary-btn" id="sidebarLogin" type="button">Entrar para comprar</button>
+          </aside>
+
+          <div class="catalog-grid" id="catalogGrid"></div>
+        </div>
       </section>
 
       <section class="members-shell" id="membersShell">
         <div class="section-block">
           <div class="section-head">
             <div>
-              <span class="section-label">Área de membros</span>
-              <h2 class="members-title">O cliente entra e vê o que já comprou, mais o que ainda pode adquirir</h2>
+              <p class="section-kicker">Área de membros</p>
+              <h2 class="members-title">O cliente entra e enxerga o que já comprou e o que ainda pode adquirir</h2>
             </div>
-            <p class="section-copy">A área abaixo só aparece quando existe pelo menos um produto adquirido. Ela organiza acesso direto, continuidade e novas oportunidades de compra no mesmo ambiente.</p>
+            <p class="member-copy">Esta área só aparece depois da primeira compra. Aqui a conta deixa de ser só checkout e vira biblioteca, histórico e continuidade de compra no mesmo ambiente.</p>
           </div>
 
           <div class="members-layout">
@@ -795,17 +781,27 @@
               <div class="member-grid" id="ownedGrid"></div>
             </div>
 
-            <aside class="empty-panel">
-              <div>
+            <aside class="account-stack">
+              <div class="account-panel">
+                <div class="panel-top">
+                  <h3>Sua conta</h3>
+                  <span class="status-pill" id="accountState">Conta criada</span>
+                </div>
+                <div class="account-box">
+                  <div class="account-line"><span>Cliente</span><span id="memberName">—</span></div>
+                  <div class="account-line"><span>E-mail</span><span id="memberEmail">—</span></div>
+                  <div class="account-line"><span>Produtos liberados</span><span id="memberOwnedTotal">0</span></div>
+                </div>
+              </div>
+
+              <div class="account-panel">
                 <div class="panel-top">
                   <h3>Você ainda pode comprar</h3>
-                  <span class="lock-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2Zm-6 8.73V18a1 1 0 1 0 2 0v-1.27a2 2 0 1 0-2 0ZM10 8V6a2 2 0 0 1 4 0v2h-4Z"/></svg>
-                  </span>
+                  <span class="status-pill" id="lockedCount">0 disponíveis</span>
                 </div>
-                <p class="empty-copy">Aqui ficam os produtos que a pessoa não levou junto, mas pode adicionar depois sem sair do ambiente de membros.</p>
+                <p class="account-copy">Os produtos que ainda não foram adquiridos continuam visíveis aqui para compra posterior, sem misturar com o que já foi liberado.</p>
+                <div class="recommend-grid" id="lockedGrid"></div>
               </div>
-              <div class="recommend-grid" id="lockedGrid"></div>
             </aside>
           </div>
         </div>
@@ -817,9 +813,9 @@
     <div class="auth-card">
       <div>
         <p class="eyebrow">Entrar para comprar</p>
-        <h3>Fazer login antes do checkout</h3>
+        <h3>Login antes do checkout</h3>
       </div>
-      <p>A estrutura abaixo simula o comportamento da loja: a pessoa explora os produtos sem login, entra para concluir a compra e, depois disso, passa a enxergar a área de membros.</p>
+      <p class="account-copy">Nesta fase, a estrutura simula o comportamento da loja: a pessoa navega sem login, entra para concluir a compra e, depois disso, passa a enxergar a área de membros.</p>
       <div class="auth-grid">
         <div class="field">
           <label for="nameInput">Nome</label>
@@ -840,61 +836,67 @@
 <script>
   const products = [
     {
-      id: 'produto-01',
-      name: 'Produto 01',
-      tag: 'Produto principal',
-      price: 'R$ 37',
-      description: 'Estrutura principal de compra com entrega imediata dentro da biblioteca do cliente.',
-      meta: ['Compra avulsa', 'Acesso liberado', 'Checkout com login']
+      id: "produto-01",
+      name: "Produto 01",
+      tag: "Produto principal",
+      price: "R$ 37",
+      description: "Primeiro espaço da loja para o produto de entrada, com compra individual e acesso liberado na biblioteca privada.",
+      meta: ["Compra avulsa", "Acesso imediato", "Produto de entrada"]
     },
     {
-      id: 'produto-02',
-      name: 'Produto 02',
-      tag: 'Produto complementar',
-      price: 'R$ 57',
-      description: 'Item pensado para entrar como upsell natural dentro da loja e da área de membros.',
-      meta: ['Oferta cruzada', 'Biblioteca privada', 'Pode entrar depois']
+      id: "produto-02",
+      name: "Produto 02",
+      tag: "Produto complementar",
+      price: "R$ 57",
+      description: "Estrutura para o segundo produto entrar como continuidade natural da jornada, tanto na vitrine quanto na área de membros.",
+      meta: ["Oferta complementar", "Pode entrar depois", "Continuidade"]
     },
     {
-      id: 'produto-03',
-      name: 'Produto 03',
-      tag: 'Produto adicional',
-      price: 'R$ 97',
-      description: 'Estrutura pronta para comportar um terceiro item sem quebrar a experiência de navegação.',
-      meta: ['Expansão da loja', 'Compra individual', 'Escala futura']
+      id: "produto-03",
+      name: "Produto 03",
+      tag: "Produto avançado",
+      price: "R$ 97",
+      description: "Terceiro espaço de produto para a loja crescer sem virar bagunça, mantendo compra, acesso e recomendação no mesmo fluxo.",
+      meta: ["Produto premium", "Escala futura", "Biblioteca privada"]
+    },
+    {
+      id: "produto-04",
+      name: "Produto 04",
+      tag: "Oferta extra",
+      price: "R$ 127",
+      description: "Reserva estrutural para um quarto item, combo ou oferta sazonal, já encaixado na lógica da vitrine pública e do ambiente de membros.",
+      meta: ["Espaço para combo", "Oferta sazonal", "Expansão da loja"]
     }
   ];
 
-  const state = {
-    loggedIn: false,
-    name: '',
-    email: '',
-    owned: []
-  };
+  const state = { loggedIn: false, name: "", email: "", owned: [] };
 
-  const catalogGrid = document.getElementById('catalogGrid');
-  const ownedGrid = document.getElementById('ownedGrid');
-  const lockedGrid = document.getElementById('lockedGrid');
-  const authDrawer = document.getElementById('authDrawer');
-  const memberChip = document.getElementById('memberChip');
-  const membersShell = document.getElementById('membersShell');
-  const ownedCount = document.getElementById('ownedCount');
-  const nameInput = document.getElementById('nameInput');
-  const emailInput = document.getElementById('emailInput');
+  const catalogGrid = document.getElementById("catalogGrid");
+  const ownedGrid = document.getElementById("ownedGrid");
+  const lockedGrid = document.getElementById("lockedGrid");
+  const authDrawer = document.getElementById("authDrawer");
+  const memberChip = document.getElementById("memberChip");
+  const membersShell = document.getElementById("membersShell");
+  const ownedCount = document.getElementById("ownedCount");
+  const lockedCount = document.getElementById("lockedCount");
+  const memberName = document.getElementById("memberName");
+  const memberEmail = document.getElementById("memberEmail");
+  const memberOwnedTotal = document.getElementById("memberOwnedTotal");
+  const accountState = document.getElementById("accountState");
+  const nameInput = document.getElementById("nameInput");
+  const emailInput = document.getElementById("emailInput");
+
+  function artMarkup() {
+    return '<img src="/mocku.png" alt="Mockup dos produtos digitais da loja">';
+  }
 
   function renderCatalog() {
     catalogGrid.innerHTML = products.map(function(product) {
       const owned = state.owned.includes(product.id);
       return `
         <article class="product-card">
-          <div class="product-art">
-            <div class="product-stack">
-              <span class="product-sheet"></span>
-              <span class="product-sheet"></span>
-              <span class="product-sheet"></span>
-            </div>
-          </div>
-          <div class="product-body">
+          <div class="product-art">${artMarkup()}</div>
+          <div>
             <div class="product-head">
               <div>
                 <p class="product-tag">${product.tag}</p>
@@ -903,78 +905,77 @@
               <p class="price">Estrutura<br><strong>${product.price}</strong></p>
             </div>
             <p class="product-copy">${product.description}</p>
-            <div class="product-meta">
-              ${product.meta.map(function(item) { return `<span>${item}</span>`; }).join('')}
-            </div>
+          </div>
+          <div class="product-meta">
+            ${product.meta.map(function(item) { return `<span>${item}</span>`; }).join("")}
           </div>
           <div class="product-actions">
             <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver estrutura</button>
-            <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? 'Já liberado' : 'Comprar com login'}</button>
+            <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Já liberado" : "Comprar com login"}</button>
           </div>
         </article>
       `;
-    }).join('');
+    }).join("");
   }
 
   function renderMembers() {
     const ownedProducts = products.filter(function(product) {
       return state.owned.includes(product.id);
     });
-
     const lockedProducts = products.filter(function(product) {
       return !state.owned.includes(product.id);
     });
+    const hasProducts = ownedProducts.length > 0;
 
-    membersShell.classList.toggle('visible', ownedProducts.length > 0);
-    memberChip.classList.toggle('visible', ownedProducts.length > 0);
-    ownedCount.textContent = `${ownedProducts.length} liberado${ownedProducts.length === 1 ? '' : 's'}`;
+    membersShell.classList.toggle("visible", hasProducts);
+    memberChip.classList.toggle("visible", hasProducts);
+    ownedCount.textContent = `${ownedProducts.length} liberado${ownedProducts.length === 1 ? "" : "s"}`;
+    lockedCount.textContent = `${lockedProducts.length} disponível${lockedProducts.length === 1 ? "" : "eis"}`;
+    memberName.textContent = state.name || "Cliente";
+    memberEmail.textContent = state.email || "conta@byninaalves.site";
+    memberOwnedTotal.textContent = String(ownedProducts.length);
+    accountState.textContent = state.loggedIn ? "Conta ativa" : "Conta criada";
 
     ownedGrid.innerHTML = ownedProducts.map(function(product) {
       return `
         <article class="member-card">
-          <div class="member-art">
-            <div class="product-stack">
-              <span class="product-sheet"></span>
-              <span class="product-sheet"></span>
-              <span class="product-sheet"></span>
-            </div>
-          </div>
-          <div class="product-body">
+          <div class="member-art">${artMarkup()}</div>
+          <div>
             <p class="product-tag">Acesso ativo</p>
             <h3 class="product-name">${product.name}</h3>
-            <p class="product-copy">Este produto já está dentro da biblioteca do cliente. Aqui depois entram aulas, arquivos, links e atualizações.</p>
+            <p class="product-copy">Este produto já foi liberado para o cliente. Aqui depois entram aulas, arquivos, links, materiais e atualizações.</p>
           </div>
           <div class="product-actions">
             <button class="primary-btn" type="button">Acessar conteúdo</button>
           </div>
         </article>
       `;
-    }).join('');
+    }).join("");
 
     lockedGrid.innerHTML = lockedProducts.map(function(product) {
       return `
         <article class="member-card">
-          <div class="product-body">
-            <p class="product-tag">Disponível para adicionar</p>
+          <div>
+            <p class="product-tag">Disponível para comprar</p>
             <h3 class="product-name">${product.name}</h3>
-            <p class="product-copy">Continua visível dentro da área de membros para compra posterior, sem confundir com o que já foi liberado.</p>
+            <p class="product-copy">Continua visível para compra futura dentro da área de membros, sem misturar com o que já foi liberado.</p>
           </div>
           <div class="product-actions">
             <button class="ghost-btn" type="button" data-action="buy" data-product="${product.id}">Comprar este produto</button>
           </div>
         </article>
       `;
-    }).join('');
+    }).join("");
   }
 
   function openDrawer() {
-    authDrawer.classList.add('open');
-    authDrawer.setAttribute('aria-hidden', 'false');
+    authDrawer.classList.add("open");
+    authDrawer.setAttribute("aria-hidden", "false");
   }
 
   function closeDrawer() {
-    authDrawer.classList.remove('open');
-    authDrawer.setAttribute('aria-hidden', 'true');
+    authDrawer.classList.remove("open");
+    authDrawer.setAttribute("aria-hidden", "true");
   }
 
   function buyProduct(productId) {
@@ -982,42 +983,40 @@
       openDrawer();
       return;
     }
-
     if (!state.owned.includes(productId)) {
       state.owned.push(productId);
       renderCatalog();
       renderMembers();
-      membersShell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
 
-  document.addEventListener('click', function(event) {
-    const button = event.target.closest('[data-action]');
+  document.addEventListener("click", function(event) {
+    const button = event.target.closest("[data-action]");
     if (!button) return;
 
-    const action = button.getAttribute('data-action');
-    const productId = button.getAttribute('data-product');
-
-    if (action === 'buy') {
-      buyProduct(productId);
-    }
+    const action = button.getAttribute("data-action");
+    const productId = button.getAttribute("data-product");
+    if (action === "buy") buyProduct(productId);
   });
 
-  document.getElementById('loginToggle').addEventListener('click', openDrawer);
-  document.getElementById('heroLogin').addEventListener('click', openDrawer);
-  document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
-  document.getElementById('confirmLogin').addEventListener('click', function() {
+  document.getElementById("loginToggle").addEventListener("click", openDrawer);
+  document.getElementById("heroLogin").addEventListener("click", openDrawer);
+  document.getElementById("sidebarLogin").addEventListener("click", openDrawer);
+  document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
+  document.getElementById("confirmLogin").addEventListener("click", function() {
     state.loggedIn = true;
-    state.name = nameInput.value.trim();
-    state.email = emailInput.value.trim();
+    state.name = nameInput.value.trim() || "Cliente da loja";
+    state.email = emailInput.value.trim() || "conta@byninaalves.site";
     closeDrawer();
+    renderMembers();
   });
 
-  memberChip.addEventListener('click', function() {
-    membersShell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  memberChip.addEventListener("click", function() {
+    membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
-  authDrawer.addEventListener('click', function(event) {
+  authDrawer.addEventListener("click", function(event) {
     if (event.target === authDrawer) closeDrawer();
   });
 
