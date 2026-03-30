@@ -217,6 +217,8 @@
     line-height: 1.1;
     color: var(--text);
     margin-bottom: 8px;
+    max-width: 10.5ch;
+    text-wrap: balance;
   }
 
   .hero-title em {
@@ -251,7 +253,7 @@
 
   .hero-copy {
     text-align: left;
-    max-width: 600px;
+    max-width: 640px;
   }
 
   .hero-copy .hero-subtitle {
@@ -268,6 +270,10 @@
     justify-content: center;
     align-items: center;
     min-width: 0;
+  }
+
+  .hero-cover-mockup img {
+    animation: hero-float 6s ease-in-out infinite;
   }
 
   /* ============================================
@@ -1487,12 +1493,17 @@
   .fade-up {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .fade-up.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @keyframes hero-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(-0.8deg); }
   }
 
   /* ============================================
@@ -1640,30 +1651,31 @@
     <div class="hero-shell">
       <div class="hero-copy">
         <p class="hero-kicker fade-up">Guia Destrave</p>
-    <h1 class="hero-title fade-up" style="transition-delay:0.1s">
-      Vender pode ser mais simples do<br>
-      que você pensa <em>(e eu juro que não é papo de coach)</em>
-    </h1>
-    <p class="hero-subtitle fade-up" style="transition-delay:0.2s">
-      O Guia Destrave foi feito pra quem quer fazer renda extra ou vender mais no próprio micro negócio, mas ainda trava na melhor parte: botar dindin no bolso. São estratégias reais, com exemplos aplicáveis e um direcionamento prático pra você finalmente saber <strong style="color:var(--text);font-weight:500;">exatamente</strong> o que fazer.
-    </p>
-    <div class="fade-up" style="transition-delay:0.3s">
-      <a href="#" class="btn" id="cta-hero">Quero destravar minhas vendas</a>
-    </div>
-    <div class="badges fade-up" style="transition-delay:0.4s">
-      <div class="badge">
-        <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-        1 ano de atualizações
+        <h1 class="hero-title fade-up" style="transition-delay:0.1s">
+          Vender pode ser mais simples do<br>
+          que você pensa <em>(e eu juro que não é papo de coach)</em>
+        </h1>
+        <p class="hero-subtitle fade-up" style="transition-delay:0.2s">
+          O Guia Destrave foi feito pra quem quer fazer renda extra ou vender mais no próprio micro negócio, mas ainda trava na melhor parte: botar dindin no bolso. São estratégias reais, com exemplos aplicáveis e um direcionamento prático pra você finalmente saber <strong style="color:var(--text);font-weight:500;">exatamente</strong> o que fazer.
+        </p>
+        <div class="fade-up" style="transition-delay:0.3s">
+          <a href="#" class="btn" id="cta-hero">Quero destravar minhas vendas</a>
+        </div>
+        <div class="badges fade-up" style="transition-delay:0.4s">
+          <div class="badge">
+            <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            1 ano de atualizações
+          </div>
+          <div class="badge">
+            <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            7 dias de garantia para teste
+          </div>
+          <div class="badge">
+            <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            acesso imediato direto no email
+          </div>
+        </div>
       </div>
-      <div class="badge">
-        <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-        7 dias de garantia para teste
-      </div>
-      <div class="badge">
-        <svg class="badge-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        acesso imediato direto no email
-      </div>
-    </div>
 
       <div class="hero-visual fade-up" style="transition-delay:0.18s;">
         <div class="hero-cover-mockup">
