@@ -267,49 +267,16 @@
     margin: 0;
     min-height: 300px;
     border-radius: 28px;
-    background:
-      radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.05), transparent 22%),
-      linear-gradient(135deg, #1f1b18 0%, #292421 100%);
-    display: grid;
-    place-items: center;
-    padding: 34px;
+    overflow: hidden;
+    background: transparent;
   }
 
-  .hero-banner-mark {
-    position: relative;
-    font-family: var(--sans);
-    font-size: clamp(4rem, 10vw, 8rem);
-    font-weight: 700;
-    line-height: 0.86;
-    letter-spacing: -0.05em;
-    color: rgba(255, 252, 248, 0.96);
-  }
-
-  .hero-banner-mark::after {
-    content: "";
-    position: absolute;
-    left: 60.4%;
-    top: 50%;
-    width: 0.54em;
-    height: 0.54em;
-    transform: translate(-50%, -42%);
-    border-radius: 18px;
-    background:
-      radial-gradient(circle at 50% 42%, #1f1b18 0 11%, transparent 12%),
-      linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(242,236,230,0.96) 100%);
-  }
-
-  .hero-banner-mark::before {
-    content: "";
-    position: absolute;
-    left: 60.4%;
-    top: 56%;
-    width: 0.14em;
-    height: 0.18em;
-    transform: translateX(-50%);
-    border-radius: 999px;
-    background: #1f1b18;
-    z-index: 1;
+  .hero-banner-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 28px;
+    box-shadow: var(--shadow-soft);
   }
 
   .hero-intro {
@@ -1063,7 +1030,7 @@
             </span>
           </div>
           <div class="hero-banner">
-            <div class="hero-banner-mark">DESTRAVE</div>
+            <img class="hero-banner-image" src="/loja/destrave.png" alt="Capa do Guia Destrave">
           </div>
         </div>
 
