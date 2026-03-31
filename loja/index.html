@@ -536,13 +536,51 @@
   .member-chip { display: none; }
   .member-chip.visible { display: inline-flex; }
 
+  .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .icon-btn {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 252, 248, 0.24);
+    background: rgba(255, 252, 248, 0.06);
+    color: var(--warm);
+    display: inline-grid;
+    place-items: center;
+    transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+  }
+
+  .icon-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hero-stage .icon-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 252, 248, 0.14);
+    border-color: rgba(255, 252, 248, 0.34);
+  }
+
   .cart-chip {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
   }
 
   .cart-chip strong {
+    position: absolute;
+    top: -4px;
+    right: -4px;
     min-width: 22px;
     height: 22px;
     border-radius: 50%;
@@ -801,9 +839,22 @@
         <nav class="topnav">
           <a class="chip" href="#catalogo">Produtos</a>
           <a class="chip" href="#como-funciona">Como funciona</a>
-          <button class="chip cart-chip" id="cartToggle" type="button">Carrinho <strong id="cartCount">0</strong></button>
           <button class="status-pill member-chip" id="memberChip" type="button">Área de membros</button>
-          <button class="ghost-btn" id="loginToggle" type="button">Entrar para comprar</button>
+          <div class="nav-icons">
+            <button class="icon-btn" id="loginToggle" type="button" aria-label="Entrar">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 19c0-3 2.6-5 6-5s6 2 6 5"></path>
+                <circle cx="12" cy="8" r="4"></circle>
+              </svg>
+            </button>
+            <button class="icon-btn cart-chip" id="cartToggle" type="button" aria-label="Carrinho">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 7h10l-1 10H8L7 7Z"></path>
+                <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
+              </svg>
+              <strong id="cartCount">0</strong>
+            </button>
+          </div>
         </nav>
       </header>
 
