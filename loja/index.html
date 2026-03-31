@@ -701,12 +701,46 @@
     gap: 22px;
   }
 
+  .auth-top {
+    display: grid;
+    gap: 10px;
+  }
+
   .auth-card h3 {
     margin: 0;
     font-family: var(--serif);
     font-size: 2.7rem;
     line-height: 0.94;
     font-weight: 400;
+  }
+
+  .auth-copy {
+    margin: 0;
+    color: var(--text-soft);
+    line-height: 1.7;
+  }
+
+  .auth-switch {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 6px;
+    border-radius: 999px;
+    background: rgba(244, 236, 226, 0.82);
+    border: 1px solid rgba(190, 159, 127, 0.14);
+  }
+
+  .auth-tab {
+    border-radius: 999px;
+    padding: 10px 18px;
+    color: var(--text-soft);
+    background: transparent;
+  }
+
+  .auth-tab.active {
+    background: var(--warm);
+    color: var(--text);
+    box-shadow: 0 10px 18px rgba(35, 29, 24, 0.06);
   }
 
   .auth-grid { display: grid; gap: 14px; }
@@ -738,6 +772,11 @@
     display: block;
     margin-bottom: 4px;
     color: var(--text);
+  }
+
+  .auth-helper {
+    font-size: 0.9rem;
+    color: var(--text-light);
   }
 
   @media (max-width: 1140px) {
@@ -1015,14 +1054,18 @@
 
   <div class="auth-drawer" id="authDrawer" aria-hidden="true">
     <div class="auth-card">
-      <div>
-        <p class="eyebrow">Entrar para comprar</p>
-        <h3>Login antes do checkout</h3>
+      <div class="auth-top">
+        <p class="eyebrow">Sua conta</p>
+        <h3 id="authTitle">Entrar</h3>
+        <p class="auth-copy" id="authCopy">Acesse sua conta para comprar normalmente, acompanhar o carrinho e entrar na área de membros depois da compra.</p>
       </div>
-      <p class="account-copy">Nesta fase, a estrutura simula o comportamento da loja: a pessoa navega sem login, entra para concluir a compra e, depois disso, passa a enxergar a área de membros.</p>
+      <div class="auth-switch">
+        <button class="auth-tab active" id="loginTab" type="button">Entrar</button>
+        <button class="auth-tab" id="signupTab" type="button">Criar conta</button>
+      </div>
       <div class="drawer-product" id="drawerProductInfo">
-        <strong>Produto selecionado</strong>
-        <span>Escolha um produto para continuar.</span>
+        <strong>Compra em andamento</strong>
+        <span>Você pode entrar ou criar sua conta antes de seguir para o carrinho.</span>
       </div>
       <div class="auth-grid">
         <div class="field">
@@ -1033,10 +1076,15 @@
           <label for="emailInput">E-mail</label>
           <input id="emailInput" type="email" placeholder="voce@email.com">
         </div>
+        <div class="field">
+          <label for="passwordInput">Senha</label>
+          <input id="passwordInput" type="password" placeholder="Sua senha">
+        </div>
       </div>
+      <p class="auth-helper" id="authHelper">Entre com seus dados para continuar comprando.</p>
       <div class="auth-actions">
-        <button class="primary-btn" id="confirmLogin" type="button">Entrar</button>
-        <button class="ghost-btn" id="closeDrawer" type="button">Voltar para a loja</button>
+        <button class="primary-btn" id="confirmLogin" type="button">Continuar</button>
+        <button class="ghost-btn" id="closeDrawer" type="button">Fechar</button>
       </div>
     </div>
   </div>
@@ -1153,6 +1201,7 @@
     loggedIn: false,
     name: "",
     email: "",
+    authMode: "login",
     owned: [],
     cart: [],
     activeMemberTab: "owned",
@@ -1185,8 +1234,14 @@
   const detailsBonuses = document.getElementById("detailsBonuses");
   const drawerProductInfo = document.getElementById("drawerProductInfo");
   const credentialsBox = document.getElementById("credentialsBox");
+  const authTitle = document.getElementById("authTitle");
+  const authCopy = document.getElementById("authCopy");
+  const authHelper = document.getElementById("authHelper");
   const nameInput = document.getElementById("nameInput");
   const emailInput = document.getElementById("emailInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginTab = document.getElementById("loginTab");
+  const signupTab = document.getElementById("signupTab");
   const ownedTab = document.getElementById("ownedTab");
   const lockedTab = document.getElementById("lockedTab");
   const ownedPanel = document.getElementById("ownedPanel");
@@ -1212,6 +1267,20 @@
     lockedTab.classList.toggle("active", tab === "locked");
     ownedPanel.classList.toggle("active", tab === "owned");
     lockedPanel.classList.toggle("active", tab === "locked");
+  }
+
+  function setAuthMode(mode) {
+    state.authMode = mode;
+    const isLogin = mode === "login";
+    loginTab.classList.toggle("active", isLogin);
+    signupTab.classList.toggle("active", !isLogin);
+    authTitle.textContent = isLogin ? "Entrar" : "Criar conta";
+    authCopy.textContent = isLogin
+      ? "Acesse sua conta para comprar normalmente, acompanhar o carrinho e entrar na área de membros depois da compra."
+      : "Crie sua conta para comprar normalmente, guardar seus produtos e acessar a área de membros depois da compra.";
+    authHelper.textContent = isLogin
+      ? "Entre com seus dados para continuar comprando."
+      : "Cadastre sua conta para seguir para o carrinho e finalizar a compra.";
   }
 
   function renderCatalog() {
@@ -1369,8 +1438,9 @@
     if (product) {
       drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>${product.name} • ${product.priceLabel}</span>`;
     } else {
-      drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>Escolha um produto para continuar.</span>`;
+      drawerProductInfo.innerHTML = `<strong>Compra em andamento</strong><span>Entre ou crie sua conta para seguir normalmente.</span>`;
     }
+    setAuthMode(state.authMode || "login");
     authDrawer.classList.add("open");
     authDrawer.setAttribute("aria-hidden", "false");
   }
@@ -1485,6 +1555,14 @@
     renderMembers();
   });
 
+  loginTab.addEventListener("click", function() {
+    setAuthMode("login");
+  });
+
+  signupTab.addEventListener("click", function() {
+    setAuthMode("signup");
+  });
+
   ownedTab.addEventListener("click", function() {
     setMemberTab("owned");
   });
@@ -1512,6 +1590,7 @@
   renderCatalog();
   renderMembers();
   renderCart();
+  setAuthMode("login");
 </script>
 </body>
 </html>
