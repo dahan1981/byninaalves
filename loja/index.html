@@ -1372,8 +1372,7 @@
     catalogGrid.innerHTML = state.products.map(function(product) {
       const owned = state.owned.includes(product.id);
       const inCart = state.cart.includes(product.id);
-      const oldPrice = Math.round(Number(product.price_cents || 0) * 1.8);
-      const oldPriceLabel = oldPrice ? formatPrice(oldPrice / 100) : "";
+      const oldPriceLabel = product.id === "guia-destrave" ? "R$ 97" : "";
       return `
         <article class="product-card">
           <div class="product-art">
@@ -1387,7 +1386,7 @@
               <div>
                 <h3 class="product-name">${product.name}</h3>
               </div>
-              <p class="price">Oferta<br><strong>${product.price_label || product.priceLabel}</strong><span class="price-old">${oldPriceLabel}</span></p>
+              <p class="price">Oferta<br><strong>${product.price_label || product.priceLabel}</strong>${oldPriceLabel ? `<span class="price-old">${oldPriceLabel}</span>` : ""}</p>
             </div>
             <p class="product-copy">${product.description}</p>
             <div class="product-meta">
@@ -1460,7 +1459,9 @@
     if (!product) return;
 
     detailsTitle.textContent = product.name;
-    detailsDescription.textContent = product.description;
+    detailsDescription.textContent = product.id === "guia-destrave"
+      ? "De R$ 97 por R$ 37. Um material direto para destravar ideias de renda extra com mais clareza, estratégia e aplicação prática."
+      : product.description;
     detailsBenefits.innerHTML = (product.benefits || []).map(function(item) {
       return `<li>${item}</li>`;
     }).join("");
