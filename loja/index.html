@@ -314,10 +314,16 @@
 
   .hero-intro {
     display: grid;
-    gap: 18px;
-    max-width: 980px;
+    gap: 20px;
+    max-width: 1060px;
     margin: 0 auto;
     text-align: center;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 16px;
+    justify-items: center;
   }
 
   .hero-copy h1,
@@ -332,7 +338,8 @@
 
   .hero-copy h1 {
     font-size: clamp(2.9rem, 5.2vw, 4.4rem);
-    max-width: 15ch;
+    max-width: 12.5ch;
+    color: #6f4d3a;
   }
 
   .hero-subtitle,
@@ -344,6 +351,12 @@
     margin: 0;
     color: var(--text-soft);
     line-height: 1.78;
+  }
+
+  .hero-subtitle {
+    max-width: 60ch;
+    font-size: 1.02rem;
+    color: #7f5e4b;
   }
 
   .hero-actions,
@@ -361,7 +374,6 @@
     gap: 10px;
   }
 
-  .hero-meta span,
   .product-meta span {
     display: inline-flex;
     align-items: center;
@@ -949,6 +961,10 @@
       text-align: center;
     }
 
+    .hero-copy {
+      justify-items: center;
+    }
+
     .hero-copy h1,
     .hero-subtitle,
     .section-title,
@@ -1075,21 +1091,14 @@
           <div class="hero-copy">
             <div>
               <p class="eyebrow">Guia Destrave</p>
-              <h1>Um espaço para destravar ideias de renda extra com mais clareza, direção e compra organizada.</h1>
+              <h1>Destrave ideias de renda extra com mais clareza e direção.</h1>
             </div>
 
-            <p class="hero-subtitle">A loja foi pensada para deixar o Guia Destrave e os próximos produtos mais fáceis de entender, comparar e comprar. A pessoa navega sem login, escolhe o que faz sentido e, depois da compra, acessa o que já adquiriu e o que ainda pode levar dentro da mesma conta.</p>
+            <p class="hero-subtitle">O Guia Destrave abre essa vitrine com uma proposta simples: ajudar você a enxergar caminhos mais possíveis, mais organizados e mais estratégicos para transformar ideias em novas formas de vender.</p>
           </div>
 
           <div class="hero-actions">
             <a class="primary-btn" href="#catalogo">Ver produtos disponíveis</a>
-            <button class="secondary-btn" id="heroLogin" type="button">Entrar para comprar</button>
-          </div>
-
-          <div class="hero-meta">
-            <span>Exploração sem login</span>
-            <span>Compra organizada</span>
-            <span>Área de membros depois da compra</span>
           </div>
         </div>
       </section>
@@ -1654,7 +1663,6 @@
   });
 
   document.getElementById("loginToggle").addEventListener("click", function() { openDrawer(state.pendingProductId); });
-  document.getElementById("heroLogin").addEventListener("click", function() { openDrawer(state.pendingProductId); });
   document.getElementById("cartToggle").addEventListener("click", openCart);
   document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
   document.getElementById("closeDetails").addEventListener("click", closeDetails);
