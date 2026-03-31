@@ -429,7 +429,6 @@
     margin: 6px 0 0;
   }
 
-  .journey-card,
   .product-card,
   .member-card,
   .catalog-side,
@@ -470,29 +469,6 @@
   .section-copy,
   .catalog-copy,
   .member-copy { max-width: 58ch; }
-
-  .journey-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .journey-card {
-    padding: 22px;
-    display: grid;
-    gap: 12px;
-  }
-
-  .journey-step {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: rgba(198, 149, 105, 0.14);
-    color: var(--accent-dark);
-    font-size: 0.95rem;
-  }
 
   .catalog-layout {
     display: grid;
@@ -1107,51 +1083,17 @@
         </div>
       </section>
 
-      <section class="section-block" id="como-funciona">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Fluxo da loja</p>
-            <h2 class="section-title">A navegação continua leve, mas a compra e o acesso ficam organizados</h2>
-          </div>
-          <p class="section-copy">O caminho aqui é simples: primeiro a pessoa explora a loja, depois entra para comprar e, quando tiver adquirido algo, passa a ver a biblioteca privada e as próximas oportunidades de compra dentro da mesma conta.</p>
-        </div>
-
-        <div class="journey-grid">
-          <article class="journey-card">
-            <span class="journey-step">01</span>
-            <strong>Explora sem login</strong>
-            <p class="section-copy">Todos os produtos ficam públicos para comparação e decisão antes da conta entrar em cena.</p>
-          </article>
-          <article class="journey-card">
-            <span class="journey-step">02</span>
-            <strong>Compra com conta</strong>
-            <p class="section-copy">A conta entra para organizar pedido, acesso, biblioteca e futuras compras no mesmo lugar.</p>
-          </article>
-          <article class="journey-card">
-            <span class="journey-step">03</span>
-            <strong>Segue como membro</strong>
-            <p class="section-copy">Depois da compra, a loja continua viva na área de membros com o que já foi liberado e o que ainda pode ser adquirido.</p>
-          </article>
-        </div>
-      </section>
-
       <section class="section-block" id="catalogo">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Comprar produtos</p>
-            <h2 class="section-title">Uma vitrine pública pensada para vender mais de um produto com clareza</h2>
-          </div>
-          <p class="catalog-copy">Nesta fase, os produtos ainda são placeholders. O importante aqui é a estrutura: catálogo aberto, leitura rápida, login só para comprar e área privada pronta para organizar o pós-compra.</p>
-        </div>
-
         <div class="catalog-layout">
           <div class="featured-strip">
-            <div class="featured-strip-head">
-              <div>
-                <p class="section-kicker">Destaque da loja</p>
-                <h3 class="featured-headline">O Guia Destrave abre o caminho e os outros produtos entram como continuidade da jornada.</h3>
+            <div class="hero-intro" style="max-width: 980px; margin-bottom: 8px;">
+              <div class="hero-copy">
+                <div>
+                  <p class="eyebrow">Comprar produtos</p>
+                  <h2 class="section-title" style="max-width: 13ch; color:#6f4d3a;">Escolha o que faz sentido para o seu momento e siga comprando com mais clareza.</h2>
+                </div>
+                <p class="hero-subtitle">O Guia Destrave abre a vitrine e os outros produtos entram como continuidade natural da jornada. A ideia aqui é deixar tudo mais simples de entender, comparar e escolher.</p>
               </div>
-              <p class="featured-copy">A ideia é fazer a loja parecer mais curada, mais confiável e mais fácil de comprar. Primeiro a pessoa entende o produto principal, depois vê o restante da vitrine lado a lado, sem fricção e sem confusão.</p>
             </div>
 
             <div class="catalog-grid" id="catalogGrid"></div>
