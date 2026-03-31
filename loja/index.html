@@ -92,7 +92,8 @@
   .ghost-btn,
   .primary-btn,
   .secondary-btn,
-  .status-pill {
+  .status-pill,
+  .tab-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -103,7 +104,8 @@
   .chip,
   .ghost-btn,
   .secondary-btn,
-  .status-pill {
+  .status-pill,
+  .tab-btn {
     border: 1px solid var(--line);
     background: rgba(255, 252, 248, 0.86);
     color: var(--text-soft);
@@ -119,6 +121,11 @@
     font-size: 0.94rem;
   }
 
+  .tab-btn {
+    padding: 11px 18px;
+    font-size: 0.9rem;
+  }
+
   .primary-btn {
     background: var(--accent);
     color: #fff;
@@ -130,7 +137,8 @@
   .chip:hover,
   .ghost-btn:hover,
   .primary-btn:hover,
-  .secondary-btn:hover { transform: translateY(-1px); }
+  .secondary-btn:hover,
+  .tab-btn:hover { transform: translateY(-1px); }
 
   .hero-shell {
     display: grid;
@@ -528,6 +536,109 @@
   .member-chip { display: none; }
   .member-chip.visible { display: inline-flex; }
 
+  .cart-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cart-chip strong {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 600;
+  }
+
+  .member-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 12px 24px rgba(198, 149, 105, 0.22);
+  }
+
+  .member-tab-panel {
+    display: none;
+  }
+
+  .member-tab-panel.active {
+    display: block;
+  }
+
+  .cart-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 18px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 252, 248, 0.88);
+    padding: 14px 16px;
+  }
+
+  .cart-item strong,
+  .detail-list strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .cart-item span,
+  .cart-total-line span {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+  }
+
+  .cart-total {
+    border-top: 1px solid rgba(190, 159, 127, 0.16);
+    padding-top: 16px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .cart-total-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .credentials-box,
+  .detail-box {
+    border-radius: 22px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 252, 248, 0.88);
+    padding: 18px;
+    display: grid;
+    gap: 12px;
+  }
+
+  .detail-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .detail-list ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-soft);
+    line-height: 1.75;
+  }
+
   .auth-drawer {
     position: fixed;
     inset: 0;
@@ -575,6 +686,20 @@
     background: #fffdfa;
     color: var(--text);
     padding: 14px 16px;
+  }
+
+  .drawer-product {
+    border-radius: 18px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 252, 248, 0.88);
+    padding: 14px 16px;
+    color: var(--text-soft);
+  }
+
+  .drawer-product strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text);
   }
 
   @media (max-width: 1140px) {
@@ -676,6 +801,7 @@
         <nav class="topnav">
           <a class="chip" href="#catalogo">Produtos</a>
           <a class="chip" href="#como-funciona">Como funciona</a>
+          <button class="chip cart-chip" id="cartToggle" type="button">Carrinho <strong id="cartCount">0</strong></button>
           <button class="status-pill member-chip" id="memberChip" type="button">Área de membros</button>
           <button class="ghost-btn" id="loginToggle" type="button">Entrar para comprar</button>
         </nav>
@@ -787,7 +913,16 @@
                 <h3>Seus produtos</h3>
                 <span class="status-pill" id="ownedCount">0 liberados</span>
               </div>
-              <div class="member-grid" id="ownedGrid"></div>
+              <div class="member-tabs">
+                <button class="tab-btn active" id="ownedTab" type="button">Acesso liberado</button>
+                <button class="tab-btn" id="lockedTab" type="button">Adquirir mais</button>
+              </div>
+              <div class="member-tab-panel active" id="ownedPanel">
+                <div class="member-grid" id="ownedGrid"></div>
+              </div>
+              <div class="member-tab-panel" id="lockedPanel">
+                <div class="recommend-grid" id="lockedGrid"></div>
+              </div>
             </div>
 
             <aside class="account-stack">
@@ -805,11 +940,14 @@
 
               <div class="account-panel">
                 <div class="panel-top">
-                  <h3>Você ainda pode comprar</h3>
+                  <h3>Carrinho e acesso</h3>
                   <span class="status-pill" id="lockedCount">0 disponíveis</span>
                 </div>
-                <p class="account-copy">Os produtos que ainda não foram adquiridos continuam visíveis aqui para compra posterior, sem misturar com o que já foi liberado.</p>
-                <div class="recommend-grid" id="lockedGrid"></div>
+                <p class="account-copy">A compra pode acontecer com mais de um produto por vez. Depois de finalizar, as credenciais simuladas aparecem aqui como se tivessem sido enviadas por e-mail.</p>
+                <div class="account-box" id="credentialsBox">
+                  <div class="account-line"><span>Acesso</span><span>Pendente</span></div>
+                  <div class="account-line"><span>Status</span><span>Aguardando compra</span></div>
+                </div>
               </div>
             </aside>
           </div>
@@ -825,6 +963,10 @@
         <h3>Login antes do checkout</h3>
       </div>
       <p class="account-copy">Nesta fase, a estrutura simula o comportamento da loja: a pessoa navega sem login, entra para concluir a compra e, depois disso, passa a enxergar a área de membros.</p>
+      <div class="drawer-product" id="drawerProductInfo">
+        <strong>Produto selecionado</strong>
+        <span>Escolha um produto para continuar.</span>
+      </div>
       <div class="auth-grid">
         <div class="field">
           <label for="nameInput">Nome</label>
@@ -842,48 +984,131 @@
     </div>
   </div>
 
+  <div class="auth-drawer" id="detailsDrawer" aria-hidden="true">
+    <div class="auth-card">
+      <div>
+        <p class="eyebrow">Ver detalhes</p>
+        <h3 id="detailsTitle">Produto</h3>
+      </div>
+      <div class="detail-box">
+        <p class="account-copy" id="detailsDescription"></p>
+        <div class="detail-list">
+          <div>
+            <strong>Benefícios</strong>
+            <ul id="detailsBenefits"></ul>
+          </div>
+          <div>
+            <strong>Bônus</strong>
+            <ul id="detailsBonuses"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="auth-actions">
+        <button class="primary-btn" id="detailsBuy" type="button">Quero este produto</button>
+        <button class="ghost-btn" id="closeDetails" type="button">Voltar para a loja</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="auth-card">
+      <div>
+        <p class="eyebrow">Carrinho</p>
+        <h3>Seus produtos selecionados</h3>
+      </div>
+      <div class="detail-box">
+        <div class="cart-list" id="cartList"></div>
+        <div class="cart-total">
+          <div class="cart-total-line"><span>Total</span><strong id="cartTotal">R$ 0</strong></div>
+          <div class="cart-total-line"><span>Status</span><span id="cartStatus">Escolha um produto para continuar.</span></div>
+        </div>
+      </div>
+      <div class="credentials-box" id="cartCredentialsBox" hidden></div>
+      <div class="auth-actions">
+        <button class="primary-btn" id="finishPurchase" type="button">Finalizar compra</button>
+        <button class="ghost-btn" id="closeCart" type="button">Continuar comprando</button>
+      </div>
+    </div>
+  </div>
+
 <script>
   const products = [
     {
-      id: "produto-01",
-      name: "Produto 01",
+      id: "guia-destrave",
+      name: "Guia Destrave",
       tag: "Produto principal",
-      price: "R$ 37",
-      description: "Primeiro espaço da loja para o produto de entrada, com compra individual e acesso liberado na biblioteca privada.",
-      meta: ["Compra avulsa", "Acesso imediato", "Produto de entrada"]
+      price: 37,
+      priceLabel: "R$ 37",
+      description: "Material principal da loja para destravar ideias de renda extra com mais clareza, direção prática e leitura leve.",
+      meta: ["Acesso imediato", "Compra avulsa", "Biblioteca privada"],
+      benefits: [
+        "Ajuda a transformar ideias soltas em caminhos mais claros de renda extra.",
+        "Organiza visão, direção e próximos passos de forma simples de aplicar.",
+        "Funciona como porta de entrada para a biblioteca e para futuros produtos."
+      ],
+      bonuses: [
+        "Acesso liberado na área de membros.",
+        "Espaço para atualizações futuras dentro da mesma conta.",
+        "Compra conectada com outros produtos da loja."
+      ]
     },
     {
       id: "produto-02",
       name: "Produto 02",
       tag: "Produto complementar",
-      price: "R$ 57",
-      description: "Estrutura para o segundo produto entrar como continuidade natural da jornada, tanto na vitrine quanto na área de membros.",
-      meta: ["Oferta complementar", "Pode entrar depois", "Continuidade"]
+      price: 57,
+      priceLabel: "R$ 57",
+      description: "Produto pensado para continuar a jornada de quem já começou a destravar ideias e quer aprofundar a execução.",
+      meta: ["Continuidade", "Pode entrar depois", "Oferta complementar"],
+      benefits: [
+        "Amplia a jornada de compra sem depender de novo cadastro.",
+        "Entra como sequência natural do produto principal.",
+        "Fica disponível para compra posterior na área de membros."
+      ],
+      bonuses: [
+        "Acesso separado por produto.",
+        "Visualização clara dentro da biblioteca.",
+        "Integração com o mesmo fluxo de compra."
+      ]
     },
     {
       id: "produto-03",
       name: "Produto 03",
       tag: "Produto avançado",
-      price: "R$ 97",
-      description: "Terceiro espaço de produto para a loja crescer sem virar bagunça, mantendo compra, acesso e recomendação no mesmo fluxo.",
-      meta: ["Produto premium", "Escala futura", "Biblioteca privada"]
-    },
-    {
-      id: "produto-04",
-      name: "Produto 04",
-      tag: "Oferta extra",
-      price: "R$ 127",
-      description: "Reserva estrutural para um quarto item, combo ou oferta sazonal, já encaixado na lógica da vitrine pública e do ambiente de membros.",
-      meta: ["Espaço para combo", "Oferta sazonal", "Expansão da loja"]
+      price: 97,
+      priceLabel: "R$ 97",
+      description: "Espaço reservado para um produto mais robusto, com valor percebido maior e papel de continuidade premium dentro da loja.",
+      meta: ["Produto premium", "Escala futura", "Biblioteca privada"],
+      benefits: [
+        "Ajuda a loja a comportar tickets diferentes com clareza.",
+        "Permite upgrades e novas compras no mesmo ambiente.",
+        "Mantém vitrine, conta e acesso funcionando em conjunto."
+      ],
+      bonuses: [
+        "Acesso liberado automaticamente após a compra.",
+        "Visão separada entre adquirido e disponível.",
+        "Simulação de entrega por e-mail e senha."
+      ]
     }
   ];
 
-  const state = { loggedIn: false, name: "", email: "", owned: [] };
+  const state = {
+    loggedIn: false,
+    name: "",
+    email: "",
+    owned: [],
+    cart: [],
+    activeMemberTab: "owned",
+    pendingProductId: null,
+    credentials: null
+  };
 
   const catalogGrid = document.getElementById("catalogGrid");
   const ownedGrid = document.getElementById("ownedGrid");
   const lockedGrid = document.getElementById("lockedGrid");
   const authDrawer = document.getElementById("authDrawer");
+  const detailsDrawer = document.getElementById("detailsDrawer");
+  const cartDrawer = document.getElementById("cartDrawer");
   const memberChip = document.getElementById("memberChip");
   const membersShell = document.getElementById("membersShell");
   const ownedCount = document.getElementById("ownedCount");
@@ -892,16 +1117,50 @@
   const memberEmail = document.getElementById("memberEmail");
   const memberOwnedTotal = document.getElementById("memberOwnedTotal");
   const accountState = document.getElementById("accountState");
+  const cartCount = document.getElementById("cartCount");
+  const cartList = document.getElementById("cartList");
+  const cartTotal = document.getElementById("cartTotal");
+  const cartStatus = document.getElementById("cartStatus");
+  const cartCredentialsBox = document.getElementById("cartCredentialsBox");
+  const detailsTitle = document.getElementById("detailsTitle");
+  const detailsDescription = document.getElementById("detailsDescription");
+  const detailsBenefits = document.getElementById("detailsBenefits");
+  const detailsBonuses = document.getElementById("detailsBonuses");
+  const drawerProductInfo = document.getElementById("drawerProductInfo");
+  const credentialsBox = document.getElementById("credentialsBox");
   const nameInput = document.getElementById("nameInput");
   const emailInput = document.getElementById("emailInput");
+  const ownedTab = document.getElementById("ownedTab");
+  const lockedTab = document.getElementById("lockedTab");
+  const ownedPanel = document.getElementById("ownedPanel");
+  const lockedPanel = document.getElementById("lockedPanel");
+
+  function findProduct(productId) {
+    return products.find(function(product) {
+      return product.id === productId;
+    });
+  }
 
   function artMarkup() {
     return '<img src="/mocku.png" alt="Mockup dos produtos digitais da loja">';
   }
 
+  function formatPrice(value) {
+    return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  }
+
+  function setMemberTab(tab) {
+    state.activeMemberTab = tab;
+    ownedTab.classList.toggle("active", tab === "owned");
+    lockedTab.classList.toggle("active", tab === "locked");
+    ownedPanel.classList.toggle("active", tab === "owned");
+    lockedPanel.classList.toggle("active", tab === "locked");
+  }
+
   function renderCatalog() {
     catalogGrid.innerHTML = products.map(function(product) {
       const owned = state.owned.includes(product.id);
+      const inCart = state.cart.includes(product.id);
       return `
         <article class="product-card">
           <div class="product-art">${artMarkup()}</div>
@@ -911,7 +1170,7 @@
                 <p class="product-tag">${product.tag}</p>
                 <h3 class="product-name">${product.name}</h3>
               </div>
-              <p class="price">Estrutura<br><strong>${product.price}</strong></p>
+              <p class="price">Estrutura<br><strong>${product.priceLabel}</strong></p>
             </div>
             <p class="product-copy">${product.description}</p>
           </div>
@@ -919,12 +1178,79 @@
             ${product.meta.map(function(item) { return `<span>${item}</span>`; }).join("")}
           </div>
           <div class="product-actions">
-            <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver estrutura</button>
-            <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Já liberado" : "Comprar com login"}</button>
+            <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
+            <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Acesso liberado" : inCart ? "No carrinho" : "Quero este produto"}</button>
           </div>
         </article>
       `;
     }).join("");
+  }
+
+  function renderCart() {
+    const cartProducts = products.filter(function(product) {
+      return state.cart.includes(product.id);
+    });
+    const total = cartProducts.reduce(function(sum, product) {
+      return sum + product.price;
+    }, 0);
+
+    cartCount.textContent = String(cartProducts.length);
+
+    if (!cartProducts.length) {
+      cartList.innerHTML = '<div class="cart-item"><div><strong>Carrinho vazio</strong><span>Escolha um produto para continuar.</span></div></div>';
+      cartStatus.textContent = state.loggedIn ? "Sua conta já está pronta para comprar." : "Faça login para seguir para o checkout.";
+      cartTotal.textContent = "R$ 0";
+    } else {
+      cartList.innerHTML = cartProducts.map(function(product) {
+        return `
+          <div class="cart-item">
+            <div>
+              <strong>${product.name}</strong>
+              <span>${product.tag}</span>
+            </div>
+            <strong>${product.priceLabel}</strong>
+          </div>
+        `;
+      }).join("");
+      cartStatus.textContent = state.loggedIn ? "Tudo pronto para finalizar a compra." : "Você vai fazer login antes de finalizar.";
+      cartTotal.textContent = formatPrice(total);
+    }
+
+    if (state.credentials) {
+      cartCredentialsBox.hidden = false;
+      cartCredentialsBox.innerHTML = `
+        <strong>Credenciais enviadas por e-mail</strong>
+        <div class="account-line"><span>E-mail</span><span>${state.credentials.email}</span></div>
+        <div class="account-line"><span>Senha</span><span>${state.credentials.password}</span></div>
+      `;
+      credentialsBox.innerHTML = `
+        <div class="account-line"><span>Acesso</span><span>Liberado</span></div>
+        <div class="account-line"><span>E-mail</span><span>${state.credentials.email}</span></div>
+        <div class="account-line"><span>Senha</span><span>${state.credentials.password}</span></div>
+      `;
+    } else {
+      cartCredentialsBox.hidden = true;
+      cartCredentialsBox.innerHTML = "";
+      credentialsBox.innerHTML = `
+        <div class="account-line"><span>Acesso</span><span>Pendente</span></div>
+        <div class="account-line"><span>Status</span><span>${state.loggedIn ? "Conta pronta para compra" : "Aguardando login e compra"}</span></div>
+      `;
+    }
+  }
+
+  function renderDetails(productId) {
+    const product = findProduct(productId);
+    if (!product) return;
+
+    detailsTitle.textContent = product.name;
+    detailsDescription.textContent = product.description;
+    detailsBenefits.innerHTML = product.benefits.map(function(item) {
+      return `<li>${item}</li>`;
+    }).join("");
+    detailsBonuses.innerHTML = product.bonuses.map(function(item) {
+      return `<li>${item}</li>`;
+    }).join("");
+    document.getElementById("detailsBuy").setAttribute("data-product", product.id);
   }
 
   function renderMembers() {
@@ -970,14 +1296,24 @@
             <p class="product-copy">Continua visível para compra futura dentro da área de membros, sem misturar com o que já foi liberado.</p>
           </div>
           <div class="product-actions">
-            <button class="ghost-btn" type="button" data-action="buy" data-product="${product.id}">Comprar este produto</button>
+            <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
+            <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">Desbloquear produto</button>
           </div>
         </article>
       `;
     }).join("");
+
+    renderCart();
+    setMemberTab(state.activeMemberTab);
   }
 
-  function openDrawer() {
+  function openDrawer(productId) {
+    const product = productId ? findProduct(productId) : null;
+    if (product) {
+      drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>${product.name} • ${product.priceLabel}</span>`;
+    } else {
+      drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>Escolha um produto para continuar.</span>`;
+    }
     authDrawer.classList.add("open");
     authDrawer.setAttribute("aria-hidden", "false");
   }
@@ -987,17 +1323,72 @@
     authDrawer.setAttribute("aria-hidden", "true");
   }
 
+  function openDetails(productId) {
+    renderDetails(productId);
+    detailsDrawer.classList.add("open");
+    detailsDrawer.setAttribute("aria-hidden", "false");
+  }
+
+  function closeDetails() {
+    detailsDrawer.classList.remove("open");
+    detailsDrawer.setAttribute("aria-hidden", "true");
+  }
+
+  function openCart() {
+    renderCart();
+    cartDrawer.classList.add("open");
+    cartDrawer.setAttribute("aria-hidden", "false");
+  }
+
+  function closeCart() {
+    cartDrawer.classList.remove("open");
+    cartDrawer.setAttribute("aria-hidden", "true");
+  }
+
+  function addToCart(productId) {
+    if (!state.cart.includes(productId) && !state.owned.includes(productId)) {
+      state.cart.push(productId);
+    }
+    renderCatalog();
+    renderMembers();
+  }
+
   function buyProduct(productId) {
+    if (!state.loggedIn) {
+      state.pendingProductId = productId;
+      openDrawer(productId);
+      return;
+    }
+    addToCart(productId);
+    openCart();
+  }
+
+  function finishPurchase() {
     if (!state.loggedIn) {
       openDrawer();
       return;
     }
-    if (!state.owned.includes(productId)) {
-      state.owned.push(productId);
-      renderCatalog();
-      renderMembers();
-      membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    if (!state.cart.length) {
+      openCart();
+      return;
     }
+
+    state.cart.forEach(function(productId) {
+      if (!state.owned.includes(productId)) {
+        state.owned.push(productId);
+      }
+    });
+
+    state.credentials = {
+      email: state.email || "conta@byninaalves.site",
+      password: "nina" + Math.floor(1000 + Math.random() * 9000)
+    };
+    state.cart = [];
+    renderCatalog();
+    renderMembers();
+    openCart();
+    membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   document.addEventListener("click", function(event) {
@@ -1007,17 +1398,42 @@
     const action = button.getAttribute("data-action");
     const productId = button.getAttribute("data-product");
     if (action === "buy") buyProduct(productId);
+    if (action === "details") openDetails(productId);
   });
 
-  document.getElementById("loginToggle").addEventListener("click", openDrawer);
-  document.getElementById("heroLogin").addEventListener("click", openDrawer);
+  document.getElementById("loginToggle").addEventListener("click", function() { openDrawer(state.pendingProductId); });
+  document.getElementById("heroLogin").addEventListener("click", function() { openDrawer(state.pendingProductId); });
+  document.getElementById("cartToggle").addEventListener("click", openCart);
   document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
+  document.getElementById("closeDetails").addEventListener("click", closeDetails);
+  document.getElementById("closeCart").addEventListener("click", closeCart);
+  document.getElementById("finishPurchase").addEventListener("click", finishPurchase);
+  document.getElementById("detailsBuy").addEventListener("click", function(event) {
+    const productId = event.currentTarget.getAttribute("data-product");
+    closeDetails();
+    buyProduct(productId);
+  });
   document.getElementById("confirmLogin").addEventListener("click", function() {
     state.loggedIn = true;
     state.name = nameInput.value.trim() || "Cliente da loja";
     state.email = emailInput.value.trim() || "conta@byninaalves.site";
     closeDrawer();
+    if (state.pendingProductId) {
+      addToCart(state.pendingProductId);
+      state.pendingProductId = null;
+      openCart();
+    } else {
+      renderCart();
+    }
     renderMembers();
+  });
+
+  ownedTab.addEventListener("click", function() {
+    setMemberTab("owned");
+  });
+
+  lockedTab.addEventListener("click", function() {
+    setMemberTab("locked");
   });
 
   memberChip.addEventListener("click", function() {
@@ -1028,8 +1444,17 @@
     if (event.target === authDrawer) closeDrawer();
   });
 
+  detailsDrawer.addEventListener("click", function(event) {
+    if (event.target === detailsDrawer) closeDetails();
+  });
+
+  cartDrawer.addEventListener("click", function(event) {
+    if (event.target === cartDrawer) closeCart();
+  });
+
   renderCatalog();
   renderMembers();
+  renderCart();
 </script>
 </body>
 </html>
