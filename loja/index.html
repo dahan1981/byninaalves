@@ -1388,10 +1388,11 @@
               </div>
               <p class="price">Oferta<br><strong>${product.price_label || product.priceLabel}</strong>${oldPriceLabel ? `<span class="price-old">${oldPriceLabel}</span>` : ""}</p>
             </div>
-            <p class="product-copy">${product.description}</p>
+            ${product.description ? `<p class="product-copy">${product.description}</p>` : ""}
+            ${(product.meta || []).length ? `
             <div class="product-meta">
               ${(product.meta || []).map(function(item) { return `<span>${item}</span>`; }).join("")}
-            </div>
+            </div>` : ""}
             <div class="product-actions">
               <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
               <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Acesso liberado" : inCart ? "No carrinho" : "Quero este produto"}</button>
@@ -1461,13 +1462,19 @@
     detailsTitle.textContent = product.name;
     detailsDescription.textContent = product.id === "guia-destrave"
       ? "De R$ 97 por R$ 37. Um material direto para destravar ideias de renda extra com mais clareza, estratégia e aplicação prática."
-      : product.description;
+      : (product.description || "Mais detalhes deste produto entram aqui em seguida.");
     detailsBenefits.innerHTML = (product.benefits || []).map(function(item) {
       return `<li>${item}</li>`;
     }).join("");
     detailsBonuses.innerHTML = (product.bonuses || []).map(function(item) {
       return `<li>${item}</li>`;
     }).join("");
+    if (!(product.benefits || []).length) {
+      detailsBenefits.innerHTML = "<li>Em breve</li>";
+    }
+    if (!(product.bonuses || []).length) {
+      detailsBonuses.innerHTML = "<li>Em breve</li>";
+    }
     document.getElementById("detailsBuy").setAttribute("data-product", product.id);
   }
 
