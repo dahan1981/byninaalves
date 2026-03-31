@@ -39,6 +39,29 @@
       linear-gradient(180deg, #fffdfa 0%, var(--cream) 48%, #f7f0e6 100%);
   }
 
+  .ticker {
+    background: #2b1a12;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.77rem;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    padding: 9px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    animation: tickerMove 28s linear infinite;
+  }
+
+  .ticker-track span { padding: 0 44px; }
+
+  @keyframes tickerMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
   a { color: inherit; text-decoration: none; }
   button, input { font: inherit; }
   button { border: 0; background: none; cursor: pointer; }
@@ -48,14 +71,23 @@
     margin: 0 auto;
   }
 
-  .site-shell { padding: 24px 0 88px; }
+  .site-shell { padding: 0 0 88px; }
+
+  .header-shell {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 252, 248, 0.95);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(190, 159, 127, 0.14);
+  }
 
   .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding-bottom: 28px;
+    padding: 18px 0;
   }
 
   .brand {
@@ -81,9 +113,34 @@
     color: var(--accent);
   }
 
+  .header-search {
+    flex: 1;
+    max-width: 420px;
+    position: relative;
+  }
+
+  .header-search input {
+    width: 100%;
+    border-radius: 999px;
+    border: 1px solid rgba(190, 159, 127, 0.18);
+    background: #f7efe6;
+    color: var(--text);
+    padding: 11px 18px 11px 42px;
+    font-size: 0.88rem;
+  }
+
+  .search-mark {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
   .topnav {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: flex-end;
     gap: 12px;
   }
@@ -115,6 +172,30 @@
   .ghost-btn,
   .status-pill { padding: 11px 16px; font-size: 0.9rem; }
 
+  .nav-cats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .nav-cats::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    white-space: nowrap;
+    padding: 12px 20px;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    border-bottom: 2px solid transparent;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-link:hover {
+    color: var(--accent-dark);
+    border-bottom-color: var(--accent);
+  }
+
   .primary-btn,
   .secondary-btn {
     padding: 15px 26px;
@@ -142,14 +223,14 @@
 
   .hero-shell {
     display: grid;
-    gap: 28px;
-    padding: 8px 0 22px;
+    gap: 24px;
+    padding: 34px 0 18px;
   }
 
   .hero-stage {
-    border-radius: 36px;
+    border-radius: 28px;
     overflow: hidden;
-    border: 1px solid rgba(190, 159, 127, 0.16);
+    border: 1px solid rgba(190, 159, 127, 0.1);
     box-shadow: var(--shadow);
     background: linear-gradient(180deg, #b09a86 0%, #a48d78 100%);
   }
@@ -184,7 +265,7 @@
 
   .hero-banner {
     margin: 0 28px 28px;
-    min-height: 360px;
+    min-height: 300px;
     border-radius: 28px;
     background:
       radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.05), transparent 22%),
@@ -233,8 +314,8 @@
 
   .hero-intro {
     display: grid;
-    gap: 22px;
-    max-width: 920px;
+    gap: 18px;
+    max-width: 980px;
     margin: 0 auto;
     text-align: center;
   }
@@ -250,8 +331,8 @@
   }
 
   .hero-copy h1 {
-    font-size: clamp(3.1rem, 6vw, 4.9rem);
-    max-width: 14ch;
+    font-size: clamp(2.9rem, 5.2vw, 4.4rem);
+    max-width: 15ch;
   }
 
   .hero-subtitle,
@@ -397,7 +478,10 @@
     font-size: 0.95rem;
   }
 
-  .catalog-layout { display: grid; gap: 18px; }
+  .catalog-layout {
+    display: grid;
+    gap: 20px;
+  }
 
   .catalog-side,
   .members-panel,
@@ -433,29 +517,59 @@
   .member-grid,
   .recommend-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 18px;
   }
 
   .product-card,
   .member-card {
-    padding: 22px;
+    overflow: hidden;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 0;
+    cursor: pointer;
+    transition: transform 0.24s ease, box-shadow 0.24s ease;
+  }
+
+  .product-card:hover,
+  .member-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 34px rgba(35, 29, 24, 0.1);
   }
 
   .product-art,
   .member-art {
-    aspect-ratio: 1.14 / 1;
-    border-radius: 22px;
-    border: 1px solid rgba(190, 159, 127, 0.16);
+    aspect-ratio: 1 / 1;
+    border-radius: 0;
     background:
       radial-gradient(circle at top right, rgba(198, 149, 105, 0.16), transparent 30%),
       linear-gradient(180deg, #fffdfa 0%, #f3eadf 100%);
     display: grid;
     place-items: center;
     overflow: hidden;
+    position: relative;
+  }
+
+  .product-badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    z-index: 2;
+  }
+
+  .product-badge {
+    border-radius: 999px;
+    padding: 4px 9px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--accent);
   }
 
   .product-art img,
@@ -472,10 +586,16 @@
     align-items: start;
   }
 
+  .product-body {
+    padding: 16px 16px 18px;
+    display: grid;
+    gap: 12px;
+  }
+
   .product-name {
-    margin: 8px 0 0;
+    margin: 4px 0 0;
     font-family: var(--serif);
-    font-size: 2rem;
+    font-size: 1.45rem;
     line-height: 0.97;
     font-weight: 400;
   }
@@ -492,6 +612,13 @@
     margin-top: 2px;
     font-size: 1.34rem;
     color: var(--text);
+  }
+
+  .price-old {
+    display: block;
+    font-size: 0.74rem;
+    text-decoration: line-through;
+    color: var(--text-light);
   }
 
   .members-shell { display: none; }
@@ -790,16 +917,22 @@
 
   @media (max-width: 760px) {
     .container { width: min(100% - 26px, 100%); }
-    .site-shell { padding-top: 18px; }
+    .site-shell { padding-top: 0; }
 
     .topbar {
-      flex-direction: column;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: stretch;
+    }
+
+    .header-search {
+      max-width: none;
+      order: 3;
     }
 
     .topnav {
       width: 100%;
-      justify-content: flex-start;
+      justify-content: flex-end;
     }
 
     .hero-stage-top {
@@ -867,41 +1000,63 @@
 </style>
 </head>
 <body>
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>• PRODUTOS DIGITAIS • COMPRA ORGANIZADA • ACESSO IMEDIATO • ÁREA DE MEMBROS • CONTINUIDADE DE COMPRA</span>
+      <span>• PRODUTOS DIGITAIS • COMPRA ORGANIZADA • ACESSO IMEDIATO • ÁREA DE MEMBROS • CONTINUIDADE DE COMPRA</span>
+    </div>
+  </div>
   <div class="site-shell">
-    <div class="container">
-      <header class="topbar">
-        <a class="brand" href="/">
-          <span class="brand-mark">byninaalves</span>
-          <span class="brand-note">Loja digital + área de membros</span>
-        </a>
+    <div class="header-shell">
+      <div class="container">
+        <header class="topbar">
+          <a class="brand" href="/">
+            <span class="brand-mark">byninaalves</span>
+            <span class="brand-note">Loja digital + área de membros</span>
+          </a>
 
-        <nav class="topnav">
-          <a class="chip" href="#catalogo">Produtos</a>
-          <a class="chip" href="#como-funciona">Como funciona</a>
-          <button class="status-pill member-chip" id="memberChip" type="button">Área de membros</button>
-          <div class="nav-icons">
-            <button class="icon-btn" id="searchToggle" type="button" aria-label="Buscar">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="11" cy="11" r="7"></circle>
-                <path d="m20 20-4.2-4.2"></path>
-              </svg>
-            </button>
-            <button class="icon-btn" id="loginToggle" type="button" aria-label="Entrar">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 19c0-3 2.6-5 6-5s6 2 6 5"></path>
-                <circle cx="12" cy="8" r="4"></circle>
-              </svg>
-            </button>
-            <button class="icon-btn cart-chip" id="cartToggle" type="button" aria-label="Carrinho">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 7h10l-1 10H8L7 7Z"></path>
-                <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
-              </svg>
-              <strong id="cartCount">0</strong>
-            </button>
+          <div class="header-search">
+            <span class="search-mark">⌕</span>
+            <input type="text" placeholder="Buscar produtos, guias e materiais">
           </div>
+
+          <nav class="topnav">
+            <button class="status-pill member-chip" id="memberChip" type="button">Área de membros</button>
+            <div class="nav-icons">
+              <button class="icon-btn" id="searchToggle" type="button" aria-label="Buscar">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="m20 20-4.2-4.2"></path>
+                </svg>
+              </button>
+              <button class="icon-btn" id="loginToggle" type="button" aria-label="Entrar">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 19c0-3 2.6-5 6-5s6 2 6 5"></path>
+                  <circle cx="12" cy="8" r="4"></circle>
+                </svg>
+              </button>
+              <button class="icon-btn cart-chip" id="cartToggle" type="button" aria-label="Carrinho">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 7h10l-1 10H8L7 7Z"></path>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
+                </svg>
+                <strong id="cartCount">0</strong>
+              </button>
+            </div>
+          </nav>
+        </header>
+
+        <nav class="nav-cats">
+          <a class="nav-link" href="#catalogo">Guias & Estratégias</a>
+          <a class="nav-link" href="#catalogo">Materiais Digitais</a>
+          <a class="nav-link" href="#catalogo">Calendários</a>
+          <a class="nav-link" href="#catalogo">Área de membros</a>
+          <a class="nav-link" href="#como-funciona">Como funciona</a>
         </nav>
-      </header>
+      </div>
+    </div>
+
+    <div class="container">
 
       <section class="hero-shell">
         <div class="hero-stage">
@@ -1264,25 +1419,31 @@
     catalogGrid.innerHTML = state.products.map(function(product) {
       const owned = state.owned.includes(product.id);
       const inCart = state.cart.includes(product.id);
+      const oldPrice = Math.round(Number(product.price_cents || 0) * 1.8);
+      const oldPriceLabel = oldPrice ? formatPrice(oldPrice / 100) : "";
       return `
         <article class="product-card">
-          <div class="product-art">${artMarkup()}</div>
-          <div>
+          <div class="product-art">
+            <div class="product-badges">
+              <span class="product-badge">${product.tag}</span>
+            </div>
+            ${artMarkup()}
+          </div>
+          <div class="product-body">
             <div class="product-head">
               <div>
-                <p class="product-tag">${product.tag}</p>
                 <h3 class="product-name">${product.name}</h3>
               </div>
-              <p class="price">Estrutura<br><strong>${product.price_label || product.priceLabel}</strong></p>
+              <p class="price">Oferta<br><strong>${product.price_label || product.priceLabel}</strong><span class="price-old">${oldPriceLabel}</span></p>
             </div>
             <p class="product-copy">${product.description}</p>
-          </div>
-          <div class="product-meta">
-            ${(product.meta || []).map(function(item) { return `<span>${item}</span>`; }).join("")}
-          </div>
-          <div class="product-actions">
-            <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
-            <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Acesso liberado" : inCart ? "No carrinho" : "Quero este produto"}</button>
+            <div class="product-meta">
+              ${(product.meta || []).map(function(item) { return `<span>${item}</span>`; }).join("")}
+            </div>
+            <div class="product-actions">
+              <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
+              <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Acesso liberado" : inCart ? "No carrinho" : "Quero este produto"}</button>
+            </div>
           </div>
         </article>
       `;
