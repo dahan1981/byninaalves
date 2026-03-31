@@ -197,7 +197,7 @@
   });
 
   document.getElementById("cartToggle").addEventListener("click", function () {
-    window.location.href = "/loja";
+    window.location.href = "/loja/carrinho.html";
   });
 
   loadBootstrap().catch(function (error) {

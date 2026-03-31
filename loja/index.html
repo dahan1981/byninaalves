@@ -1985,7 +1985,7 @@
             </div>` : ""}
             <div class="product-actions">
               <a class="ghost-btn" href="${productHref(product.id)}">Ver detalhes</a>
-              <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Acesso liberado" : inCart ? "No carrinho" : "Quero este produto"}</button>
+              <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Acesso liberado" : inCart ? "Finalizar compra" : "Quero este produto"}</button>
             </div>
           </div>
         </article>
@@ -2230,8 +2230,15 @@
       openDrawer(productId);
       return;
     }
+    if (state.owned.includes(productId)) {
+      window.location.href = "/loja/membros.html";
+      return;
+    }
+    if (state.cart.includes(productId)) {
+      window.location.href = "/loja/carrinho.html";
+      return;
+    }
     await syncCart("add", productId);
-    openCart();
   }
 
   async function finishPurchase() {
@@ -2300,7 +2307,9 @@
     state.searchTerm = event.target.value || "";
     renderCatalog();
   });
-  document.getElementById("cartToggle").addEventListener("click", openCart);
+  document.getElementById("cartToggle").addEventListener("click", function() {
+    window.location.href = "/loja/carrinho.html";
+  });
   document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
   document.getElementById("closeDetails").addEventListener("click", closeDetails);
   document.getElementById("closeCart").addEventListener("click", closeCart);
@@ -2350,7 +2359,7 @@
       state.pendingProductId = null;
     }
 
-    openCart();
+    window.location.href = "/loja/carrinho.html";
     if (state.owned.length) {
       membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
     }

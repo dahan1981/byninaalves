@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon%20guia.svg">
+<title>Carrinho | byninastore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/loja/carrinho.css">
+</head>
+<body>
+<div class="ticker">
+  <div class="ticker-track">
+    <span>PRODUTOS DIGITAIS</span>
+    <span>COMPRA ORGANIZADA</span>
+    <span>ACESSO IMEDIATO</span>
+    <span>ÁREA DE MEMBROS</span>
+    <span>CONTINUIDADE DE COMPRA</span>
+    <span>PRODUTOS DIGITAIS</span>
+    <span>COMPRA ORGANIZADA</span>
+    <span>ACESSO IMEDIATO</span>
+    <span>ÁREA DE MEMBROS</span>
+    <span>CONTINUIDADE DE COMPRA</span>
+  </div>
+</div>
+
+<header class="header-shell">
+  <div class="container topbar">
+    <a href="/loja">
+      <span class="brand-mark">byninaalves</span>
+    </a>
+    <div class="topnav">
+      <button class="icon-btn" id="searchToggle" type="button" aria-label="Voltar para a loja">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.2-4.2"></path></svg>
+      </button>
+      <button class="icon-btn" id="loginToggle" type="button" aria-label="Minha conta">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"></path><path d="M5 20a7 7 0 0 1 14 0"></path></svg>
+      </button>
+      <button class="icon-btn cart-chip" id="cartToggle" type="button" aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10l-1 11H8L7 7Z"></path><path d="M9 7V5a3 3 0 0 1 6 0v2"></path></svg>
+        <strong id="cartCount">0</strong>
+      </button>
+      <a class="status-pill member-chip" id="memberChip" href="/loja/membros.html">Área de membros</a>
+    </div>
+  </div>
+</header>
+
+<main class="page-shell">
+  <div class="container">
+    <section class="section-card hero-card">
+      <p class="eyebrow">Carrinho</p>
+      <h1 class="hero-title">Finalize sua compra com tudo organizado em um só lugar</h1>
+      <p class="hero-copy">Aqui entram seus produtos selecionados, seus dados do pedido e a escolha da forma de pagamento. A integração do checkout real entra depois, sem mudar a estrutura.</p>
+    </section>
+
+    <section class="login-wrap" id="loginWrap">
+      <div class="login-card">
+        <div>
+          <p class="eyebrow">Entrar para continuar</p>
+          <h2 class="panel-title">Acesse sua conta para abrir o carrinho</h2>
+          <p class="panel-copy">Use o mesmo login da loja para continuar com os produtos que você já selecionou.</p>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="loginName">Nome</label>
+            <input id="loginName" type="text" placeholder="Seu nome">
+          </div>
+          <div class="field">
+            <label for="loginEmail">E-mail</label>
+            <input id="loginEmail" type="email" placeholder="voce@email.com">
+          </div>
+          <div class="field">
+            <label for="loginPassword">Senha</label>
+            <input id="loginPassword" type="password" placeholder="Sua senha">
+          </div>
+        </div>
+        <p class="feedback" id="loginFeedback"></p>
+        <div class="actions">
+          <button class="primary-btn" id="loginButton" type="button">Entrar</button>
+          <a class="ghost-btn" href="/loja">Voltar para a loja</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="empty-wrap" id="emptyWrap">
+      <div class="empty-card">
+        <p class="eyebrow">Carrinho vazio</p>
+        <h2 class="panel-title">Ainda não há produtos para finalizar</h2>
+        <p class="empty-copy">Escolha um produto na loja e volte aqui para concluir sua compra com calma.</p>
+        <div class="actions" style="justify-content:center;">
+          <button class="primary-btn" id="emptyShopping" type="button">Voltar para a loja</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="checkout-wrap" id="checkoutWrap">
+      <div class="checkout-layout">
+        <div class="summary-card">
+          <div>
+            <p class="eyebrow">Resumo do pedido</p>
+            <h2 class="panel-title">Seus produtos selecionados</h2>
+          </div>
+          <div class="summary-list" id="cartList"></div>
+          <div class="summary-total">
+            <div class="summary-line"><span>Total</span><strong id="cartTotal">R$ 0</strong></div>
+            <div class="summary-line"><span>Status</span><span id="cartStatus">Tudo pronto para finalizar a compra.</span></div>
+          </div>
+          <div class="actions">
+            <button class="ghost-btn" id="continueShopping" type="button">Continuar comprando</button>
+          </div>
+        </div>
+
+        <div class="checkout-card">
+          <div>
+            <p class="eyebrow">Dados do pedido</p>
+            <h2 class="panel-title">Finalizar compra</h2>
+            <p class="panel-copy">Preencha os dados do pedido e deixe a forma de pagamento escolhida para integrar depois ao checkout real.</p>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="checkoutEmail">E-mail</label>
+              <input id="checkoutEmail" type="email" placeholder="voce@email.com">
+            </div>
+            <div class="field">
+              <label for="checkoutPhone">Contato operacional</label>
+              <input id="checkoutPhone" type="text" placeholder="(00) 00000-0000">
+            </div>
+            <div class="field">
+              <label for="checkoutAddress">Endereço</label>
+              <textarea id="checkoutAddress" placeholder="Seu endereço completo"></textarea>
+            </div>
+          </div>
+
+          <div class="consent-list">
+            <label class="consent-item">
+              <input id="consentDataUse" type="checkbox">
+              <span>Autorização de uso dos dados exclusivamente para processar meu pedido, contato operacional e confirmação de pagamento.</span>
+            </label>
+            <label class="consent-item">
+              <input id="consentTransactional" type="checkbox">
+              <span>Autorizo o envio de e-mails transacionais sobre este pedido.</span>
+            </label>
+          </div>
+
+          <div class="payment-list">
+            <label class="payment-item">
+              <input type="radio" name="paymentMethod" value="mercado-pago-checkout-pro">
+              <span class="payment-card"><strong>Checkout Pro</strong><span>Estrutura já preparada para a integração futura.</span></span>
+            </label>
+            <label class="payment-item">
+              <input type="radio" name="paymentMethod" value="pix-checkout-pro">
+              <span class="payment-card"><strong>PIX</strong><span>Opção separada para a futura configuração do checkout.</span></span>
+            </label>
+            <label class="payment-item">
+              <input type="radio" name="paymentMethod" value="cartao-checkout-pro">
+              <span class="payment-card"><strong>Cartão</strong><span>Fluxo reservado para cartão dentro do checkout integrado.</span></span>
+            </label>
+          </div>
+
+          <p class="feedback" id="checkoutFeedback"></p>
+
+          <div class="actions">
+            <button class="primary-btn" id="confirmCheckout" type="button">Seguir para pagamento</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="/loja/carrinho.js"></script>
+</body>
+</html>

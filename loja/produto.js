@@ -83,8 +83,9 @@
     }
 
     if (inCart) {
-      addToCartButton.textContent = "No carrinho";
-      purchaseStatus.innerHTML = 'Este produto já está no seu carrinho. <a class="page-link" href="/loja">Ir para a loja</a>';
+      addToCartButton.disabled = false;
+      addToCartButton.textContent = "Finalizar compra";
+      purchaseStatus.innerHTML = 'Este produto já está no seu carrinho. <a class="page-link" href="/loja/carrinho.html">Ir para o carrinho</a>';
       return;
     }
 
@@ -137,7 +138,7 @@
     }
 
     if (state.owned.includes(product.id) || state.cart.includes(product.id)) {
-      window.location.href = "/loja";
+      window.location.href = state.owned.includes(product.id) ? "/loja/membros.html" : "/loja/carrinho.html";
       return;
     }
 
@@ -160,7 +161,7 @@
   });
 
   document.getElementById("cartToggle").addEventListener("click", function () {
-    window.location.href = "/loja";
+    window.location.href = "/loja/carrinho.html";
   });
 
   document.getElementById("searchToggle").addEventListener("click", function () {
