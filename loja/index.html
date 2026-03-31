@@ -936,6 +936,8 @@
   }
 
   .auth-grid { display: grid; gap: 14px; }
+  .account-grid { display: none; gap: 14px; }
+  .account-grid.visible { display: grid; }
   .field { display: grid; gap: 8px; }
   .field label {
     text-transform: uppercase;
@@ -991,6 +993,15 @@
   .cart-total {
     border-top: 1px solid rgba(190, 159, 127, 0.16);
     padding-top: 14px;
+  }
+
+  .account-summary {
+    display: grid;
+    gap: 10px;
+    border-radius: 18px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 250, 244, 0.82);
+    padding: 16px 18px;
   }
 
   .checkout-grid {
@@ -1416,6 +1427,14 @@
           <input id="passwordInput" type="password" placeholder="Sua senha">
         </div>
       </div>
+      <div class="account-grid" id="accountGrid">
+        <div class="account-summary">
+          <div class="account-line"><span>Cliente</span><span id="drawerMemberName">—</span></div>
+          <div class="account-line"><span>E-mail</span><span id="drawerMemberEmail">—</span></div>
+          <div class="account-line"><span>Produtos comprados</span><span id="drawerOwnedTotal">0</span></div>
+          <div class="account-line"><span>Itens no carrinho</span><span id="drawerCartTotal">0</span></div>
+        </div>
+      </div>
       <p class="auth-helper" id="authHelper">Use seus dados para entrar e seguir normalmente para o carrinho.</p>
       <div class="auth-actions">
         <button class="primary-btn" id="confirmLogin" type="button">Continuar</button>
@@ -1611,6 +1630,11 @@
   const authTitle = document.getElementById("authTitle");
   const authCopy = document.getElementById("authCopy");
   const authHelper = document.getElementById("authHelper");
+  const accountGrid = document.getElementById("accountGrid");
+  const drawerMemberName = document.getElementById("drawerMemberName");
+  const drawerMemberEmail = document.getElementById("drawerMemberEmail");
+  const drawerOwnedTotal = document.getElementById("drawerOwnedTotal");
+  const drawerCartTotal = document.getElementById("drawerCartTotal");
   const nameInput = document.getElementById("nameInput");
   const emailInput = document.getElementById("emailInput");
   const passwordInput = document.getElementById("passwordInput");
@@ -1706,6 +1730,13 @@
     authHelper.textContent = isLogin
       ? "Use seus dados para entrar e seguir normalmente para o carrinho."
       : "Cadastre sua conta para seguir com a compra e acessar sua biblioteca depois.";
+  }
+
+  function renderAccountDrawer() {
+    drawerMemberName.textContent = state.name || "Cliente";
+    drawerMemberEmail.textContent = state.email || "—";
+    drawerOwnedTotal.textContent = String(state.owned.length);
+    drawerCartTotal.textContent = String(state.cart.length);
   }
 
   function renderCatalog() {
@@ -1914,13 +1945,42 @@
   }
 
   function openDrawer(productId) {
+    const isLoggedIn = state.loggedIn;
     const product = productId ? findProduct(productId) : null;
-    if (product) {
+    if (isLoggedIn) {
+      authTitle.textContent = "Minha conta";
+      authCopy.textContent = "Aqui você acompanha seus dados, seus produtos liberados e o que ainda está no carrinho.";
+      authHelper.textContent = state.cart.length ? "Sua conta está ativa e seu carrinho está pronto para continuar." : "Sua conta está ativa e pronta para novas compras.";
+      loginTab.style.display = "none";
+      signupTab.style.display = "none";
+      nameInput.closest(".field").style.display = "none";
+      emailInput.closest(".field").style.display = "none";
+      passwordInput.closest(".field").style.display = "none";
+      document.querySelector(".auth-grid").style.display = "none";
+      accountGrid.classList.add("visible");
+      renderAccountDrawer();
+      document.getElementById("confirmLogin").textContent = state.cart.length ? "Abrir carrinho" : "Ir para meus produtos";
+      if (product) {
+        drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>${product.name} • ${product.price_label || product.priceLabel}</span>`;
+      } else {
+        drawerProductInfo.innerHTML = `<strong>Sua conta está pronta</strong><span>Entre nos seus produtos ou siga para o carrinho quando quiser.</span>`;
+      }
+    } else if (product) {
       drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>${product.name} • ${product.price_label || product.priceLabel}</span>`;
     } else {
       drawerProductInfo.innerHTML = `<strong>Sua compra continua aqui</strong><span>Entre ou crie sua conta para seguir com tudo organizado.</span>`;
+      loginTab.style.display = "";
+      signupTab.style.display = "";
+      nameInput.closest(".field").style.display = "";
+      emailInput.closest(".field").style.display = "";
+      passwordInput.closest(".field").style.display = "";
+      document.querySelector(".auth-grid").style.display = "";
+      accountGrid.classList.remove("visible");
+      document.getElementById("confirmLogin").textContent = "Continuar";
     }
-    setAuthMode(state.authMode || "login");
+    if (!isLoggedIn) {
+      setAuthMode(state.authMode || "login");
+    }
     authDrawer.classList.add("open");
     authDrawer.setAttribute("aria-hidden", "false");
   }
@@ -2066,6 +2126,16 @@
     buyProduct(productId);
   });
   document.getElementById("confirmLogin").addEventListener("click", async function() {
+    if (state.loggedIn) {
+      closeDrawer();
+      if (state.cart.length) {
+        openCart();
+      } else if (state.owned.length) {
+        membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return;
+    }
+
     const result = await fetchJson("/api/loja-auth", {
       method: "POST",
       body: JSON.stringify({
