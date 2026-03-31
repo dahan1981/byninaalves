@@ -50,20 +50,29 @@
 <main class="page-shell">
   <div class="container">
     <section class="section-card hero-card">
-      <p class="eyebrow">Carrinho</p>
-      <h1 class="hero-title">Finalize sua compra com tudo organizado em um só lugar</h1>
-      <p class="hero-copy">Aqui entram seus produtos selecionados, seus dados do pedido e a escolha da forma de pagamento. A integração do checkout real entra depois, sem mudar a estrutura.</p>
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow">Carrinho</p>
+          <h1 class="hero-title">Seu checkout</h1>
+        </div>
+        <a class="ghost-btn" href="/loja">Continuar comprando</a>
+      </div>
+      <p class="hero-copy">Revise seus itens, preencha os dados do pedido e siga para a próxima etapa do pagamento.</p>
     </section>
 
     <section class="login-wrap" id="loginWrap">
       <div class="login-card">
         <div>
-          <p class="eyebrow">Entrar para continuar</p>
-          <h2 class="panel-title">Acesse sua conta para abrir o carrinho</h2>
-          <p class="panel-copy">Use o mesmo login da loja para continuar com os produtos que você já selecionou.</p>
+          <p class="eyebrow">Acessar conta</p>
+          <h2 class="panel-title">Entre para abrir seu carrinho</h2>
+          <p class="panel-copy">Use a mesma conta da loja para continuar com seus itens e finalizar o pedido.</p>
+        </div>
+        <div class="auth-tabs">
+          <button class="tab-btn active" id="loginTab" type="button">Entrar</button>
+          <button class="tab-btn" id="signupTab" type="button">Criar conta</button>
         </div>
         <div class="field-grid">
-          <div class="field">
+          <div class="field" id="nameField">
             <label for="loginName">Nome</label>
             <input id="loginName" type="text" placeholder="Seu nome">
           </div>
@@ -78,7 +87,7 @@
         </div>
         <p class="feedback" id="loginFeedback"></p>
         <div class="actions">
-          <button class="primary-btn" id="loginButton" type="button">Entrar</button>
+          <button class="primary-btn" id="loginButton" type="button">Continuar</button>
           <a class="ghost-btn" href="/loja">Voltar para a loja</a>
         </div>
       </div>
@@ -87,10 +96,10 @@
     <section class="empty-wrap" id="emptyWrap">
       <div class="empty-card">
         <p class="eyebrow">Carrinho vazio</p>
-        <h2 class="panel-title">Ainda não há produtos para finalizar</h2>
-        <p class="empty-copy">Escolha um produto na loja e volte aqui para concluir sua compra com calma.</p>
+        <h2 class="panel-title">Nenhum item por aqui</h2>
+        <p class="empty-copy">Adicione um produto para voltar aqui com o pedido pronto para finalizar.</p>
         <div class="actions" style="justify-content:center;">
-          <button class="primary-btn" id="emptyShopping" type="button">Voltar para a loja</button>
+          <button class="primary-btn" id="emptyShopping" type="button">Ver produtos</button>
         </div>
       </div>
     </section>
@@ -98,25 +107,35 @@
     <section class="checkout-wrap" id="checkoutWrap">
       <div class="checkout-layout">
         <div class="summary-card">
-          <div>
-            <p class="eyebrow">Resumo do pedido</p>
-            <h2 class="panel-title">Seus produtos selecionados</h2>
+          <div class="summary-head">
+            <div>
+              <p class="eyebrow">Resumo do pedido</p>
+              <h2 class="panel-title">Itens no carrinho</h2>
+            </div>
+            <button class="ghost-btn subtle-btn" id="clearCartButton" type="button">Limpar carrinho</button>
           </div>
           <div class="summary-list" id="cartList"></div>
           <div class="summary-total">
             <div class="summary-line"><span>Total</span><strong id="cartTotal">R$ 0</strong></div>
-            <div class="summary-line"><span>Status</span><span id="cartStatus">Tudo pronto para finalizar a compra.</span></div>
-          </div>
-          <div class="actions">
-            <button class="ghost-btn" id="continueShopping" type="button">Continuar comprando</button>
+            <div class="summary-line"><span>Status</span><span id="cartStatus">Pronto para finalizar.</span></div>
           </div>
         </div>
 
         <div class="checkout-card">
-          <div>
-            <p class="eyebrow">Dados do pedido</p>
-            <h2 class="panel-title">Finalizar compra</h2>
-            <p class="panel-copy">Preencha os dados do pedido e deixe a forma de pagamento escolhida para integrar depois ao checkout real.</p>
+          <div class="checkout-head">
+            <div>
+              <p class="eyebrow">Sua conta</p>
+              <h2 class="panel-title">Dados do pedido</h2>
+            </div>
+            <button class="ghost-btn subtle-btn" id="logoutButton" type="button">Sair da conta</button>
+          </div>
+
+          <div class="account-chip">
+            <div>
+              <strong id="accountName">Cliente</strong>
+              <span id="accountEmailDisplay">—</span>
+            </div>
+            <span class="account-state">Conta conectada</span>
           </div>
 
           <div class="field-grid">
@@ -148,15 +167,15 @@
           <div class="payment-list">
             <label class="payment-item">
               <input type="radio" name="paymentMethod" value="mercado-pago-checkout-pro">
-              <span class="payment-card"><strong>Checkout Pro</strong><span>Estrutura já preparada para a integração futura.</span></span>
+              <span class="payment-card"><strong>Checkout Pro</strong><span>Estrutura pronta para a futura integração.</span></span>
             </label>
             <label class="payment-item">
               <input type="radio" name="paymentMethod" value="pix-checkout-pro">
-              <span class="payment-card"><strong>PIX</strong><span>Opção separada para a futura configuração do checkout.</span></span>
+              <span class="payment-card"><strong>PIX</strong><span>Fluxo reservado para pagamento instantâneo.</span></span>
             </label>
             <label class="payment-item">
               <input type="radio" name="paymentMethod" value="cartao-checkout-pro">
-              <span class="payment-card"><strong>Cartão</strong><span>Fluxo reservado para cartão dentro do checkout integrado.</span></span>
+              <span class="payment-card"><strong>Cartão</strong><span>Estrutura separada para a próxima etapa do checkout.</span></span>
             </label>
           </div>
 

@@ -6,7 +6,7 @@
     owned: [],
     cart: [],
     products: [],
-    pendingProductId: null,
+    authMode: "login",
   };
 
   const memberChip = document.getElementById("memberChip");
@@ -19,16 +19,21 @@
   const loginPassword = document.getElementById("loginPassword");
   const loginButton = document.getElementById("loginButton");
   const loginFeedback = document.getElementById("loginFeedback");
+  const loginTab = document.getElementById("loginTab");
+  const signupTab = document.getElementById("signupTab");
+  const nameField = document.getElementById("nameField");
   const cartList = document.getElementById("cartList");
   const cartTotal = document.getElementById("cartTotal");
   const cartStatus = document.getElementById("cartStatus");
   const checkoutEmail = document.getElementById("checkoutEmail");
   const checkoutPhone = document.getElementById("checkoutPhone");
   const checkoutAddress = document.getElementById("checkoutAddress");
-  const consentDataUse = document.getElementById("consentDataUse");
-  const consentTransactional = document.getElementById("consentTransactional");
   const confirmCheckout = document.getElementById("confirmCheckout");
   const checkoutFeedback = document.getElementById("checkoutFeedback");
+  const accountName = document.getElementById("accountName");
+  const accountEmailDisplay = document.getElementById("accountEmailDisplay");
+  const consentDataUse = document.getElementById("consentDataUse");
+  const consentTransactional = document.getElementById("consentTransactional");
 
   function formatCents(value) {
     const amount = Number(value || 0) / 100;
@@ -41,6 +46,14 @@
     if (productId === "produto-03") return "/loja/calendario-sazonal.html";
     if (productId === "produto-04") return "/loja/pack-de-quadros.html";
     return "/loja";
+  }
+
+  function productImage(productId) {
+    if (productId === "guia-destrave") return "/loja/guia.png";
+    if (productId === "produto-02") return "/loja/precificacao.png";
+    if (productId === "produto-03") return "/loja/calendario.png";
+    if (productId === "produto-04") return "/loja/quadros.png";
+    return "/loja/destrave.png";
   }
 
   async function fetchJson(url, options) {
@@ -59,6 +72,15 @@
     return result;
   }
 
+  function setAuthMode(mode) {
+    state.authMode = mode;
+    const isLogin = mode === "login";
+    loginTab.classList.toggle("active", isLogin);
+    signupTab.classList.toggle("active", !isLogin);
+    nameField.hidden = isLogin;
+    loginButton.textContent = isLogin ? "Continuar" : "Criar conta";
+  }
+
   function applyBootstrap(data) {
     state.products = Array.isArray(data.products) ? data.products : [];
     state.loggedIn = Boolean(data.session);
@@ -69,7 +91,15 @@
     render();
   }
 
+  function cartProducts() {
+    return state.products.filter(function (product) {
+      return state.cart.includes(product.id);
+    });
+  }
+
   function render() {
+    const items = cartProducts();
+
     cartCount.textContent = String(state.cart.length);
     memberChip.classList.toggle("visible", state.owned.length > 0);
 
@@ -81,11 +111,11 @@
     }
 
     loginWrap.hidden = true;
-    const cartProducts = state.products.filter(function (product) {
-      return state.cart.includes(product.id);
-    });
+    accountName.textContent = state.name || "Cliente";
+    accountEmailDisplay.textContent = state.email || "—";
+    checkoutEmail.value = state.email || "";
 
-    if (!cartProducts.length) {
+    if (!items.length) {
       checkoutWrap.classList.remove("visible");
       emptyWrap.classList.add("visible");
       return;
@@ -94,25 +124,31 @@
     emptyWrap.classList.remove("visible");
     checkoutWrap.classList.add("visible");
 
-    const total = cartProducts.reduce(function (sum, product) {
+    const total = items.reduce(function (sum, product) {
       return sum + Number(product.price_cents || 0);
     }, 0);
 
-    cartList.innerHTML = cartProducts.map(function (product) {
+    cartList.innerHTML = items.map(function (product) {
       return `
         <div class="summary-item">
-          <div>
-            <strong>${product.name}</strong>
-            <span>${product.tag}</span>
+          <div class="summary-item-media">
+            <img src="${productImage(product.id)}" alt="${product.name}">
           </div>
-          <strong>${product.price_label || product.priceLabel}</strong>
+          <div>
+            <h3 class="summary-item-title">${product.name}</h3>
+            <p class="summary-item-copy">${product.tag}</p>
+            <a class="summary-item-copy" href="${productHref(product.id)}">Ver produto</a>
+          </div>
+          <div class="summary-item-side">
+            <strong>${product.price_label || product.priceLabel}</strong>
+            <button class="remove-btn" type="button" data-remove-product="${product.id}">Remover</button>
+          </div>
         </div>
       `;
     }).join("");
 
     cartTotal.textContent = formatCents(total);
-    cartStatus.textContent = "Tudo pronto para seguir para o pagamento.";
-    checkoutEmail.value = state.email || "";
+    cartStatus.textContent = "Pedido montado e pronto para seguir.";
   }
 
   async function loadBootstrap() {
@@ -120,11 +156,11 @@
     applyBootstrap(result.data);
   }
 
-  async function submitLogin() {
+  async function submitAuth() {
     const result = await fetchJson("/api/loja-auth", {
       method: "POST",
       body: JSON.stringify({
-        mode: "login",
+        mode: state.authMode,
         name: loginName.value.trim(),
         email: loginEmail.value.trim(),
         password: loginPassword.value.trim(),
@@ -132,6 +168,40 @@
     });
 
     loginPassword.value = "";
+    applyBootstrap(result.data);
+  }
+
+  async function removeFromCart(productId) {
+    const result = await fetchJson("/api/loja-cart", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "remove",
+        productId,
+      }),
+    });
+
+    applyBootstrap(result.data);
+  }
+
+  async function clearCart() {
+    const products = cartProducts();
+    for (const product of products) {
+      const result = await fetchJson("/api/loja-cart", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "remove",
+          productId: product.id,
+        }),
+      });
+      applyBootstrap(result.data);
+    }
+  }
+
+  async function logout() {
+    const result = await fetchJson("/api/loja-logout", {
+      method: "POST",
+      body: JSON.stringify({}),
+    });
     applyBootstrap(result.data);
   }
 
@@ -173,12 +243,31 @@
   }
 
   loginButton.addEventListener("click", function () {
-    submitLogin().catch(function (error) {
-      loginFeedback.textContent = error.message || "Não foi possível entrar agora.";
+    loginFeedback.textContent = "";
+    submitAuth().catch(function (error) {
+      loginFeedback.textContent = error.message || "Não foi possível continuar agora.";
+    });
+  });
+
+  loginTab.addEventListener("click", function () {
+    setAuthMode("login");
+  });
+
+  signupTab.addEventListener("click", function () {
+    setAuthMode("signup");
+  });
+
+  cartList.addEventListener("click", function (event) {
+    const removeButton = event.target.closest("[data-remove-product]");
+    if (!removeButton) return;
+
+    removeFromCart(removeButton.getAttribute("data-remove-product")).catch(function (error) {
+      checkoutFeedback.textContent = error.message || "Não foi possível atualizar o carrinho.";
     });
   });
 
   confirmCheckout.addEventListener("click", function () {
+    checkoutFeedback.textContent = "";
     submitCheckout().catch(function (error) {
       checkoutFeedback.textContent = error.message || "Não foi possível continuar com a compra.";
     });
@@ -189,7 +278,7 @@
   });
 
   document.getElementById("loginToggle").addEventListener("click", function () {
-    if (state.loggedIn && state.owned.length > 0) {
+    if (state.loggedIn) {
       window.location.href = "/loja/membros.html";
       return;
     }
@@ -200,8 +289,16 @@
     window.location.href = "/loja/carrinho.html";
   });
 
-  document.getElementById("continueShopping").addEventListener("click", function () {
-    window.location.href = "/loja";
+  document.getElementById("clearCartButton").addEventListener("click", function () {
+    clearCart().catch(function (error) {
+      checkoutFeedback.textContent = error.message || "Não foi possível limpar o carrinho.";
+    });
+  });
+
+  document.getElementById("logoutButton").addEventListener("click", function () {
+    logout().catch(function (error) {
+      checkoutFeedback.textContent = error.message || "Não foi possível sair da conta.";
+    });
   });
 
   document.getElementById("emptyShopping").addEventListener("click", function () {
@@ -212,4 +309,6 @@
     console.error(error);
     loginFeedback.textContent = error.message || "Não foi possível carregar o carrinho.";
   });
+
+  setAuthMode("login");
 })();

@@ -164,8 +164,8 @@ button { border: 0; background: none; cursor: pointer; }
 .section-card,
 .login-card,
 .account-panel,
-.catalog-panel,
-.product-card,
+.library-panel,
+.library-card,
 .empty-card {
   border-radius: var(--radius-xl);
   border: 1px solid var(--line);
@@ -174,10 +174,16 @@ button { border: 0; background: none; cursor: pointer; }
 }
 
 .hero-card {
-  padding: clamp(28px, 4vw, 42px);
+  padding: clamp(24px, 3vw, 34px);
   display: grid;
+  gap: 12px;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
   gap: 18px;
-  text-align: center;
+  align-items: end;
 }
 
 .eyebrow {
@@ -192,16 +198,14 @@ button { border: 0; background: none; cursor: pointer; }
 .panel-title {
   margin: 0;
   font-family: var(--serif);
-  font-weight: 400;
-  line-height: 0.94;
+  font-weight: 500;
+  line-height: 0.96;
   letter-spacing: -0.035em;
   color: #6f4d3a;
 }
 
 .hero-title {
-  font-size: clamp(2.8rem, 5.2vw, 4.8rem);
-  max-width: 10ch;
-  margin-inline: auto;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
 }
 
 .hero-copy,
@@ -210,7 +214,8 @@ button { border: 0; background: none; cursor: pointer; }
 .product-copy {
   margin: 0;
   color: var(--text-soft);
-  line-height: 1.78;
+  line-height: 1.72;
+  max-width: 64ch;
 }
 
 .login-wrap,
@@ -221,14 +226,32 @@ button { border: 0; background: none; cursor: pointer; }
 
 .login-card,
 .empty-card {
-  padding: clamp(26px, 3vw, 36px);
+  padding: 30px;
+  display: grid;
+  gap: 18px;
 }
 
-.login-card {
-  display: grid;
-  gap: 20px;
-  max-width: 620px;
-  margin: 0 auto;
+.auth-tabs {
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(247, 239, 230, 0.72);
+  width: fit-content;
+}
+
+.tab-btn {
+  padding: 11px 18px;
+  font-size: 0.92rem;
+  background: transparent;
+  border-color: transparent;
+}
+
+.tab-btn.active {
+  background: #fff;
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
 }
 
 .field-grid {
@@ -263,8 +286,7 @@ button { border: 0; background: none; cursor: pointer; }
 }
 
 .primary-btn,
-.ghost-btn,
-.tab-btn {
+.ghost-btn {
   padding: 14px 24px;
   font-size: 0.94rem;
 }
@@ -280,82 +302,63 @@ button { border: 0; background: none; cursor: pointer; }
   gap: 24px;
 }
 
-.content-wrap.visible {
-  display: grid;
-}
+.content-wrap.visible { display: grid; }
 
-.empty-wrap {
-  display: none;
-}
-
-.empty-wrap.visible {
-  display: block;
-}
+.empty-wrap { display: none; }
+.empty-wrap.visible { display: block; }
 
 .members-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.72fr);
   gap: 22px;
   align-items: start;
 }
 
-.catalog-panel,
+.library-panel,
 .account-panel {
   padding: 26px;
 }
 
-.account-lines {
-  display: grid;
-  gap: 14px;
-}
-
-.account-line {
+.library-head {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  color: var(--text-soft);
-  font-size: 0.95rem;
+  gap: 18px;
+  align-items: end;
+  margin-bottom: 20px;
 }
 
 .tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 18px 0 22px;
-}
-
-.tab-btn.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: transparent;
 }
 
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-.product-grid {
+.library-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
 }
 
-.product-card {
+.library-card {
   overflow: hidden;
 }
 
-.product-media {
+.library-card-media {
   aspect-ratio: 1 / 1;
   background: #fff;
 }
 
-.product-media img {
+.library-card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.product-body {
+.library-card-body {
   padding: 18px;
   display: grid;
   gap: 12px;
@@ -372,21 +375,19 @@ button { border: 0; background: none; cursor: pointer; }
 .product-name {
   margin: 0;
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 0.96;
+  font-weight: 500;
+  font-size: 1.42rem;
+  line-height: 0.98;
 }
 
 .price-row {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  white-space: nowrap;
 }
 
 .price-row strong {
-  font-size: 1.34rem;
-  color: var(--text);
+  font-size: 1.18rem;
 }
 
 .price-old {
@@ -395,17 +396,70 @@ button { border: 0; background: none; cursor: pointer; }
   color: var(--text-light);
 }
 
-.empty-card {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
-  display: grid;
+.profile-header {
+  display: flex;
   gap: 16px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.profile-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #d8af86, #ba8258);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.account-lines,
+.account-stats {
+  display: grid;
+  gap: 14px;
+}
+
+.account-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 18px 0 22px;
+}
+
+.account-line,
+.stat-card {
+  border-radius: 18px;
+  border: 1px solid rgba(190, 159, 127, 0.16);
+  background: rgba(255, 250, 244, 0.82);
+}
+
+.account-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text-soft);
+  padding: 14px 16px;
+}
+
+.stat-card {
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.stat-card span {
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+
+.stat-card strong {
+  font-size: 1.6rem;
+  color: #6f4d3a;
 }
 
 @media (max-width: 900px) {
   .members-layout,
-  .product-grid {
+  .library-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -413,8 +467,17 @@ button { border: 0; background: none; cursor: pointer; }
 @media (max-width: 760px) {
   .container { width: min(100% - 26px, 100%); }
   .topbar { flex-wrap: wrap; }
+  .hero-top,
+  .library-head,
+  .profile-header {
+    display: grid;
+    gap: 16px;
+  }
   .hero-title {
-    font-size: clamp(2.4rem, 12vw, 3.7rem);
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+  .account-stats {
+    grid-template-columns: 1fr;
   }
   .actions .primary-btn,
   .actions .ghost-btn {

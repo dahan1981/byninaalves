@@ -1415,107 +1415,18 @@
         </div>
       </section>
 
-      <section class="section-block journey-section" id="como-funciona">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Como funciona</p>
-            <h2 class="section-title">Uma compra simples, organizada e feita para continuar na mesma conta.</h2>
-          </div>
-          <p class="section-copy">Aqui a pessoa entra na loja, escolhe o que faz sentido para o momento dela, finaliza a compra com login e passa a acessar tudo o que já liberou em um só lugar.</p>
-        </div>
-
-        <div class="journey-grid">
-          <article class="journey-card">
-            <span class="journey-step">01</span>
-            <h3>Explora sem travar</h3>
-            <p>A vitrine fica aberta para comparar produtos, preços e detalhes com calma antes de qualquer cadastro.</p>
-          </article>
-
-          <article class="journey-card">
-            <span class="journey-step">02</span>
-            <h3>Compra com a própria conta</h3>
-            <p>Quando decide comprar, a pessoa entra ou cria a conta e segue direto para um carrinho organizado, inclusive com mais de um produto.</p>
-          </article>
-
-          <article class="journey-card">
-            <span class="journey-step">03</span>
-            <h3>Acessa e continua comprando</h3>
-            <p>Depois da compra, a biblioteca mostra o que já foi liberado e o que ainda pode entrar como próxima aquisição.</p>
-          </article>
-        </div>
-      </section>
-
       <section class="section-block" id="catalogo">
         <div class="catalog-layout">
           <div class="featured-strip">
-            <div class="hero-intro" style="max-width: 980px; margin-bottom: 8px;">
-              <div class="hero-copy">
-                <div>
-                  <p class="eyebrow">Comprar produtos</p>
-                  <h2 class="section-title" style="max-width: 13ch; color:#6f4d3a;">Escolha o que faz sentido para o seu momento e siga comprando com mais clareza.</h2>
-                </div>
-                <p class="hero-subtitle">O Guia Destrave abre a vitrine e os outros produtos entram como continuidade natural da jornada. A ideia aqui é deixar tudo mais simples de entender, comparar e escolher.</p>
+            <div class="featured-strip-head">
+              <div>
+                <p class="eyebrow">Produtos</p>
+                <h2 class="featured-headline">Escolha seu próximo material</h2>
               </div>
+              <p class="featured-copy">Tudo em uma vitrine direta: produto, preço, detalhes e acesso organizado na mesma conta.</p>
             </div>
 
             <div class="catalog-grid" id="catalogGrid"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="members-shell" id="membersShell">
-        <div class="section-block">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker">Área de membros</p>
-              <h2 class="members-title">O cliente entra e enxerga o que já comprou e o que ainda pode adquirir</h2>
-            </div>
-            <p class="member-copy">Esta área só aparece depois da primeira compra. Aqui a conta deixa de ser só checkout e vira biblioteca, histórico e continuidade de compra no mesmo ambiente.</p>
-          </div>
-
-          <div class="members-layout">
-            <div class="members-panel">
-              <div class="panel-top">
-                <h3>Seus produtos</h3>
-                <span class="status-pill" id="ownedCount">0 liberados</span>
-              </div>
-              <div class="member-tabs">
-                <button class="tab-btn active" id="ownedTab" type="button">Seus produtos</button>
-                <button class="tab-btn" id="lockedTab" type="button">Produtos disponíveis</button>
-              </div>
-              <div class="member-tab-panel active" id="ownedPanel">
-                <div class="member-grid" id="ownedGrid"></div>
-              </div>
-              <div class="member-tab-panel" id="lockedPanel">
-                <div class="recommend-grid" id="lockedGrid"></div>
-              </div>
-            </div>
-
-            <aside class="account-stack">
-              <div class="account-panel">
-                <div class="panel-top">
-                  <h3>Sua conta</h3>
-                  <span class="status-pill" id="accountState">Conta criada</span>
-                </div>
-                <div class="account-box">
-                  <div class="account-line"><span>Cliente</span><span id="memberName">—</span></div>
-                  <div class="account-line"><span>E-mail</span><span id="memberEmail">—</span></div>
-                  <div class="account-line"><span>Produtos liberados</span><span id="memberOwnedTotal">0</span></div>
-                </div>
-              </div>
-
-              <div class="account-panel">
-                <div class="panel-top">
-                  <h3>Carrinho e acesso</h3>
-                  <span class="status-pill" id="lockedCount">0 disponíveis</span>
-                </div>
-                <p class="account-copy">Aqui você acompanha sua conta e o que ainda está disponível para entrar na sua biblioteca.</p>
-                <div class="account-box" id="credentialsBox">
-                  <div class="account-line"><span>Acesso</span><span>Pendente</span></div>
-                  <div class="account-line"><span>Status</span><span>Aguardando compra</span></div>
-                </div>
-              </div>
-            </aside>
           </div>
         </div>
       </section>
@@ -1591,7 +1502,7 @@
       <div class="auth-top">
         <p class="eyebrow">Sua conta</p>
         <h3 id="authTitle">Entrar</h3>
-        <p class="auth-copy" id="authCopy">Entre na sua conta para continuar comprando, acompanhar seu carrinho e acessar seus produtos sempre que quiser.</p>
+        <p class="auth-copy" id="authCopy">Entre na sua conta para comprar com mais facilidade e acompanhar seus acessos no mesmo lugar.</p>
       </div>
       <div class="auth-switch">
         <button class="auth-tab active" id="loginTab" type="button">Entrar</button>
@@ -1626,145 +1537,13 @@
       <p class="auth-helper" id="authHelper">Use seus dados para entrar e seguir normalmente para o carrinho.</p>
       <div class="auth-actions">
         <button class="primary-btn" id="confirmLogin" type="button">Continuar</button>
+        <button class="ghost-btn" id="logoutDrawer" type="button" hidden>Sair da conta</button>
         <button class="ghost-btn" id="closeDrawer" type="button">Fechar</button>
       </div>
     </div>
   </div>
 
-  <div class="auth-drawer" id="detailsDrawer" aria-hidden="true">
-    <div class="auth-card">
-      <div>
-        <p class="eyebrow">Ver detalhes</p>
-        <h3 id="detailsTitle">Produto</h3>
-      </div>
-      <div class="detail-box">
-        <div class="detail-media" id="detailsMedia"></div>
-        <p class="account-copy" id="detailsDescription"></p>
-        <div class="detail-list">
-          <div>
-            <strong>Benefícios</strong>
-            <ul id="detailsBenefits"></ul>
-          </div>
-          <div>
-            <strong>Bônus</strong>
-            <ul id="detailsBonuses"></ul>
-          </div>
-        </div>
-      </div>
-      <div class="auth-actions">
-        <button class="primary-btn" id="detailsBuy" type="button">Quero este produto</button>
-        <button class="ghost-btn" id="closeDetails" type="button">Voltar para a loja</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="auth-drawer" id="cartDrawer" aria-hidden="true">
-    <div class="auth-card">
-      <div>
-        <p class="eyebrow">Carrinho</p>
-        <h3>Seu carrinho</h3>
-      </div>
-      <div class="detail-box">
-        <div class="cart-list" id="cartList"></div>
-        <div class="cart-total">
-          <div class="cart-total-line"><span>Total</span><strong id="cartTotal">R$ 0</strong></div>
-          <div class="cart-total-line"><span>Status</span><span id="cartStatus">Escolha um produto para continuar.</span></div>
-        </div>
-      </div>
-      <div class="credentials-box" id="cartCredentialsBox" hidden></div>
-      <div class="auth-actions">
-        <button class="primary-btn" id="finishPurchase" type="button">Continuar para compra</button>
-        <button class="ghost-btn" id="closeCart" type="button">Continuar comprando</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="auth-drawer" id="checkoutDrawer" aria-hidden="true">
-    <div class="auth-card">
-      <div class="auth-top">
-        <p class="eyebrow">Checkout</p>
-        <h3>Revise seus itens e siga para o pagamento</h3>
-        <p class="auth-copy">Preencha seus dados para processar o pedido, confirmar o contato operacional e deixar a integração do pagamento pronta para a próxima etapa.</p>
-      </div>
-
-      <div class="checkout-grid">
-        <div class="checkout-section">
-          <h4>Resumo do pedido</h4>
-          <div class="checkout-summary" id="checkoutSummary"></div>
-          <div class="cart-total">
-            <div class="cart-total-line"><span>Total</span><strong id="checkoutTotal">R$ 0</strong></div>
-          </div>
-        </div>
-
-        <div class="checkout-section">
-          <h4>Dados para o pedido</h4>
-          <div class="checkout-form">
-            <div class="field">
-              <label for="checkoutEmail">E-mail</label>
-              <input id="checkoutEmail" type="email" placeholder="voce@email.com">
-            </div>
-            <div class="field">
-              <label for="checkoutPhone">Contato operacional</label>
-              <input id="checkoutPhone" type="text" placeholder="WhatsApp ou telefone">
-            </div>
-            <div class="field field-full">
-              <label for="checkoutAddress">Endereço</label>
-              <textarea id="checkoutAddress" placeholder="Rua, número, complemento, bairro, cidade e CEP"></textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="checkout-section">
-          <h4>Forma de pagamento</h4>
-          <div class="payment-list">
-            <label class="payment-item payment-card">
-              <input type="radio" name="paymentMethod" value="mercado-pago-checkout-pro" checked>
-              <span>
-                <strong>Checkout Pro Mercado Pago</strong><br>
-                Fluxo preparado para integração do pagamento real na próxima etapa.
-              </span>
-            </label>
-            <label class="payment-item payment-card">
-              <input type="radio" name="paymentMethod" value="pix-checkout-pro">
-              <span>
-                <strong>Pix via checkout</strong><br>
-                Opção visual pronta para ser processada pelo checkout integrado.
-              </span>
-            </label>
-            <label class="payment-item payment-card">
-              <input type="radio" name="paymentMethod" value="cartao-checkout-pro">
-              <span>
-                <strong>Cartão via checkout</strong><br>
-                Opção visual pronta para ser processada pelo checkout integrado.
-              </span>
-            </label>
-          </div>
-        </div>
-
-        <div class="checkout-section">
-          <h4>Autorizações</h4>
-          <div class="consent-list">
-            <label class="consent-item">
-              <input id="consentDataUse" type="checkbox">
-              <span>Autorização de uso dos dados exclusivamente para processar meu pedido, contato operacional e confirmação de pagamento.</span>
-            </label>
-            <label class="consent-item">
-              <input id="consentTransactional" type="checkbox">
-              <span>Autorização o envio de e-mails transacionais sobre este pedido.</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <p class="auth-helper" id="checkoutHelper">Revise seus dados antes de seguir para o pagamento.</p>
-      <div class="auth-actions">
-        <button class="primary-btn" id="confirmCheckout" type="button">Seguir para pagamento</button>
-        <button class="ghost-btn" id="closeCheckout" type="button">Voltar ao carrinho</button>
-      </div>
-    </div>
-  </div>
-
-<script>
+<script type="application/json" id="legacyStoreScript">
   const state = {
     loggedIn: false,
     name: "",
@@ -2412,5 +2191,6 @@
   });
   setAuthMode("login");
 </script>
+<script src="/loja/index.js"></script>
 </body>
 </html>

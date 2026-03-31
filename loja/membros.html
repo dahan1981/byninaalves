@@ -38,7 +38,7 @@
       <button class="icon-btn" id="loginToggle" type="button" aria-label="Minha conta">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"></path><path d="M5 20a7 7 0 0 1 14 0"></path></svg>
       </button>
-      <button class="icon-btn cart-chip" id="cartToggle" type="button" aria-label="Abrir loja">
+      <button class="icon-btn cart-chip" id="cartToggle" type="button" aria-label="Abrir carrinho">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8.5h6l-.7 8H9.7L9 8.5Z"></path><path d="M10 8.5V7a2 2 0 0 1 4 0v1.5"></path></svg>
         <strong id="cartCount">0</strong>
       </button>
@@ -50,20 +50,29 @@
 <main class="page-shell">
   <div class="container">
     <section class="section-card hero-card">
-      <p class="eyebrow">Área de membros</p>
-      <h1 class="hero-title">Entre na sua conta e acesse tudo o que já foi liberado para você</h1>
-      <p class="hero-copy">A biblioteca do cliente fica separada da loja. Quem já comprou entra com login e senha, acessa os produtos liberados e ainda enxerga o que pode adquirir depois.</p>
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow">Biblioteca do cliente</p>
+          <h1 class="hero-title">Seus acessos</h1>
+        </div>
+        <a class="ghost-btn" href="/loja">Ir para a loja</a>
+      </div>
+      <p class="hero-copy">Entre na sua conta para abrir os produtos liberados e ver o que ainda pode entrar na sua biblioteca.</p>
     </section>
 
     <section class="login-wrap" id="loginWrap">
       <div class="login-card">
         <div>
-          <p class="eyebrow">Acesso do cliente</p>
-          <h2 class="panel-title">Entrar para acessar seus produtos</h2>
-          <p class="panel-copy">Use o e-mail e a senha da sua conta para abrir sua área de membros.</p>
+          <p class="eyebrow">Acesso</p>
+          <h2 class="panel-title">Entrar na biblioteca</h2>
+          <p class="panel-copy">Use sua conta da loja para acessar o que já foi liberado para você.</p>
+        </div>
+        <div class="auth-tabs">
+          <button class="tab-btn active" id="loginTab" type="button">Entrar</button>
+          <button class="tab-btn" id="signupTab" type="button">Criar conta</button>
         </div>
         <div class="field-grid">
-          <div class="field">
+          <div class="field" id="nameField">
             <label for="loginName">Nome</label>
             <input id="loginName" type="text" placeholder="Seu nome">
           </div>
@@ -78,7 +87,7 @@
         </div>
         <p class="panel-copy" id="loginFeedback"></p>
         <div class="actions">
-          <button class="primary-btn" id="loginButton" type="button">Entrar</button>
+          <button class="primary-btn" id="loginButton" type="button">Continuar</button>
           <a class="ghost-btn" href="/loja">Voltar para a loja</a>
         </div>
       </div>
@@ -86,40 +95,61 @@
 
     <section class="empty-wrap" id="emptyWrap">
       <div class="empty-card">
-        <p class="eyebrow">Sem produtos liberados</p>
-        <h2 class="panel-title">Sua conta está ativa, mas ainda não há compras aprovadas para liberar aqui</h2>
-        <p class="empty-copy">Quando existir um pedido concluído para esta conta, os produtos entram automaticamente nesta área.</p>
+        <p class="eyebrow">Biblioteca vazia</p>
+        <h2 class="panel-title">Sua conta está pronta para receber os primeiros acessos</h2>
+        <p class="empty-copy">Quando houver uma compra aprovada, os produtos entram automaticamente aqui.</p>
         <div class="actions" style="justify-content:center;">
-          <a class="primary-btn" href="/loja">Voltar para a loja</a>
+          <a class="primary-btn" href="/loja">Explorar produtos</a>
         </div>
       </div>
     </section>
 
     <section class="content-wrap" id="contentWrap">
       <div class="members-layout">
-        <div class="catalog-panel">
-          <p class="eyebrow">Biblioteca do cliente</p>
-          <h2 class="panel-title">Seus produtos e o que ainda pode entrar na sua conta</h2>
-          <div class="tabs">
-            <button class="tab-btn active" id="ownedTab" type="button">Seus produtos</button>
-            <button class="tab-btn" id="availableTab" type="button">Produtos disponíveis</button>
+        <div class="library-panel">
+          <div class="library-head">
+            <div>
+              <p class="eyebrow">Biblioteca</p>
+              <h2 class="panel-title">Seu acervo</h2>
+            </div>
+            <div class="tabs">
+              <button class="tab-btn active" id="ownedTab" type="button">Seus produtos</button>
+              <button class="tab-btn" id="availableTab" type="button">Produtos disponíveis</button>
+            </div>
           </div>
           <div class="tab-panel active" id="ownedPanel">
-            <div class="product-grid" id="ownedGrid"></div>
+            <div class="library-grid" id="ownedGrid"></div>
           </div>
           <div class="tab-panel" id="availablePanel">
-            <div class="product-grid" id="availableGrid"></div>
+            <div class="library-grid" id="availableGrid"></div>
           </div>
         </div>
 
         <aside class="account-panel">
-          <p class="eyebrow">Sua conta</p>
-          <h2 class="panel-title">Perfil do cliente</h2>
+          <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">C</div>
+            <div>
+              <p class="eyebrow">Sua conta</p>
+              <h2 class="panel-title">Perfil</h2>
+            </div>
+          </div>
           <div class="account-lines">
             <div class="account-line"><span>Cliente</span><strong id="accountName">Cliente</strong></div>
             <div class="account-line"><span>E-mail</span><strong id="accountEmail">—</strong></div>
-            <div class="account-line"><span>Produtos liberados</span><strong id="accountOwned">0</strong></div>
-            <div class="account-line"><span>Itens no carrinho</span><strong id="accountCart">0</strong></div>
+          </div>
+          <div class="account-stats">
+            <div class="stat-card">
+              <span>Produtos liberados</span>
+              <strong id="accountOwned">0</strong>
+            </div>
+            <div class="stat-card">
+              <span>Itens no carrinho</span>
+              <strong id="accountCart">0</strong>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="primary-btn" href="/loja/carrinho.html">Abrir carrinho</a>
+            <button class="ghost-btn" id="logoutButton" type="button">Sair da conta</button>
           </div>
         </aside>
       </div>

@@ -7,6 +7,7 @@
     cart: [],
     products: [],
     activeTab: "owned",
+    authMode: "login",
   };
 
   const loginWrap = document.getElementById("loginWrap");
@@ -19,6 +20,9 @@
   const loginPassword = document.getElementById("loginPassword");
   const loginButton = document.getElementById("loginButton");
   const loginFeedback = document.getElementById("loginFeedback");
+  const loginTab = document.getElementById("loginTab");
+  const signupTab = document.getElementById("signupTab");
+  const nameField = document.getElementById("nameField");
   const ownedTab = document.getElementById("ownedTab");
   const availableTab = document.getElementById("availableTab");
   const ownedPanel = document.getElementById("ownedPanel");
@@ -29,6 +33,7 @@
   const accountEmail = document.getElementById("accountEmail");
   const accountOwned = document.getElementById("accountOwned");
   const accountCart = document.getElementById("accountCart");
+  const profileAvatar = document.getElementById("profileAvatar");
 
   function productHref(productId) {
     if (productId === "guia-destrave") return "/loja/guia-destrave.html";
@@ -63,6 +68,15 @@
     return result;
   }
 
+  function setAuthMode(mode) {
+    state.authMode = mode;
+    const isLogin = mode === "login";
+    loginTab.classList.toggle("active", isLogin);
+    signupTab.classList.toggle("active", !isLogin);
+    nameField.hidden = isLogin;
+    loginButton.textContent = isLogin ? "Continuar" : "Criar conta";
+  }
+
   function setTab(tab) {
     state.activeTab = tab;
     ownedTab.classList.toggle("active", tab === "owned");
@@ -81,16 +95,15 @@
     render();
   }
 
-  function renderProductCard(product, type) {
+  function renderLibraryCard(product, owned) {
     const oldPrice = product.original_price_label || "";
-    const buttonLabel = type === "owned" ? "Acessar produto" : "Ver produto";
     return `
-      <article class="product-card">
-        <div class="product-media">
+      <article class="library-card">
+        <div class="library-card-media">
           <img src="${productImage(product.id)}" alt="${product.name}">
         </div>
-        <div class="product-body">
-          <p class="product-kicker">${type === "owned" ? "Acesso liberado" : "Disponível para compra"}</p>
+        <div class="library-card-body">
+          <p class="product-kicker">${owned ? "Acesso liberado" : "Disponível para adicionar"}</p>
           <h3 class="product-name">${product.name}</h3>
           ${product.description ? `<p class="product-copy">${product.description}</p>` : ""}
           <div class="price-row">
@@ -98,7 +111,8 @@
             ${oldPrice ? `<span class="price-old">${oldPrice}</span>` : ""}
           </div>
           <div class="actions">
-            <a class="primary-btn" href="${productHref(product.id)}">${buttonLabel}</a>
+            <a class="${owned ? "primary-btn" : "ghost-btn"}" href="${productHref(product.id)}">${owned ? "Abrir produto" : "Ver detalhes"}</a>
+            ${owned ? "" : `<button class="primary-btn" type="button" data-buy-product="${product.id}">${state.cart.includes(product.id) ? "Finalizar compra" : "Adicionar ao carrinho"}</button>`}
           </div>
         </div>
       </article>
@@ -118,13 +132,7 @@
 
     loginWrap.hidden = true;
 
-    if (!state.owned.length) {
-      emptyWrap.classList.add("visible");
-      contentWrap.classList.remove("visible");
-      return;
-    }
-
-    emptyWrap.classList.remove("visible");
+    emptyWrap.classList.toggle("visible", !state.owned.length);
     contentWrap.classList.add("visible");
 
     const ownedProducts = state.products.filter(function (product) {
@@ -139,13 +147,27 @@
     accountEmail.textContent = state.email || "—";
     accountOwned.textContent = String(ownedProducts.length);
     accountCart.textContent = String(state.cart.length);
+    profileAvatar.textContent = (state.name || "C").trim().charAt(0).toUpperCase();
 
-    ownedGrid.innerHTML = ownedProducts.map(function (product) {
-      return renderProductCard(product, "owned");
-    }).join("");
+    ownedGrid.innerHTML = ownedProducts.length
+      ? ownedProducts.map(function (product) {
+          return renderLibraryCard(product, true);
+        }).join("")
+      : `
+        <article class="library-card">
+          <div class="library-card-body">
+            <p class="product-kicker">Sem acessos liberados</p>
+            <h3 class="product-name">Sua biblioteca começa na primeira compra</h3>
+            <p class="product-copy">Assim que um pedido for aprovado, o produto entra aqui com acesso liberado.</p>
+            <div class="actions">
+              <a class="primary-btn" href="/loja">Explorar produtos</a>
+            </div>
+          </div>
+        </article>
+      `;
 
     availableGrid.innerHTML = availableProducts.map(function (product) {
-      return renderProductCard(product, "available");
+      return renderLibraryCard(product, false);
     }).join("");
 
     setTab(state.activeTab);
@@ -156,23 +178,60 @@
     applyBootstrap(result.data);
   }
 
-  loginButton.addEventListener("click", async function () {
-    try {
-      loginFeedback.textContent = "";
-      const result = await fetchJson("/api/loja-auth", {
-        method: "POST",
-        body: JSON.stringify({
-          mode: "login",
-          name: loginName.value.trim(),
-          email: loginEmail.value.trim(),
-          password: loginPassword.value.trim(),
-        }),
-      });
-      loginPassword.value = "";
-      applyBootstrap(result.data);
-    } catch (error) {
-      loginFeedback.textContent = error.message || "Não foi possível entrar agora.";
+  async function submitAuth() {
+    const result = await fetchJson("/api/loja-auth", {
+      method: "POST",
+      body: JSON.stringify({
+        mode: state.authMode,
+        name: loginName.value.trim(),
+        email: loginEmail.value.trim(),
+        password: loginPassword.value.trim(),
+      }),
+    });
+    loginPassword.value = "";
+    applyBootstrap(result.data);
+  }
+
+  async function buyProduct(productId) {
+    if (!state.loggedIn) return;
+
+    if (state.cart.includes(productId)) {
+      window.location.href = "/loja/carrinho.html";
+      return;
     }
+
+    const result = await fetchJson("/api/loja-cart", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "add",
+        productId,
+      }),
+    });
+
+    applyBootstrap(result.data);
+  }
+
+  async function logout() {
+    const result = await fetchJson("/api/loja-logout", {
+      method: "POST",
+      body: JSON.stringify({}),
+    });
+    applyBootstrap(result.data);
+  }
+
+  loginButton.addEventListener("click", function () {
+    loginFeedback.textContent = "";
+    submitAuth().catch(function (error) {
+      loginFeedback.textContent = error.message || "Não foi possível entrar agora.";
+    });
+  });
+
+  loginTab.addEventListener("click", function () {
+    setAuthMode("login");
+  });
+
+  signupTab.addEventListener("click", function () {
+    setAuthMode("signup");
   });
 
   ownedTab.addEventListener("click", function () {
@@ -181,6 +240,21 @@
 
   availableTab.addEventListener("click", function () {
     setTab("available");
+  });
+
+  availableGrid.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-buy-product]");
+    if (!button) return;
+
+    buyProduct(button.getAttribute("data-buy-product")).catch(function (error) {
+      loginFeedback.textContent = error.message || "Não foi possível atualizar o carrinho.";
+    });
+  });
+
+  document.getElementById("logoutButton").addEventListener("click", function () {
+    logout().catch(function (error) {
+      loginFeedback.textContent = error.message || "Não foi possível sair da conta.";
+    });
   });
 
   document.getElementById("searchToggle").addEventListener("click", function () {
@@ -204,4 +278,6 @@
     console.error(error);
     loginFeedback.textContent = error.message || "Não foi possível carregar sua conta.";
   });
+
+  setAuthMode("login");
 })();
