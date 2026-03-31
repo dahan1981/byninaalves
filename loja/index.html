@@ -506,6 +506,22 @@
     gap: 20px;
   }
 
+  .catalog-empty {
+    padding: 44px 24px;
+    border-radius: var(--radius-lg);
+    border: 1px dashed rgba(190, 159, 127, 0.26);
+    background: rgba(255, 252, 248, 0.72);
+    text-align: center;
+    color: var(--text-soft);
+    display: grid;
+    gap: 8px;
+  }
+
+  .catalog-empty strong {
+    color: #6f4d3a;
+    font-size: 1.05rem;
+  }
+
   .catalog-side,
   .members-panel,
   .account-panel {
@@ -1192,7 +1208,7 @@
 
           <div class="header-search">
             <span class="search-mark">⌕</span>
-            <input type="text" placeholder="Buscar produtos, guias e materiais">
+            <input id="catalogSearch" type="search" placeholder="Buscar produtos, guias e materiais" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="search" name="catalog-search">
           </div>
 
           <nav class="topnav">
@@ -1547,6 +1563,7 @@
     name: "",
     email: "",
     authMode: "login",
+    searchTerm: "",
     products: [],
     owned: [],
     cart: [],
@@ -1555,6 +1572,7 @@
     credentials: null
   };
 
+  const catalogSearch = document.getElementById("catalogSearch");
   const catalogGrid = document.getElementById("catalogGrid");
   const ownedGrid = document.getElementById("ownedGrid");
   const lockedGrid = document.getElementById("lockedGrid");
@@ -1691,7 +1709,33 @@
   }
 
   function renderCatalog() {
-    catalogGrid.innerHTML = state.products.map(function(product) {
+    const term = (state.searchTerm || "").trim().toLowerCase();
+    const filteredProducts = state.products.filter(function(product) {
+      if (!term) return true;
+
+      const haystack = [
+        product.name,
+        product.tag,
+        product.description,
+        ...(product.meta || []),
+        ...(product.benefits || []),
+        ...(product.bonuses || [])
+      ].join(" ").toLowerCase();
+
+      return haystack.includes(term);
+    });
+
+    if (!filteredProducts.length) {
+      catalogGrid.innerHTML = `
+        <div class="catalog-empty">
+          <strong>Produto não encontrado</strong>
+          <span>Tente buscar por outro nome ou termo do produto.</span>
+        </div>
+      `;
+      return;
+    }
+
+    catalogGrid.innerHTML = filteredProducts.map(function(product) {
       const owned = state.owned.includes(product.id);
       const inCart = state.cart.includes(product.id);
       const oldPriceLabel = product.id === "guia-destrave" ? "R$ 97" : "";
@@ -1996,6 +2040,13 @@
   });
 
   document.getElementById("loginToggle").addEventListener("click", function() { openDrawer(state.pendingProductId); });
+  document.getElementById("searchToggle").addEventListener("click", function() {
+    catalogSearch.focus();
+  });
+  catalogSearch.addEventListener("input", function(event) {
+    state.searchTerm = event.target.value || "";
+    renderCatalog();
+  });
   document.getElementById("cartToggle").addEventListener("click", openCart);
   document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
   document.getElementById("closeDetails").addEventListener("click", closeDetails);
