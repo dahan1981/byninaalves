@@ -78,7 +78,7 @@
     if (owned) {
       addToCartButton.textContent = "Acesso liberado";
       addToCartButton.disabled = true;
-      purchaseStatus.innerHTML = 'Este produto já está liberado na sua conta. <a class="page-link" href="/loja">Ir para a área de membros</a>';
+      purchaseStatus.innerHTML = 'Este produto já está liberado na sua conta. <a class="page-link" href="/loja/membros.html">Ir para a área de membros</a>';
       return;
     }
 
@@ -153,7 +153,7 @@
 
   document.getElementById("loginToggle").addEventListener("click", function () {
     if (state.loggedIn) {
-      window.location.href = "/loja";
+      window.location.href = "/loja/membros.html";
       return;
     }
     openDrawer();
