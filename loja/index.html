@@ -597,6 +597,28 @@
   .product-art img,
   .member-art img {
     width: min(84%, 300px);
+    max-height: 84%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 18px 22px rgba(26, 21, 16, 0.1));
+  }
+
+  .detail-media {
+    aspect-ratio: 1 / 1;
+    border-radius: 22px;
+    background:
+      radial-gradient(circle at top right, rgba(198, 149, 105, 0.16), transparent 30%),
+      linear-gradient(180deg, #fffdfa 0%, #f3eadf 100%);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+
+  .detail-media img {
+    width: min(82%, 320px);
+    max-height: 82%;
+    object-fit: contain;
     display: block;
     filter: drop-shadow(0 18px 22px rgba(26, 21, 16, 0.1));
   }
@@ -1264,6 +1286,7 @@
         <h3 id="detailsTitle">Produto</h3>
       </div>
       <div class="detail-box">
+        <div class="detail-media" id="detailsMedia"></div>
         <p class="account-copy" id="detailsDescription"></p>
         <div class="detail-list">
           <div>
@@ -1338,6 +1361,7 @@
   const cartStatus = document.getElementById("cartStatus");
   const cartCredentialsBox = document.getElementById("cartCredentialsBox");
   const detailsTitle = document.getElementById("detailsTitle");
+  const detailsMedia = document.getElementById("detailsMedia");
   const detailsDescription = document.getElementById("detailsDescription");
   const detailsBenefits = document.getElementById("detailsBenefits");
   const detailsBonuses = document.getElementById("detailsBonuses");
@@ -1362,8 +1386,19 @@
     });
   }
 
-  function artMarkup() {
-    return '<img src="/mocku.png" alt="Mockup dos produtos digitais da loja">';
+  function productImage(productId) {
+    const imageMap = {
+      "guia-destrave": "/loja/guia.png",
+      "produto-02": "/loja/precificacao.png",
+      "produto-03": "/loja/calendario.png",
+      "produto-04": "/loja/quadros.png"
+    };
+
+    return imageMap[productId] || "/loja/guia.png";
+  }
+
+  function artMarkup(product) {
+    return `<img src="${productImage(product.id)}" alt="${product.name}">`;
   }
 
   function formatPrice(value) {
@@ -1439,7 +1474,7 @@
             <div class="product-badges">
               <span class="product-badge">${product.tag}</span>
             </div>
-            ${artMarkup()}
+            ${artMarkup(product)}
           </div>
           <div class="product-body">
             <div class="product-head">
@@ -1520,6 +1555,7 @@
     if (!product) return;
 
     detailsTitle.textContent = product.name;
+    detailsMedia.innerHTML = artMarkup(product);
     detailsDescription.textContent = product.id === "guia-destrave"
       ? "De R$ 97 por R$ 37. Um material direto para destravar ideias de renda extra com mais clareza, estratégia e aplicação prática."
       : (product.description || "Mais detalhes deste produto entram aqui em seguida.");
@@ -1559,7 +1595,7 @@
     ownedGrid.innerHTML = ownedProducts.map(function(product) {
       return `
         <article class="member-card">
-          <div class="member-art">${artMarkup()}</div>
+          <div class="member-art">${artMarkup(product)}</div>
           <div>
             <p class="product-tag">Acesso ativo</p>
             <h3 class="product-name">${product.name}</h3>
