@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon%20guia.svg">
+<title>Calendário Sazonal | byninastore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/loja/produto.css">
+</head>
+<body>
+<div class="ticker">
+  <div class="ticker-track">
+    <span>PRODUTOS DIGITAIS</span>
+    <span>COMPRA ORGANIZADA</span>
+    <span>ACESSO IMEDIATO</span>
+    <span>ÁREA DE MEMBROS</span>
+    <span>CONTINUIDADE DE COMPRA</span>
+    <span>PRODUTOS DIGITAIS</span>
+    <span>COMPRA ORGANIZADA</span>
+    <span>ACESSO IMEDIATO</span>
+    <span>ÁREA DE MEMBROS</span>
+    <span>CONTINUIDADE DE COMPRA</span>
+  </div>
+</div>
+
+<header class="header-shell">
+  <div class="container topbar">
+    <a class="brand" href="/loja">
+      <span class="brand-mark">byninaalves</span>
+    </a>
+    <div class="topnav">
+      <button class="icon-btn" id="searchToggle" type="button" aria-label="Buscar na loja">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.2-4.2"></path></svg>
+      </button>
+      <button class="icon-btn" id="loginToggle" type="button" aria-label="Entrar na conta">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"></path><path d="M5 20a7 7 0 0 1 14 0"></path></svg>
+      </button>
+      <button class="icon-btn cart-chip" id="cartToggle" type="button" aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10l-1 11H8L7 7Z"></path><path d="M9 7V5a3 3 0 0 1 6 0v2"></path></svg>
+        <strong id="cartCount">0</strong>
+      </button>
+      <a class="status-pill member-chip" id="memberChip" href="/loja#members">Área de membros</a>
+    </div>
+  </div>
+</header>
+
+<main class="page-shell">
+  <div class="container">
+    <section class="product-hero">
+      <div class="gallery-panel">
+        <div class="gallery-main">
+          <img src="/loja/calendario.png" alt="Calendário Sazonal">
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-thumb"><img src="/loja/calendario.png" alt="Visual do Calendário Sazonal"></div>
+          <div class="gallery-thumb"><img src="/loja/calendario.png" alt="Aplicação do Calendário Sazonal"></div>
+          <div class="gallery-thumb"><img src="/loja/calendario.png" alt="Produto Calendário Sazonal"></div>
+        </div>
+      </div>
+
+      <div class="info-panel">
+        <p class="eyebrow">Produto complementar</p>
+        <h1 class="product-title">Calendário Sazonal</h1>
+        <p class="product-description">Produto já disponível na loja. A descrição completa entra aqui em seguida, junto com a copy final desta oferta.</p>
+        <div class="price-row">
+          <strong>R$ 9,90</strong>
+        </div>
+        <div class="cta-row">
+          <button class="primary-btn" id="addToCartButton" type="button">Adicionar ao carrinho</button>
+          <a class="ghost-btn" href="/loja">Voltar para a loja</a>
+        </div>
+        <p class="page-status" id="purchaseStatus">Entre na sua conta para adicionar este produto ao carrinho.</p>
+      </div>
+    </section>
+
+    <div class="section-stack">
+      <section class="section-block">
+        <h2 class="section-title">Sobre este produto</h2>
+        <div class="bullet-grid">
+          <div class="bullet-item">Estrutura pronta para receber a descrição completa do Calendário Sazonal.</div>
+          <div class="bullet-item">Página já preparada para compra, carrinho e acesso posterior na mesma conta.</div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<div class="auth-drawer" id="authDrawer" aria-hidden="true">
+  <div class="auth-card">
+    <div>
+      <p class="eyebrow">Sua conta</p>
+      <h2 id="authTitle">Entrar</h2>
+      <p class="auth-copy" id="authCopy">Entre na sua conta para adicionar este produto ao carrinho e seguir com a compra.</p>
+    </div>
+    <div class="auth-switch">
+      <button class="auth-tab active" id="loginTab" type="button">Entrar</button>
+      <button class="auth-tab" id="signupTab" type="button">Criar conta</button>
+    </div>
+    <div class="drawer-product" id="drawerProductInfo"></div>
+    <div class="account-grid" id="accountGrid">
+      <div class="drawer-product"><strong>Cliente</strong><span id="drawerMemberName">Cliente</span></div>
+      <div class="drawer-product"><strong>E-mail</strong><span id="drawerMemberEmail">—</span></div>
+      <div class="drawer-product"><strong>Produtos liberados</strong><span id="drawerOwnedTotal">0</span></div>
+      <div class="drawer-product"><strong>Itens no carrinho</strong><span id="drawerCartTotal">0</span></div>
+    </div>
+    <div class="auth-grid">
+      <div class="field">
+        <label for="nameInput">Nome</label>
+        <input id="nameInput" type="text" placeholder="Seu nome">
+      </div>
+      <div class="field">
+        <label for="emailInput">E-mail</label>
+        <input id="emailInput" type="email" placeholder="voce@email.com">
+      </div>
+      <div class="field">
+        <label for="passwordInput">Senha</label>
+        <input id="passwordInput" type="password" placeholder="Sua senha">
+      </div>
+    </div>
+    <p class="auth-helper" id="authHelper">Use seus dados para continuar normalmente.</p>
+    <div class="auth-actions">
+      <button class="primary-btn" id="confirmLogin" type="button">Continuar</button>
+      <button class="ghost-btn" id="closeDrawer" type="button">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.PRODUCT_PAGE = {
+    id: "produto-03",
+    name: "Calendário Sazonal",
+    priceLabel: "R$ 9,90"
+  };
+</script>
+<script src="/loja/produto.js"></script>
+</body>
+</html>

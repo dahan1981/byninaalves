@@ -1662,6 +1662,17 @@
     return imageMap[productId] || "/loja/guia.png";
   }
 
+  function productHref(productId) {
+    const hrefMap = {
+      "guia-destrave": "/loja/guia-destrave.html",
+      "produto-02": "/loja/calculadora-de-precificacao.html",
+      "produto-03": "/loja/calendario-sazonal.html",
+      "produto-04": "/loja/pack-de-quadros.html"
+    };
+
+    return hrefMap[productId] || "/loja";
+  }
+
   function artMarkup(product) {
     return `<img src="${productImage(product.id)}" alt="${product.name}">`;
   }
@@ -1791,7 +1802,7 @@
               ${(product.meta || []).map(function(item) { return `<span>${item}</span>`; }).join("")}
             </div>` : ""}
             <div class="product-actions">
-              <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
+              <a class="ghost-btn" href="${productHref(product.id)}">Ver detalhes</a>
               <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">${owned ? "Acesso liberado" : inCart ? "No carrinho" : "Quero este produto"}</button>
             </div>
           </div>
@@ -1933,7 +1944,7 @@
             <p class="product-copy">Continua visível para compra futura dentro da área de membros, sem misturar com o que já foi liberado.</p>
           </div>
           <div class="product-actions">
-            <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
+            <a class="ghost-btn" href="${productHref(product.id)}">Ver detalhes</a>
             <button class="primary-btn" type="button" data-action="buy" data-product="${product.id}">Desbloquear produto</button>
           </div>
         </article>
