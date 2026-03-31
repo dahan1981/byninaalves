@@ -389,6 +389,7 @@
   }
 
   .journey-section {
+    display: none;
     text-align: center;
   }
 
@@ -449,6 +450,115 @@
     margin: 0;
     color: var(--text-soft);
     line-height: 1.72;
+  }
+
+  .footer-shell {
+    margin-top: 30px;
+    background: #090909;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 56px 0 18px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 34px;
+    padding-bottom: 34px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .footer-brand {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+  }
+
+  .footer-brand-mark {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 0.92;
+    color: #fff;
+  }
+
+  .footer-brand p,
+  .footer-note,
+  .footer-links a,
+  .footer-payments span {
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.75;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .footer-column {
+    display: grid;
+    gap: 14px;
+    align-content: start;
+  }
+
+  .footer-column h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-links {
+    display: grid;
+    gap: 10px;
+  }
+
+  .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer-social a,
+  .payment-badge {
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+  }
+
+  .footer-social a {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+
+  .footer-payments {
+    display: grid;
+    gap: 10px;
+  }
+
+  .payment-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .payment-badge {
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 14px 20px;
+    padding-top: 18px;
   }
 
   .hero-points {
@@ -1172,6 +1282,7 @@
     .auth-card { border-radius: 24px; }
 
     .journey-grid,
+    .footer-grid,
     .catalog-grid,
     .member-grid,
     .recommend-grid { grid-template-columns: 1fr; }
@@ -1199,6 +1310,14 @@
     }
 
     .price { text-align: left; }
+
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+    }
   }
 </style>
 </head>
@@ -1253,7 +1372,6 @@
           <a class="nav-link" href="#catalogo">Materiais Digitais</a>
           <a class="nav-link" href="#catalogo">Calendários</a>
           <a class="nav-link" href="/loja/membros.html">Área de membros</a>
-          <a class="nav-link" href="#como-funciona">Como funciona</a>
         </nav>
       </div>
     </div>
@@ -1397,6 +1515,70 @@
       </section>
     </div>
   </div>
+
+  <footer class="footer-shell">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-brand-mark">byninastore</span>
+          <p>Uma vitrine digital para comprar com mais clareza, manter tudo organizado na mesma conta e acessar seus produtos em um ambiente próprio.</p>
+          <div class="footer-payments">
+            <span>Pagamentos disponíveis</span>
+            <div class="payment-row">
+              <span class="payment-badge">PIX</span>
+              <span class="payment-badge">Cartão</span>
+              <span class="payment-badge">Checkout Pro</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h3>Produtos</h3>
+            <div class="footer-links">
+              <a href="/loja/guia-destrave.html">Guia Destrave</a>
+              <a href="/loja/calculadora-de-precificacao.html">Calculadora de Precificação</a>
+              <a href="/loja/calendario-sazonal.html">Calendário Sazonal</a>
+              <a href="/loja/pack-de-quadros.html">Pack de Quadros</a>
+            </div>
+          </div>
+
+          <div class="footer-column">
+            <h3>Suporte</h3>
+            <div class="footer-links">
+              <a href="/loja">Central da loja</a>
+              <a href="/loja/membros.html">Área de membros</a>
+              <a href="#footer-how">Como comprar</a>
+              <a href="#footer-how">Dúvidas frequentes</a>
+            </div>
+          </div>
+
+          <div class="footer-column" id="footer-how">
+            <h3>Como funciona</h3>
+            <div class="footer-links">
+              <a href="#footer-how">Você explora a vitrine sem login.</a>
+              <a href="#footer-how">Quando decide comprar, entra na sua conta.</a>
+              <a href="#footer-how">Depois da compra, acessa seus produtos na área de membros.</a>
+            </div>
+          </div>
+
+          <div class="footer-column">
+            <h3>Siga-nos</h3>
+            <div class="footer-social">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="TikTok">TT</a>
+              <a href="#" aria-label="Threads">TH</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-note">© 2026 byninastore. Todos os direitos reservados.</span>
+        <span class="footer-note">Compra organizada, acesso contínuo e biblioteca do cliente no mesmo ambiente.</span>
+      </div>
+    </div>
+  </footer>
 
   <div class="auth-drawer" id="authDrawer" aria-hidden="true">
     <div class="auth-card">
