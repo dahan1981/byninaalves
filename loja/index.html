@@ -977,6 +977,97 @@
     padding-top: 14px;
   }
 
+  .checkout-grid {
+    display: grid;
+    gap: 18px;
+  }
+
+  .checkout-section {
+    border-radius: 22px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 250, 244, 0.82);
+    padding: 18px;
+    display: grid;
+    gap: 14px;
+  }
+
+  .checkout-section h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #6f4d3a;
+  }
+
+  .checkout-summary {
+    display: grid;
+    gap: 12px;
+  }
+
+  .checkout-summary-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(190, 159, 127, 0.12);
+  }
+
+  .checkout-summary-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .checkout-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .checkout-form .field-full {
+    grid-column: 1 / -1;
+  }
+
+  .field textarea {
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--text);
+    padding: 14px 16px;
+    min-height: 96px;
+    resize: vertical;
+    font: inherit;
+  }
+
+  .consent-list,
+  .payment-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .consent-item,
+  .payment-item {
+    display: flex;
+    gap: 10px;
+    align-items: start;
+    color: var(--text-soft);
+  }
+
+  .consent-item input,
+  .payment-item input {
+    margin-top: 2px;
+  }
+
+  .payment-card {
+    display: grid;
+    gap: 4px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 255, 255, 0.78);
+  }
+
+  .payment-card strong {
+    color: var(--text);
+  }
+
   .drawer-product strong {
     display: block;
     margin-bottom: 4px;
@@ -1365,6 +1456,91 @@
     </div>
   </div>
 
+  <div class="auth-drawer" id="checkoutDrawer" aria-hidden="true">
+    <div class="auth-card">
+      <div class="auth-top">
+        <p class="eyebrow">Checkout</p>
+        <h3>Revise seus itens e siga para o pagamento</h3>
+        <p class="auth-copy">Preencha seus dados para processar o pedido, confirmar o contato operacional e deixar a integração do pagamento pronta para a próxima etapa.</p>
+      </div>
+
+      <div class="checkout-grid">
+        <div class="checkout-section">
+          <h4>Resumo do pedido</h4>
+          <div class="checkout-summary" id="checkoutSummary"></div>
+          <div class="cart-total">
+            <div class="cart-total-line"><span>Total</span><strong id="checkoutTotal">R$ 0</strong></div>
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h4>Dados para o pedido</h4>
+          <div class="checkout-form">
+            <div class="field">
+              <label for="checkoutEmail">E-mail</label>
+              <input id="checkoutEmail" type="email" placeholder="voce@email.com">
+            </div>
+            <div class="field">
+              <label for="checkoutPhone">Contato operacional</label>
+              <input id="checkoutPhone" type="text" placeholder="WhatsApp ou telefone">
+            </div>
+            <div class="field field-full">
+              <label for="checkoutAddress">Endereço</label>
+              <textarea id="checkoutAddress" placeholder="Rua, número, complemento, bairro, cidade e CEP"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h4>Forma de pagamento</h4>
+          <div class="payment-list">
+            <label class="payment-item payment-card">
+              <input type="radio" name="paymentMethod" value="mercado-pago-checkout-pro" checked>
+              <span>
+                <strong>Checkout Pro Mercado Pago</strong><br>
+                Fluxo preparado para integração do pagamento real na próxima etapa.
+              </span>
+            </label>
+            <label class="payment-item payment-card">
+              <input type="radio" name="paymentMethod" value="pix-checkout-pro">
+              <span>
+                <strong>Pix via checkout</strong><br>
+                Opção visual pronta para ser processada pelo checkout integrado.
+              </span>
+            </label>
+            <label class="payment-item payment-card">
+              <input type="radio" name="paymentMethod" value="cartao-checkout-pro">
+              <span>
+                <strong>Cartão via checkout</strong><br>
+                Opção visual pronta para ser processada pelo checkout integrado.
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h4>Autorizações</h4>
+          <div class="consent-list">
+            <label class="consent-item">
+              <input id="consentDataUse" type="checkbox">
+              <span>Autorização de uso dos dados exclusivamente para processar meu pedido, contato operacional e confirmação de pagamento.</span>
+            </label>
+            <label class="consent-item">
+              <input id="consentTransactional" type="checkbox">
+              <span>Autorização o envio de e-mails transacionais sobre este pedido.</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <p class="auth-helper" id="checkoutHelper">Revise seus dados antes de seguir para o pagamento.</p>
+      <div class="auth-actions">
+        <button class="primary-btn" id="confirmCheckout" type="button">Seguir para pagamento</button>
+        <button class="ghost-btn" id="closeCheckout" type="button">Voltar ao carrinho</button>
+      </div>
+    </div>
+  </div>
+
 <script>
   const state = {
     loggedIn: false,
@@ -1385,6 +1561,7 @@
   const authDrawer = document.getElementById("authDrawer");
   const detailsDrawer = document.getElementById("detailsDrawer");
   const cartDrawer = document.getElementById("cartDrawer");
+  const checkoutDrawer = document.getElementById("checkoutDrawer");
   const memberChip = document.getElementById("memberChip");
   const membersShell = document.getElementById("membersShell");
   const ownedCount = document.getElementById("ownedCount");
@@ -1398,6 +1575,14 @@
   const cartTotal = document.getElementById("cartTotal");
   const cartStatus = document.getElementById("cartStatus");
   const cartCredentialsBox = document.getElementById("cartCredentialsBox");
+  const checkoutSummary = document.getElementById("checkoutSummary");
+  const checkoutTotal = document.getElementById("checkoutTotal");
+  const checkoutEmail = document.getElementById("checkoutEmail");
+  const checkoutPhone = document.getElementById("checkoutPhone");
+  const checkoutAddress = document.getElementById("checkoutAddress");
+  const checkoutHelper = document.getElementById("checkoutHelper");
+  const consentDataUse = document.getElementById("consentDataUse");
+  const consentTransactional = document.getElementById("consentTransactional");
   const detailsTitle = document.getElementById("detailsTitle");
   const detailsMedia = document.getElementById("detailsMedia");
   const detailsDescription = document.getElementById("detailsDescription");
@@ -1441,6 +1626,10 @@
 
   function formatPrice(value) {
     return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  }
+
+  function formatCents(value) {
+    return formatPrice((Number(value) || 0) / 100);
   }
 
   async function fetchJson(url, options) {
@@ -1563,7 +1752,7 @@
         `;
       }).join("");
       cartStatus.textContent = state.loggedIn ? "Tudo pronto para finalizar a compra." : "Você vai fazer login antes de finalizar.";
-      cartTotal.textContent = formatPrice(total);
+      cartTotal.textContent = formatCents(total);
     }
 
     cartCredentialsBox.hidden = true;
@@ -1573,6 +1762,33 @@
       <div class="account-line"><span>Carrinho</span><span>${cartProducts.length} item${cartProducts.length === 1 ? "" : "s"}</span></div>
       <div class="account-line"><span>Status</span><span>${state.loggedIn ? (cartProducts.length ? "Pronta para finalizar a compra" : "Conta pronta para comprar") : "Entre para continuar"}</span></div>
     `;
+  }
+
+  function renderCheckout() {
+    const cartProducts = state.products.filter(function(product) {
+      return state.cart.includes(product.id);
+    });
+    const total = cartProducts.reduce(function(sum, product) {
+      return sum + Number(product.price_cents || product.price || 0);
+    }, 0);
+
+    checkoutSummary.innerHTML = cartProducts.map(function(product) {
+      return `
+        <div class="checkout-summary-item">
+          <div>
+            <strong>${product.name}</strong><br>
+            <span>${product.tag}</span>
+          </div>
+          <strong>${product.price_label || product.priceLabel}</strong>
+        </div>
+      `;
+    }).join("");
+
+    checkoutTotal.textContent = formatCents(total);
+    checkoutEmail.value = state.email || "";
+    checkoutHelper.textContent = cartProducts.length
+      ? "Tudo pronto para seguir para a integração do pagamento."
+      : "Adicione um produto ao carrinho para continuar.";
   }
 
   function renderDetails(productId) {
@@ -1692,6 +1908,17 @@
     cartDrawer.setAttribute("aria-hidden", "true");
   }
 
+  function openCheckout() {
+    renderCheckout();
+    checkoutDrawer.classList.add("open");
+    checkoutDrawer.setAttribute("aria-hidden", "false");
+  }
+
+  function closeCheckout() {
+    checkoutDrawer.classList.remove("open");
+    checkoutDrawer.setAttribute("aria-hidden", "true");
+  }
+
   async function syncCart(action, productId) {
     const result = await fetchJson("/api/loja-cart", {
       method: "POST",
@@ -1721,8 +1948,39 @@
       return;
     }
 
-    const result = await fetchJson("/api/loja-checkout", { method: "POST" });
+    if (!checkoutEmail.value.trim() || !checkoutPhone.value.trim() || !checkoutAddress.value.trim()) {
+      checkoutHelper.textContent = "Preencha e-mail, contato operacional e endereço para continuar.";
+      return;
+    }
+
+    if (!consentDataUse.checked || !consentTransactional.checked) {
+      checkoutHelper.textContent = "Confirme as autorizações para seguir para o pagamento.";
+      return;
+    }
+
+    const selectedPayment = document.querySelector('input[name="paymentMethod"]:checked');
+    if (!selectedPayment) {
+      checkoutHelper.textContent = "Escolha a forma de pagamento para continuar.";
+      return;
+    }
+
+    const result = await fetchJson("/api/loja-checkout", {
+      method: "POST",
+      body: JSON.stringify({
+        customer: {
+          email: checkoutEmail.value.trim(),
+          phone: checkoutPhone.value.trim(),
+          address: checkoutAddress.value.trim(),
+        },
+        consents: {
+          dataUse: consentDataUse.checked,
+          transactionalEmail: consentTransactional.checked,
+        },
+        paymentMethod: selectedPayment.value,
+      }),
+    });
     applyBootstrap(result.data);
+    closeCheckout();
     openCart();
     membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -1742,7 +2000,15 @@
   document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
   document.getElementById("closeDetails").addEventListener("click", closeDetails);
   document.getElementById("closeCart").addEventListener("click", closeCart);
-  document.getElementById("finishPurchase").addEventListener("click", finishPurchase);
+  document.getElementById("closeCheckout").addEventListener("click", function() {
+    closeCheckout();
+    openCart();
+  });
+  document.getElementById("finishPurchase").addEventListener("click", function() {
+    closeCart();
+    openCheckout();
+  });
+  document.getElementById("confirmCheckout").addEventListener("click", finishPurchase);
   document.getElementById("detailsBuy").addEventListener("click", function(event) {
     const productId = event.currentTarget.getAttribute("data-product");
     closeDetails();
@@ -1806,6 +2072,10 @@
 
   cartDrawer.addEventListener("click", function(event) {
     if (event.target === cartDrawer) closeCart();
+  });
+
+  checkoutDrawer.addEventListener("click", function(event) {
+    if (event.target === checkoutDrawer) closeCheckout();
   });
 
   loadBootstrap().catch(function(error) {
