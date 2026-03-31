@@ -139,7 +139,7 @@
 
   .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
     gap: clamp(42px, 6vw, 92px);
     align-items: center;
   }
@@ -148,7 +148,7 @@
     display: grid;
     gap: 24px;
     align-content: center;
-    max-width: 690px;
+    max-width: 780px;
   }
 
   .hero-copy h1,
@@ -163,7 +163,7 @@
 
   .hero-copy h1 {
     font-size: clamp(3.8rem, 6.6vw, 6.1rem);
-    max-width: 8.9ch;
+    max-width: 11.2ch;
   }
 
   .hero-subtitle,
@@ -535,7 +535,25 @@
     .catalog-layout,
     .members-layout { grid-template-columns: 1fr; }
 
-    .hero-aside { justify-items: start; }
+    .hero-copy {
+      max-width: 920px;
+      margin: 0 auto;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .hero-copy h1 {
+      max-width: 12ch;
+      font-size: clamp(3.6rem, 8vw, 5.4rem);
+    }
+
+    .hero-subtitle,
+    .hero-actions,
+    .hero-meta {
+      justify-content: center;
+    }
+
+    .hero-aside { justify-items: center; }
     .catalog-side { position: static; }
 
     .hero-transition {
