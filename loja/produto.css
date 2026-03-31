@@ -142,10 +142,16 @@ button { border: 0; background: none; cursor: pointer; }
   stroke-linejoin: round;
 }
 
+.cart-chip svg {
+  width: 18px;
+  height: 18px;
+  transform: translate(-0.5px, 0.5px);
+}
+
 .cart-chip strong {
   position: absolute;
   top: -7px;
-  right: -5px;
+  right: -8px;
   min-width: 23px;
   height: 23px;
   padding: 0 6px;
