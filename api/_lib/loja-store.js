@@ -147,14 +147,14 @@ async function listProducts() {
 
 async function findUserByEmail(email) {
   const result = await supabaseFetch(
-    `loja_users?select=id,name,email,password_hash,last_access_password&email=eq.${encodeURIComponent(email)}&limit=1`,
+    `loja_users?select=id,name,email,password_hash&email=eq.${encodeURIComponent(email)}&limit=1`,
     { method: "GET" }
   );
   return result[0] || null;
 }
 
 async function findUserById(id) {
-  const result = await supabaseFetch(`loja_users?select=id,name,email,last_access_password&id=eq.${id}&limit=1`, {
+  const result = await supabaseFetch(`loja_users?select=id,name,email&id=eq.${id}&limit=1`, {
     method: "GET",
   });
   return result[0] || null;
@@ -165,7 +165,6 @@ async function createUser({ name, email, password }) {
     name,
     email: email.toLowerCase(),
     password_hash: hashPassword(password),
-    last_access_password: password,
   };
 
   const result = await supabaseFetch("loja_users", {
@@ -234,7 +233,7 @@ async function buildBootstrap(req) {
       : null,
     ownedProductIds,
     cartProductIds: cart.filter((id) => !ownedProductIds.includes(id)),
-    credentials: user && user.last_access_password ? { email: user.email, password: user.last_access_password } : null,
+    credentials: null,
   };
 }
 

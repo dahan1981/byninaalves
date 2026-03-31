@@ -1529,26 +1529,13 @@
       cartTotal.textContent = formatPrice(total);
     }
 
-    if (state.credentials) {
-      cartCredentialsBox.hidden = false;
-      cartCredentialsBox.innerHTML = `
-        <strong>Credenciais enviadas por e-mail</strong>
-        <div class="account-line"><span>E-mail</span><span>${state.credentials.email}</span></div>
-        <div class="account-line"><span>Senha</span><span>${state.credentials.password}</span></div>
-      `;
-      credentialsBox.innerHTML = `
-        <div class="account-line"><span>Acesso</span><span>Liberado</span></div>
-        <div class="account-line"><span>E-mail</span><span>${state.credentials.email}</span></div>
-        <div class="account-line"><span>Senha</span><span>${state.credentials.password}</span></div>
-      `;
-    } else {
-      cartCredentialsBox.hidden = true;
-      cartCredentialsBox.innerHTML = "";
-      credentialsBox.innerHTML = `
-        <div class="account-line"><span>Acesso</span><span>Pendente</span></div>
-        <div class="account-line"><span>Status</span><span>${state.loggedIn ? "Conta pronta para compra" : "Aguardando login e compra"}</span></div>
-      `;
-    }
+    cartCredentialsBox.hidden = true;
+    cartCredentialsBox.innerHTML = "";
+    credentialsBox.innerHTML = `
+      <div class="account-line"><span>Conta</span><span>${state.loggedIn ? "Conectada" : "Aguardando login"}</span></div>
+      <div class="account-line"><span>Carrinho</span><span>${cartProducts.length} item${cartProducts.length === 1 ? "" : "s"}</span></div>
+      <div class="account-line"><span>Status</span><span>${state.loggedIn ? (cartProducts.length ? "Pronta para finalizar a compra" : "Conta pronta para comprar") : "Entre para continuar"}</span></div>
+    `;
   }
 
   function renderDetails(productId) {
@@ -1737,10 +1724,18 @@
 
     closeDrawer();
     applyBootstrap(result.data);
+    nameInput.value = "";
+    emailInput.value = "";
+    passwordInput.value = "";
+
     if (state.pendingProductId) {
       await syncCart("add", state.pendingProductId);
       state.pendingProductId = null;
-      openCart();
+    }
+
+    openCart();
+    if (state.owned.length) {
+      membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
 
