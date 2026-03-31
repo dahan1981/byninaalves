@@ -387,6 +387,69 @@
     line-height: 1.78;
   }
 
+  .journey-section {
+    text-align: center;
+  }
+
+  .journey-section .section-head {
+    justify-content: center;
+    margin-bottom: 22px;
+  }
+
+  .journey-section .section-title {
+    max-width: 12ch;
+    color: #6f4d3a;
+    margin-inline: auto;
+  }
+
+  .journey-section .section-copy {
+    max-width: 62ch;
+    margin: 0 auto;
+    color: var(--text-soft);
+    line-height: 1.8;
+  }
+
+  .journey-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .journey-card {
+    padding: 22px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(190, 159, 127, 0.18);
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,240,231,0.92));
+    box-shadow: var(--shadow-soft);
+    text-align: left;
+  }
+
+  .journey-step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 252, 248, 0.88);
+    color: var(--accent-dark);
+    font-size: 0.92rem;
+    margin-bottom: 14px;
+  }
+
+  .journey-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.12rem;
+    color: #6f4d3a;
+  }
+
+  .journey-card p {
+    margin: 0;
+    color: var(--text-soft);
+    line-height: 1.72;
+  }
+
   .hero-points {
     display: none;
   }
@@ -1047,6 +1110,36 @@
           <div class="hero-actions">
             <a class="primary-btn" href="#catalogo">Ver produtos disponíveis</a>
           </div>
+        </div>
+      </section>
+
+      <section class="section-block journey-section" id="como-funciona">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Como funciona</p>
+            <h2 class="section-title">Uma compra simples, organizada e feita para continuar na mesma conta.</h2>
+          </div>
+          <p class="section-copy">Aqui a pessoa entra na loja, escolhe o que faz sentido para o momento dela, finaliza a compra com login e passa a acessar tudo o que já liberou em um só lugar.</p>
+        </div>
+
+        <div class="journey-grid">
+          <article class="journey-card">
+            <span class="journey-step">01</span>
+            <h3>Explora sem travar</h3>
+            <p>A vitrine fica aberta para comparar produtos, preços e detalhes com calma antes de qualquer cadastro.</p>
+          </article>
+
+          <article class="journey-card">
+            <span class="journey-step">02</span>
+            <h3>Compra com a própria conta</h3>
+            <p>Quando decide comprar, a pessoa entra ou cria a conta e segue direto para um carrinho organizado, inclusive com mais de um produto.</p>
+          </article>
+
+          <article class="journey-card">
+            <span class="journey-step">03</span>
+            <h3>Acessa e continua comprando</h3>
+            <p>Depois da compra, a biblioteca mostra o que já foi liberado e o que ainda pode entrar como próxima aquisição.</p>
+          </article>
         </div>
       </section>
 
