@@ -865,12 +865,12 @@
   .auth-card {
     width: min(560px, 100%);
     border-radius: var(--radius-xl);
-    background: var(--warm);
-    border: 1px solid var(--line);
-    box-shadow: 0 30px 70px rgba(25, 20, 15, 0.18);
-    padding: 30px;
+    background: linear-gradient(180deg, rgba(255, 252, 248, 0.98), rgba(250, 244, 236, 0.98));
+    border: 1px solid rgba(190, 159, 127, 0.18);
+    box-shadow: 0 34px 90px rgba(25, 20, 15, 0.18);
+    padding: 32px;
     display: grid;
-    gap: 22px;
+    gap: 24px;
   }
 
   .auth-top {
@@ -890,6 +890,10 @@
     margin: 0;
     color: var(--text-soft);
     line-height: 1.7;
+  }
+
+  .auth-card .eyebrow {
+    margin-bottom: 4px;
   }
 
   .auth-switch {
@@ -927,7 +931,7 @@
   .field input {
     border-radius: 16px;
     border: 1px solid var(--line);
-    background: #fffdfa;
+    background: rgba(255, 255, 255, 0.92);
     color: var(--text);
     padding: 14px 16px;
   }
@@ -935,9 +939,42 @@
   .drawer-product {
     border-radius: 18px;
     border: 1px solid rgba(190, 159, 127, 0.16);
-    background: rgba(255, 252, 248, 0.88);
-    padding: 14px 16px;
+    background: rgba(255, 250, 244, 0.92);
+    padding: 16px 18px;
     color: var(--text-soft);
+    display: grid;
+    gap: 6px;
+  }
+
+  .drawer-product strong {
+    color: #6f4d3a;
+    font-size: 0.96rem;
+  }
+
+  .auth-actions {
+    align-items: center;
+  }
+
+  .auth-actions .primary-btn,
+  .auth-actions .ghost-btn {
+    min-width: 170px;
+  }
+
+  .cart-item {
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(190, 159, 127, 0.16);
+    background: rgba(255, 250, 244, 0.82);
+  }
+
+  .cart-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .cart-total {
+    border-top: 1px solid rgba(190, 159, 127, 0.16);
+    padding-top: 14px;
   }
 
   .drawer-product strong {
@@ -1201,8 +1238,8 @@
                 <span class="status-pill" id="ownedCount">0 liberados</span>
               </div>
               <div class="member-tabs">
-                <button class="tab-btn active" id="ownedTab" type="button">Acesso liberado</button>
-                <button class="tab-btn" id="lockedTab" type="button">Adquirir mais</button>
+                <button class="tab-btn active" id="ownedTab" type="button">Seus produtos</button>
+                <button class="tab-btn" id="lockedTab" type="button">Produtos disponíveis</button>
               </div>
               <div class="member-tab-panel active" id="ownedPanel">
                 <div class="member-grid" id="ownedGrid"></div>
@@ -1230,7 +1267,7 @@
                   <h3>Carrinho e acesso</h3>
                   <span class="status-pill" id="lockedCount">0 disponíveis</span>
                 </div>
-                <p class="account-copy">A compra pode acontecer com mais de um produto por vez. Depois de finalizar, as credenciais simuladas aparecem aqui como se tivessem sido enviadas por e-mail.</p>
+                <p class="account-copy">Aqui você acompanha sua conta e o que ainda está disponível para entrar na sua biblioteca.</p>
                 <div class="account-box" id="credentialsBox">
                   <div class="account-line"><span>Acesso</span><span>Pendente</span></div>
                   <div class="account-line"><span>Status</span><span>Aguardando compra</span></div>
@@ -1248,15 +1285,15 @@
       <div class="auth-top">
         <p class="eyebrow">Sua conta</p>
         <h3 id="authTitle">Entrar</h3>
-        <p class="auth-copy" id="authCopy">Acesse sua conta para comprar normalmente, acompanhar o carrinho e entrar na área de membros depois da compra.</p>
+        <p class="auth-copy" id="authCopy">Entre na sua conta para continuar comprando, acompanhar seu carrinho e acessar seus produtos sempre que quiser.</p>
       </div>
       <div class="auth-switch">
         <button class="auth-tab active" id="loginTab" type="button">Entrar</button>
         <button class="auth-tab" id="signupTab" type="button">Criar conta</button>
       </div>
       <div class="drawer-product" id="drawerProductInfo">
-        <strong>Compra em andamento</strong>
-        <span>Você pode entrar ou criar sua conta antes de seguir para o carrinho.</span>
+        <strong>Sua compra continua aqui</strong>
+        <span>Entre ou crie sua conta para seguir para o carrinho com tudo organizado.</span>
       </div>
       <div class="auth-grid">
         <div class="field">
@@ -1272,7 +1309,7 @@
           <input id="passwordInput" type="password" placeholder="Sua senha">
         </div>
       </div>
-      <p class="auth-helper" id="authHelper">Entre com seus dados para continuar comprando.</p>
+      <p class="auth-helper" id="authHelper">Use seus dados para entrar e seguir normalmente para o carrinho.</p>
       <div class="auth-actions">
         <button class="primary-btn" id="confirmLogin" type="button">Continuar</button>
         <button class="ghost-btn" id="closeDrawer" type="button">Fechar</button>
@@ -1311,7 +1348,7 @@
     <div class="auth-card">
       <div>
         <p class="eyebrow">Carrinho</p>
-        <h3>Seus produtos selecionados</h3>
+        <h3>Seu carrinho</h3>
       </div>
       <div class="detail-box">
         <div class="cart-list" id="cartList"></div>
@@ -1322,7 +1359,7 @@
       </div>
       <div class="credentials-box" id="cartCredentialsBox" hidden></div>
       <div class="auth-actions">
-        <button class="primary-btn" id="finishPurchase" type="button">Finalizar compra</button>
+        <button class="primary-btn" id="finishPurchase" type="button">Continuar para compra</button>
         <button class="ghost-btn" id="closeCart" type="button">Continuar comprando</button>
       </div>
     </div>
@@ -1457,11 +1494,11 @@
     signupTab.classList.toggle("active", !isLogin);
     authTitle.textContent = isLogin ? "Entrar" : "Criar conta";
     authCopy.textContent = isLogin
-      ? "Acesse sua conta para comprar normalmente, acompanhar o carrinho e entrar na área de membros depois da compra."
-      : "Crie sua conta para comprar normalmente, guardar seus produtos e acessar a área de membros depois da compra.";
+      ? "Entre na sua conta para continuar comprando, acompanhar seu carrinho e acessar seus produtos sempre que quiser."
+      : "Crie sua conta para comprar com mais facilidade, guardar seus produtos e acompanhar tudo no mesmo lugar.";
     authHelper.textContent = isLogin
-      ? "Entre com seus dados para continuar comprando."
-      : "Cadastre sua conta para seguir para o carrinho e finalizar a compra.";
+      ? "Use seus dados para entrar e seguir normalmente para o carrinho."
+      : "Cadastre sua conta para seguir com a compra e acessar sua biblioteca depois.";
   }
 
   function renderCatalog() {
@@ -1621,7 +1658,7 @@
     if (product) {
       drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>${product.name} • ${product.price_label || product.priceLabel}</span>`;
     } else {
-      drawerProductInfo.innerHTML = `<strong>Compra em andamento</strong><span>Entre ou crie sua conta para seguir normalmente.</span>`;
+      drawerProductInfo.innerHTML = `<strong>Sua compra continua aqui</strong><span>Entre ou crie sua conta para seguir com tudo organizado.</span>`;
     }
     setAuthMode(state.authMode || "login");
     authDrawer.classList.add("open");
