@@ -100,6 +100,19 @@ insert into public.loja_products (
     '[]'::jsonb,
     3,
     true
+  ),
+  (
+    'produto-04',
+    'Pack de Quadros',
+    'Produto adicional',
+    2990,
+    'R$ 29,90',
+    '',
+    '[]'::jsonb,
+    '[]'::jsonb,
+    '[]'::jsonb,
+    4,
+    true
   )
 on conflict (id) do update set
   name = excluded.name,
