@@ -1137,71 +1137,12 @@
   </div>
 
 <script>
-  const products = [
-    {
-      id: "guia-destrave",
-      name: "Guia Destrave",
-      tag: "Produto principal",
-      price: 37,
-      priceLabel: "R$ 37",
-      description: "Material principal da loja para destravar ideias de renda extra com mais clareza, direção prática e leitura leve.",
-      meta: ["Acesso imediato", "Compra avulsa", "Biblioteca privada"],
-      benefits: [
-        "Ajuda a transformar ideias soltas em caminhos mais claros de renda extra.",
-        "Organiza visão, direção e próximos passos de forma simples de aplicar.",
-        "Funciona como porta de entrada para a biblioteca e para futuros produtos."
-      ],
-      bonuses: [
-        "Acesso liberado na área de membros.",
-        "Espaço para atualizações futuras dentro da mesma conta.",
-        "Compra conectada com outros produtos da loja."
-      ]
-    },
-    {
-      id: "produto-02",
-      name: "Produto 02",
-      tag: "Produto complementar",
-      price: 57,
-      priceLabel: "R$ 57",
-      description: "Produto pensado para continuar a jornada de quem já começou a destravar ideias e quer aprofundar a execução.",
-      meta: ["Continuidade", "Pode entrar depois", "Oferta complementar"],
-      benefits: [
-        "Amplia a jornada de compra sem depender de novo cadastro.",
-        "Entra como sequência natural do produto principal.",
-        "Fica disponível para compra posterior na área de membros."
-      ],
-      bonuses: [
-        "Acesso separado por produto.",
-        "Visualização clara dentro da biblioteca.",
-        "Integração com o mesmo fluxo de compra."
-      ]
-    },
-    {
-      id: "produto-03",
-      name: "Produto 03",
-      tag: "Produto avançado",
-      price: 97,
-      priceLabel: "R$ 97",
-      description: "Espaço reservado para um produto mais robusto, com valor percebido maior e papel de continuidade premium dentro da loja.",
-      meta: ["Produto premium", "Escala futura", "Biblioteca privada"],
-      benefits: [
-        "Ajuda a loja a comportar tickets diferentes com clareza.",
-        "Permite upgrades e novas compras no mesmo ambiente.",
-        "Mantém vitrine, conta e acesso funcionando em conjunto."
-      ],
-      bonuses: [
-        "Acesso liberado automaticamente após a compra.",
-        "Visão separada entre adquirido e disponível.",
-        "Simulação de entrega por e-mail e senha."
-      ]
-    }
-  ];
-
   const state = {
     loggedIn: false,
     name: "",
     email: "",
     authMode: "login",
+    products: [],
     owned: [],
     cart: [],
     activeMemberTab: "owned",
@@ -1248,7 +1189,7 @@
   const lockedPanel = document.getElementById("lockedPanel");
 
   function findProduct(productId) {
-    return products.find(function(product) {
+    return state.products.find(function(product) {
       return product.id === productId;
     });
   }
@@ -1259,6 +1200,42 @@
 
   function formatPrice(value) {
     return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  }
+
+  async function fetchJson(url, options) {
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        ...(options && options.headers ? options.headers : {}),
+      },
+      ...(options || {}),
+    });
+
+    const result = await response.json();
+    if (!response.ok || !result.ok) {
+      throw new Error((result && result.error) || "Não foi possível concluir esta ação.");
+    }
+
+    return result;
+  }
+
+  function applyBootstrap(data) {
+    state.products = Array.isArray(data.products) ? data.products : [];
+    state.loggedIn = Boolean(data.session);
+    state.name = data.session ? data.session.name : "";
+    state.email = data.session ? data.session.email : "";
+    state.owned = Array.isArray(data.ownedProductIds) ? data.ownedProductIds : [];
+    state.cart = Array.isArray(data.cartProductIds) ? data.cartProductIds : [];
+    state.credentials = data.credentials || null;
+
+    renderCatalog();
+    renderMembers();
+    renderCart();
+  }
+
+  async function loadBootstrap() {
+    const result = await fetchJson("/api/loja-bootstrap", { method: "GET" });
+    applyBootstrap(result.data);
   }
 
   function setMemberTab(tab) {
@@ -1284,7 +1261,7 @@
   }
 
   function renderCatalog() {
-    catalogGrid.innerHTML = products.map(function(product) {
+    catalogGrid.innerHTML = state.products.map(function(product) {
       const owned = state.owned.includes(product.id);
       const inCart = state.cart.includes(product.id);
       return `
@@ -1296,12 +1273,12 @@
                 <p class="product-tag">${product.tag}</p>
                 <h3 class="product-name">${product.name}</h3>
               </div>
-              <p class="price">Estrutura<br><strong>${product.priceLabel}</strong></p>
+              <p class="price">Estrutura<br><strong>${product.price_label || product.priceLabel}</strong></p>
             </div>
             <p class="product-copy">${product.description}</p>
           </div>
           <div class="product-meta">
-            ${product.meta.map(function(item) { return `<span>${item}</span>`; }).join("")}
+            ${(product.meta || []).map(function(item) { return `<span>${item}</span>`; }).join("")}
           </div>
           <div class="product-actions">
             <button class="ghost-btn" type="button" data-action="details" data-product="${product.id}">Ver detalhes</button>
@@ -1313,11 +1290,11 @@
   }
 
   function renderCart() {
-    const cartProducts = products.filter(function(product) {
+    const cartProducts = state.products.filter(function(product) {
       return state.cart.includes(product.id);
     });
     const total = cartProducts.reduce(function(sum, product) {
-      return sum + product.price;
+      return sum + Number(product.price_cents || product.price || 0);
     }, 0);
 
     cartCount.textContent = String(cartProducts.length);
@@ -1334,7 +1311,7 @@
               <strong>${product.name}</strong>
               <span>${product.tag}</span>
             </div>
-            <strong>${product.priceLabel}</strong>
+            <strong>${product.price_label || product.priceLabel}</strong>
           </div>
         `;
       }).join("");
@@ -1370,20 +1347,20 @@
 
     detailsTitle.textContent = product.name;
     detailsDescription.textContent = product.description;
-    detailsBenefits.innerHTML = product.benefits.map(function(item) {
+    detailsBenefits.innerHTML = (product.benefits || []).map(function(item) {
       return `<li>${item}</li>`;
     }).join("");
-    detailsBonuses.innerHTML = product.bonuses.map(function(item) {
+    detailsBonuses.innerHTML = (product.bonuses || []).map(function(item) {
       return `<li>${item}</li>`;
     }).join("");
     document.getElementById("detailsBuy").setAttribute("data-product", product.id);
   }
 
   function renderMembers() {
-    const ownedProducts = products.filter(function(product) {
+    const ownedProducts = state.products.filter(function(product) {
       return state.owned.includes(product.id);
     });
-    const lockedProducts = products.filter(function(product) {
+    const lockedProducts = state.products.filter(function(product) {
       return !state.owned.includes(product.id);
     });
     const hasProducts = ownedProducts.length > 0;
@@ -1436,7 +1413,7 @@
   function openDrawer(productId) {
     const product = productId ? findProduct(productId) : null;
     if (product) {
-      drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>${product.name} • ${product.priceLabel}</span>`;
+      drawerProductInfo.innerHTML = `<strong>Produto selecionado</strong><span>${product.name} • ${product.price_label || product.priceLabel}</span>`;
     } else {
       drawerProductInfo.innerHTML = `<strong>Compra em andamento</strong><span>Entre ou crie sua conta para seguir normalmente.</span>`;
     }
@@ -1472,25 +1449,25 @@
     cartDrawer.setAttribute("aria-hidden", "true");
   }
 
-  function addToCart(productId) {
-    if (!state.cart.includes(productId) && !state.owned.includes(productId)) {
-      state.cart.push(productId);
-    }
-    renderCatalog();
-    renderMembers();
+  async function syncCart(action, productId) {
+    const result = await fetchJson("/api/loja-cart", {
+      method: "POST",
+      body: JSON.stringify({ action, productId }),
+    });
+    applyBootstrap(result.data);
   }
 
-  function buyProduct(productId) {
+  async function buyProduct(productId) {
     if (!state.loggedIn) {
       state.pendingProductId = productId;
       openDrawer(productId);
       return;
     }
-    addToCart(productId);
+    await syncCart("add", productId);
     openCart();
   }
 
-  function finishPurchase() {
+  async function finishPurchase() {
     if (!state.loggedIn) {
       openDrawer();
       return;
@@ -1501,30 +1478,19 @@
       return;
     }
 
-    state.cart.forEach(function(productId) {
-      if (!state.owned.includes(productId)) {
-        state.owned.push(productId);
-      }
-    });
-
-    state.credentials = {
-      email: state.email || "conta@byninaalves.site",
-      password: "nina" + Math.floor(1000 + Math.random() * 9000)
-    };
-    state.cart = [];
-    renderCatalog();
-    renderMembers();
+    const result = await fetchJson("/api/loja-checkout", { method: "POST" });
+    applyBootstrap(result.data);
     openCart();
     membersShell.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  document.addEventListener("click", function(event) {
+  document.addEventListener("click", async function(event) {
     const button = event.target.closest("[data-action]");
     if (!button) return;
 
     const action = button.getAttribute("data-action");
     const productId = button.getAttribute("data-product");
-    if (action === "buy") buyProduct(productId);
+    if (action === "buy") await buyProduct(productId);
     if (action === "details") openDetails(productId);
   });
 
@@ -1540,19 +1506,24 @@
     closeDetails();
     buyProduct(productId);
   });
-  document.getElementById("confirmLogin").addEventListener("click", function() {
-    state.loggedIn = true;
-    state.name = nameInput.value.trim() || "Cliente da loja";
-    state.email = emailInput.value.trim() || "conta@byninaalves.site";
+  document.getElementById("confirmLogin").addEventListener("click", async function() {
+    const result = await fetchJson("/api/loja-auth", {
+      method: "POST",
+      body: JSON.stringify({
+        mode: state.authMode,
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        password: passwordInput.value.trim(),
+      }),
+    });
+
     closeDrawer();
+    applyBootstrap(result.data);
     if (state.pendingProductId) {
-      addToCart(state.pendingProductId);
+      await syncCart("add", state.pendingProductId);
       state.pendingProductId = null;
       openCart();
-    } else {
-      renderCart();
     }
-    renderMembers();
   });
 
   loginTab.addEventListener("click", function() {
@@ -1587,9 +1558,9 @@
     if (event.target === cartDrawer) closeCart();
   });
 
-  renderCatalog();
-  renderMembers();
-  renderCart();
+  loadBootstrap().catch(function(error) {
+    console.error(error);
+  });
   setAuthMode("login");
 </script>
 </body>
