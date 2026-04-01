@@ -1,6 +1,7 @@
-const { buildBootstrap, createUser, findUserByEmail, setSessionCookie, verifyPassword } = require("./_lib/loja-store");
+const { buildBootstrap, createUser, findUserByEmail, setNoStore, setSessionCookie, verifyPassword } = require("./_lib/loja-store");
 
 module.exports = async function handler(req, res) {
+  setNoStore(res);
   if (req.method !== "POST") {
     res.status(405).json({ ok: false, error: "Method not allowed." });
     return;
@@ -12,6 +13,8 @@ module.exports = async function handler(req, res) {
     const email = String(payload.email || "").trim().toLowerCase();
     const password = String(payload.password || "");
     const name = String(payload.name || "").trim();
+    const phone = String(payload.phone || "").trim();
+    const cpf = String(payload.cpf || "").trim();
 
     if (!email || !password) {
       res.status(400).json({ ok: false, error: "E-mail e senha são obrigatórios." });
@@ -26,9 +29,16 @@ module.exports = async function handler(req, res) {
         return;
       }
 
+      if (!name || !phone || !cpf) {
+        res.status(400).json({ ok: false, error: "Nome, celular e CPF sÃ£o obrigatÃ³rios no cadastro." });
+        return;
+      }
+
       user = await createUser({
-        name: name || "Cliente da loja",
+        name,
         email,
+        phone,
+        cpf,
         password,
       });
     } else {
@@ -42,6 +52,8 @@ module.exports = async function handler(req, res) {
       userId: user.id,
       email: user.email,
       name: user.name,
+      phone: user.phone || "",
+      cpf: user.cpf || "",
     });
 
     const data = await buildBootstrap(req);

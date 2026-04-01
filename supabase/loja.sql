@@ -4,10 +4,18 @@ create table if not exists public.loja_users (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null unique,
+  phone text,
+  cpf text,
   password_hash text not null,
   last_access_password text,
   created_at timestamptz not null default now()
 );
+
+alter table public.loja_users
+add column if not exists phone text;
+
+alter table public.loja_users
+add column if not exists cpf text;
 
 create table if not exists public.loja_products (
   id text primary key,

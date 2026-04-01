@@ -3,6 +3,8 @@
     loggedIn: false,
     name: "",
     email: "",
+    phone: "",
+    cpf: "",
     authMode: "login",
     searchTerm: "",
     products: [],
@@ -23,11 +25,18 @@
   const accountGrid = document.getElementById("accountGrid");
   const drawerMemberName = document.getElementById("drawerMemberName");
   const drawerMemberEmail = document.getElementById("drawerMemberEmail");
+  const drawerMemberPhone = document.getElementById("drawerMemberPhone");
+  const drawerMemberCpf = document.getElementById("drawerMemberCpf");
   const drawerOwnedTotal = document.getElementById("drawerOwnedTotal");
   const drawerCartTotal = document.getElementById("drawerCartTotal");
   const nameInput = document.getElementById("nameInput");
+  const nameField = document.getElementById("nameField");
   const emailInput = document.getElementById("emailInput");
   const passwordInput = document.getElementById("passwordInput");
+  const phoneInput = document.getElementById("phoneInput");
+  const phoneField = document.getElementById("phoneField");
+  const cpfInput = document.getElementById("cpfInput");
+  const cpfField = document.getElementById("cpfField");
   const loginTab = document.getElementById("loginTab");
   const signupTab = document.getElementById("signupTab");
   const confirmLogin = document.getElementById("confirmLogin");
@@ -89,12 +98,16 @@
     authHelper.textContent = isLogin
       ? "Use seus dados para seguir normalmente para o carrinho."
       : "Cadastre sua conta para seguir com a compra.";
-    nameInput.closest(".field").style.display = isLogin ? "none" : "";
+    nameField.style.display = isLogin ? "none" : "";
+    phoneField.style.display = isLogin ? "none" : "";
+    cpfField.style.display = isLogin ? "none" : "";
   }
 
   function renderAccountDrawer() {
     drawerMemberName.textContent = state.name || "Cliente";
     drawerMemberEmail.textContent = state.email || "—";
+    if (drawerMemberPhone) drawerMemberPhone.textContent = state.phone || "—";
+    if (drawerMemberCpf) drawerMemberCpf.textContent = state.cpf || "—";
     drawerOwnedTotal.textContent = String(state.owned.length);
     drawerCartTotal.textContent = String(state.cart.length);
   }
@@ -162,6 +175,8 @@
     state.loggedIn = Boolean(data.session);
     state.name = data.session ? data.session.name : "";
     state.email = data.session ? data.session.email : "";
+    state.phone = data.session ? data.session.phone || "" : "";
+    state.cpf = data.session ? data.session.cpf || "" : "";
     state.owned = Array.isArray(data.ownedProductIds) ? data.ownedProductIds : [];
     state.cart = Array.isArray(data.cartProductIds) ? data.cartProductIds : [];
     cartCount.textContent = String(state.cart.length);
@@ -183,9 +198,11 @@
       authHelper.textContent = state.cart.length ? "Seu carrinho está pronto para finalizar." : "Sua conta está pronta para novas compras.";
       loginTab.style.display = "none";
       signupTab.style.display = "none";
-      nameInput.closest(".field").style.display = "none";
+      nameField.style.display = "none";
       emailInput.closest(".field").style.display = "none";
       passwordInput.closest(".field").style.display = "none";
+      phoneField.style.display = "none";
+      cpfField.style.display = "none";
       document.querySelector(".auth-grid").style.display = "none";
       accountGrid.classList.add("visible");
       logoutDrawer.hidden = false;
@@ -292,6 +309,8 @@
         name: nameInput.value.trim(),
         email: emailInput.value.trim(),
         password: passwordInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        cpf: cpfInput.value.trim(),
       }),
     });
 
@@ -299,6 +318,8 @@
     nameInput.value = "";
     emailInput.value = "";
     passwordInput.value = "";
+    phoneInput.value = "";
+    cpfInput.value = "";
 
     if (state.pendingProductId) {
       await syncCart("add", state.pendingProductId);

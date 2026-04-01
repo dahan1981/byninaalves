@@ -3,6 +3,8 @@
     loggedIn: false,
     name: "",
     email: "",
+    phone: "",
+    cpf: "",
     owned: [],
     cart: [],
     products: [],
@@ -17,11 +19,15 @@
   const loginName = document.getElementById("loginName");
   const loginEmail = document.getElementById("loginEmail");
   const loginPassword = document.getElementById("loginPassword");
+  const loginPhone = document.getElementById("loginPhone");
+  const loginCpf = document.getElementById("loginCpf");
   const loginButton = document.getElementById("loginButton");
   const loginFeedback = document.getElementById("loginFeedback");
   const loginTab = document.getElementById("loginTab");
   const signupTab = document.getElementById("signupTab");
   const nameField = document.getElementById("nameField");
+  const phoneField = document.getElementById("phoneField");
+  const cpfField = document.getElementById("cpfField");
   const cartList = document.getElementById("cartList");
   const cartTotal = document.getElementById("cartTotal");
   const cartStatus = document.getElementById("cartStatus");
@@ -78,6 +84,8 @@
     loginTab.classList.toggle("active", isLogin);
     signupTab.classList.toggle("active", !isLogin);
     nameField.hidden = isLogin;
+    phoneField.hidden = isLogin;
+    cpfField.hidden = isLogin;
     loginButton.textContent = isLogin ? "Continuar" : "Criar conta";
   }
 
@@ -86,6 +94,8 @@
     state.loggedIn = Boolean(data.session);
     state.name = data.session ? data.session.name : "";
     state.email = data.session ? data.session.email : "";
+    state.phone = data.session ? data.session.phone || "" : "";
+    state.cpf = data.session ? data.session.cpf || "" : "";
     state.owned = Array.isArray(data.ownedProductIds) ? data.ownedProductIds : [];
     state.cart = Array.isArray(data.cartProductIds) ? data.cartProductIds : [];
     render();
@@ -114,6 +124,7 @@
     accountName.textContent = state.name || "Cliente";
     accountEmailDisplay.textContent = state.email || "—";
     checkoutEmail.value = state.email || "";
+    checkoutPhone.value = state.phone || "";
 
     if (!items.length) {
       checkoutWrap.classList.remove("visible");
@@ -164,10 +175,15 @@
         name: loginName.value.trim(),
         email: loginEmail.value.trim(),
         password: loginPassword.value.trim(),
+        phone: loginPhone.value.trim(),
+        cpf: loginCpf.value.trim(),
       }),
     });
 
+    loginName.value = "";
     loginPassword.value = "";
+    loginPhone.value = "";
+    loginCpf.value = "";
     applyBootstrap(result.data);
   }
 

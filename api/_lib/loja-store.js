@@ -102,6 +102,12 @@ function appendSetCookie(res, cookieValue) {
   res.setHeader("Set-Cookie", Array.isArray(current) ? current.concat(cookieValue) : [current, cookieValue]);
 }
 
+function setNoStore(res) {
+  res.setHeader("Cache-Control", "no-store, max-age=0");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+}
+
 function setSessionCookie(res, session) {
   appendSetCookie(res, serializeCookie("loja_session", encodeSigned(session), 60 * 60 * 24 * 30));
 }
@@ -147,23 +153,25 @@ async function listProducts() {
 
 async function findUserByEmail(email) {
   const result = await supabaseFetch(
-    `loja_users?select=id,name,email,password_hash&email=eq.${encodeURIComponent(email)}&limit=1`,
+    `loja_users?select=id,name,email,phone,cpf,password_hash&email=eq.${encodeURIComponent(email)}&limit=1`,
     { method: "GET" }
   );
   return result[0] || null;
 }
 
 async function findUserById(id) {
-  const result = await supabaseFetch(`loja_users?select=id,name,email&id=eq.${id}&limit=1`, {
+  const result = await supabaseFetch(`loja_users?select=id,name,email,phone,cpf&id=eq.${id}&limit=1`, {
     method: "GET",
   });
   return result[0] || null;
 }
 
-async function createUser({ name, email, password }) {
+async function createUser({ name, email, phone, cpf, password }) {
   const payload = {
     name,
     email: email.toLowerCase(),
+    phone,
+    cpf,
     password_hash: hashPassword(password),
   };
 
@@ -229,6 +237,8 @@ async function buildBootstrap(req) {
       ? {
           name: user.name,
           email: user.email,
+          phone: user.phone || "",
+          cpf: user.cpf || "",
         }
       : null,
     ownedProductIds,
@@ -250,5 +260,6 @@ module.exports = {
   listProducts,
   setCartCookie,
   setSessionCookie,
+  setNoStore,
   verifyPassword,
 };

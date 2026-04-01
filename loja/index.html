@@ -1523,7 +1523,7 @@
         <span>Entre ou crie sua conta para seguir para o carrinho com tudo organizado.</span>
       </div>
       <div class="auth-grid">
-        <div class="field">
+        <div class="field" id="nameField">
           <label for="nameInput">Nome</label>
           <input id="nameInput" type="text" placeholder="Seu nome">
         </div>
@@ -1535,11 +1535,21 @@
           <label for="passwordInput">Senha</label>
           <input id="passwordInput" type="password" placeholder="Sua senha">
         </div>
+        <div class="field" id="phoneField">
+          <label for="phoneInput">Celular</label>
+          <input id="phoneInput" type="text" placeholder="(00) 00000-0000">
+        </div>
+        <div class="field" id="cpfField">
+          <label for="cpfInput">CPF</label>
+          <input id="cpfInput" type="text" placeholder="000.000.000-00">
+        </div>
       </div>
       <div class="account-grid" id="accountGrid">
         <div class="account-summary">
           <div class="account-line"><span>Cliente</span><span id="drawerMemberName">—</span></div>
           <div class="account-line"><span>E-mail</span><span id="drawerMemberEmail">—</span></div>
+          <div class="account-line"><span>Celular</span><span id="drawerMemberPhone">—</span></div>
+          <div class="account-line"><span>CPF</span><span id="drawerMemberCpf">—</span></div>
           <div class="account-line"><span>Produtos comprados</span><span id="drawerOwnedTotal">0</span></div>
           <div class="account-line"><span>Itens no carrinho</span><span id="drawerCartTotal">0</span></div>
         </div>

@@ -3,6 +3,8 @@
     loggedIn: false,
     name: "",
     email: "",
+    phone: "",
+    cpf: "",
     owned: [],
     cart: [],
     products: [],
@@ -18,11 +20,15 @@
   const loginName = document.getElementById("loginName");
   const loginEmail = document.getElementById("loginEmail");
   const loginPassword = document.getElementById("loginPassword");
+  const loginPhone = document.getElementById("loginPhone");
+  const loginCpf = document.getElementById("loginCpf");
   const loginButton = document.getElementById("loginButton");
   const loginFeedback = document.getElementById("loginFeedback");
   const loginTab = document.getElementById("loginTab");
   const signupTab = document.getElementById("signupTab");
   const nameField = document.getElementById("nameField");
+  const phoneField = document.getElementById("phoneField");
+  const cpfField = document.getElementById("cpfField");
   const ownedTab = document.getElementById("ownedTab");
   const availableTab = document.getElementById("availableTab");
   const ownedPanel = document.getElementById("ownedPanel");
@@ -31,6 +37,8 @@
   const availableGrid = document.getElementById("availableGrid");
   const accountName = document.getElementById("accountName");
   const accountEmail = document.getElementById("accountEmail");
+  const accountPhone = document.getElementById("accountPhone");
+  const accountCpf = document.getElementById("accountCpf");
   const accountOwned = document.getElementById("accountOwned");
   const accountCart = document.getElementById("accountCart");
   const profileAvatar = document.getElementById("profileAvatar");
@@ -74,6 +82,8 @@
     loginTab.classList.toggle("active", isLogin);
     signupTab.classList.toggle("active", !isLogin);
     nameField.hidden = isLogin;
+    phoneField.hidden = isLogin;
+    cpfField.hidden = isLogin;
     loginButton.textContent = isLogin ? "Continuar" : "Criar conta";
   }
 
@@ -90,6 +100,8 @@
     state.loggedIn = Boolean(data.session);
     state.name = data.session ? data.session.name : "";
     state.email = data.session ? data.session.email : "";
+    state.phone = data.session ? data.session.phone || "" : "";
+    state.cpf = data.session ? data.session.cpf || "" : "";
     state.owned = Array.isArray(data.ownedProductIds) ? data.ownedProductIds : [];
     state.cart = Array.isArray(data.cartProductIds) ? data.cartProductIds : [];
     render();
@@ -145,6 +157,8 @@
 
     accountName.textContent = state.name || "Cliente";
     accountEmail.textContent = state.email || "—";
+    if (accountPhone) accountPhone.textContent = state.phone || "—";
+    if (accountCpf) accountCpf.textContent = state.cpf || "—";
     accountOwned.textContent = String(ownedProducts.length);
     accountCart.textContent = String(state.cart.length);
     profileAvatar.textContent = (state.name || "C").trim().charAt(0).toUpperCase();
@@ -186,9 +200,14 @@
         name: loginName.value.trim(),
         email: loginEmail.value.trim(),
         password: loginPassword.value.trim(),
+        phone: loginPhone.value.trim(),
+        cpf: loginCpf.value.trim(),
       }),
     });
+    loginName.value = "";
     loginPassword.value = "";
+    loginPhone.value = "";
+    loginCpf.value = "";
     applyBootstrap(result.data);
   }
 
