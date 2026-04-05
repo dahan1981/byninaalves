@@ -234,6 +234,11 @@
       align-items: start;
     }
 
+    .form-card {
+      position: sticky;
+      top: 20px;
+    }
+
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 120px;
@@ -264,6 +269,34 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .link-preview {
+      margin: 2px 0 18px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        rgba(19, 12, 10, 0.34);
+      border: 1px solid rgba(212, 154, 98, 0.16);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: 62px;
+    }
+
+    .link-preview-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .link-preview-arrow {
+      color: var(--accent);
+      font-size: 22px;
+      flex-shrink: 0;
     }
 
     table {
@@ -299,6 +332,73 @@
     .small-btn {
       padding: 9px 12px;
       font-size: 12px;
+    }
+
+    .links-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .link-card {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      display: grid;
+      gap: 14px;
+    }
+
+    .link-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .link-card-title {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .link-card-url {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .link-card-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .link-badge {
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .link-card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .link-card-status {
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .bars {
@@ -370,6 +470,16 @@
 
       .table-actions {
         justify-content: flex-start;
+      }
+
+      .link-card-top,
+      .link-card-actions {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .form-card {
+        position: static;
       }
     }
   </style>
@@ -453,6 +563,10 @@
           <div class="form-card">
             <p class="card-label">Formulário</p>
             <input id="linkId" type="hidden" />
+            <div class="link-preview">
+              <div class="link-preview-label" id="linkPreviewLabel">Novo link do link na bio</div>
+              <div class="link-preview-arrow">→</div>
+            </div>
             <div class="form-grid">
               <div class="full">
                 <label for="linkLabel">Nome do link</label>
@@ -480,18 +594,7 @@
 
           <div class="list-card">
             <p class="card-label">Links atuais</p>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>URL</th>
-                  <th>Posição</th>
-                  <th>Janela</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="linksTable"></tbody>
-            </table>
+            <div class="links-list" id="linksTable"></div>
           </div>
         </div>
       </section>
@@ -519,6 +622,7 @@
     const linkUrlInput = document.getElementById("linkUrl");
     const linkPositionInput = document.getElementById("linkPosition");
     const linkNewTabInput = document.getElementById("linkNewTab");
+    const linkPreviewLabel = document.getElementById("linkPreviewLabel");
     const saveLinkButton = document.getElementById("saveLinkButton");
     const resetLinkButton = document.getElementById("resetLinkButton");
     const linksTable = document.getElementById("linksTable");
@@ -635,6 +739,7 @@
       linkUrlInput.value = "";
       linkPositionInput.value = "";
       linkNewTabInput.checked = true;
+      linkPreviewLabel.textContent = "Novo link do link na bio";
       saveLinkButton.textContent = "Salvar link";
     }
 
@@ -644,6 +749,7 @@
       linkUrlInput.value = link.url || "";
       linkPositionInput.value = link.position || "";
       linkNewTabInput.checked = link.opens_new_tab !== false;
+      linkPreviewLabel.textContent = link.label || "Novo link do link na bio";
       saveLinkButton.textContent = "Atualizar link";
       linksStatus.textContent = `Editando: ${link.label}`;
       linksStatus.className = "status";
@@ -653,25 +759,39 @@
       linksCache = links.slice().sort((a, b) => Number(a.position) - Number(b.position));
       linksTable.innerHTML = linksCache.length
         ? linksCache.map((link) => `
-            <tr>
-              <td>${link.label}</td>
-              <td class="muted">${link.url}</td>
-              <td>${link.position}</td>
-              <td>${link.opens_new_tab ? "Nova aba" : "Mesma aba"}</td>
-              <td>
+            <article class="link-card">
+              <div class="link-card-top">
+                <div>
+                  <div class="link-card-title">${link.label}</div>
+                  <div class="link-card-url">${link.url}</div>
+                </div>
+                <div class="link-card-badges">
+                  <span class="link-badge">Posição ${link.position}</span>
+                  <span class="link-badge">${link.opens_new_tab ? "Nova aba" : "Mesma aba"}</span>
+                </div>
+              </div>
+              <div class="link-card-actions">
+                <div class="link-card-status">${link.active === false ? "Inativo" : "Ativo na vitrine pública"}</div>
                 <div class="table-actions">
                   <button class="secondary small-btn" type="button" data-action="edit" data-id="${link.id}">Editar</button>
                   <button class="danger small-btn" type="button" data-action="delete" data-id="${link.id}">Excluir</button>
                 </div>
-              </td>
-            </tr>
+              </div>
+            </article>
           `).join("")
         : `
-            <tr>
-              <td colspan="5" class="muted">Nenhum link cadastrado.</td>
-            </tr>
+            <div class="link-card">
+              <div class="muted">Nenhum link cadastrado.</div>
+            </div>
           `;
     }
+
+    function syncPreviewLabel() {
+      const label = linkLabelInput.value.trim();
+      linkPreviewLabel.textContent = label || "Novo link do link na bio";
+    }
+
+    linkLabelInput.addEventListener("input", syncPreviewLabel);
 
     async function loadLinks() {
       linksStatus.textContent = "Carregando links...";
