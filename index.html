@@ -76,13 +76,14 @@
     }
 
     .page {
-      max-width: 430px;
-      margin: 28px auto !important;
-      min-height: calc(100vh - 56px) !important;
+      width: min(540px, calc(100vw - 72px));
+      max-width: 540px;
+      margin: 22px auto !important;
+      min-height: calc(100vh - 44px) !important;
       display: flex;
       flex-direction: column;
       background: var(--page-bg);
-      border-radius: 28px !important;
+      border-radius: 32px !important;
       overflow: hidden !important;
       box-shadow:
         0 2px 0 rgba(255,245,235,0.15),
@@ -95,8 +96,9 @@
     /* ── HERO ── */
     .hero {
       position: relative;
-      height: 75vw;
-      max-height: 420px;
+      height: min(42vw, 500px);
+      min-height: 420px;
+      max-height: 500px;
       overflow: hidden;
     }
 
@@ -195,7 +197,7 @@
     .body {
       background: var(--cream);
       flex: 1;
-      padding: 26px 22px 50px;
+      padding: 28px 24px 54px;
     }
 
     .section-title { display: none; }
@@ -213,10 +215,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding: 18px 20px;
+      padding: 19px 22px;
       text-decoration: none;
       color: var(--text-dark);
-      font-size: 0.72rem;
+      font-size: 0.76rem;
       letter-spacing: 0.11em;
       font-weight: 500;
       text-transform: uppercase;
@@ -298,8 +300,8 @@
     .footer {
       display: block;
       text-align: center;
-      padding: 20px;
-      font-size: 0.65rem;
+      padding: 22px;
+      font-size: 0.68rem;
       letter-spacing: 0.18em;
       color: var(--text-mid);
       text-transform: uppercase;
@@ -348,6 +350,12 @@
         margin: 0 !important;
         border-radius: 0 !important;
         box-shadow: none !important;
+      }
+
+      .hero {
+        height: 75vw;
+        min-height: 0;
+        max-height: 420px;
       }
     }
 
