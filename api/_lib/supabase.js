@@ -1,6 +1,7 @@
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const TABLE_NAME = "click_events";
+const CLICK_EVENTS_TABLE = "click_events";
+const LINK_BIO_LINKS_TABLE = "link_bio_links";
 
 function ensureEnv() {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
@@ -38,7 +39,7 @@ async function supabaseFetch(path, options = {}) {
 }
 
 async function insertClickEvent(payload) {
-  return supabaseFetch(TABLE_NAME, {
+  return supabaseFetch(CLICK_EVENTS_TABLE, {
     method: "POST",
     headers: {
       Prefer: "return=minimal",
@@ -58,12 +59,60 @@ async function listClickEvents({ fromIso }) {
     params.set("clicked_at", `gte.${fromIso}`);
   }
 
-  return supabaseFetch(`${TABLE_NAME}?${params.toString()}`, {
+  return supabaseFetch(`${CLICK_EVENTS_TABLE}?${params.toString()}`, {
     method: "GET",
   });
 }
 
+async function listLinkBioLinks({ activeOnly = false } = {}) {
+  const params = new URLSearchParams({
+    select: "id,label,url,position,active,opens_new_tab",
+    order: "position.asc",
+  });
+
+  if (activeOnly) {
+    params.set("active", "eq.true");
+  }
+
+  return supabaseFetch(`${LINK_BIO_LINKS_TABLE}?${params.toString()}`, {
+    method: "GET",
+  });
+}
+
+async function createLinkBioLink(payload) {
+  return supabaseFetch(LINK_BIO_LINKS_TABLE, {
+    method: "POST",
+    headers: {
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+async function updateLinkBioLink(id, payload) {
+  return supabaseFetch(`${LINK_BIO_LINKS_TABLE}?id=eq.${encodeURIComponent(id)}`, {
+    method: "PATCH",
+    headers: {
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+async function deleteLinkBioLink(id) {
+  return supabaseFetch(`${LINK_BIO_LINKS_TABLE}?id=eq.${encodeURIComponent(id)}`, {
+    method: "DELETE",
+    headers: {
+      Prefer: "return=minimal",
+    },
+  });
+}
+
 module.exports = {
+  createLinkBioLink,
+  deleteLinkBioLink,
   insertClickEvent,
+  listLinkBioLinks,
   listClickEvents,
+  updateLinkBioLink,
 };

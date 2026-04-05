@@ -1,12 +1,9 @@
-const { insertClickEvent } = require("./_lib/supabase");
+const { insertClickEvent, listLinkBioLinks } = require("./_lib/supabase");
 
-const ALLOWED_LINK_IDS = new Set([
+const STATIC_LINK_IDS = new Set([
   "social_instagram",
   "social_tiktok",
   "social_threads",
-  "cta_pack_estampas",
-  "cta_guia_destrave",
-  "cta_shopee",
   "footer_instagram",
 ]);
 
@@ -19,8 +16,12 @@ module.exports = async function handler(req, res) {
   try {
     const payload = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
     const linkId = payload.link_id;
+    const dynamicLinks = await listLinkBioLinks({ activeOnly: true });
+    const allowedLinkIds = new Set(
+      [...STATIC_LINK_IDS, ...dynamicLinks.map((item) => item.id)].filter(Boolean)
+    );
 
-    if (payload.page_key !== "link_bio" || !ALLOWED_LINK_IDS.has(linkId) || !payload.destination_url) {
+    if (payload.page_key !== "link_bio" || !allowedLinkIds.has(linkId) || !payload.destination_url) {
       res.status(400).json({ ok: false, error: "Invalid tracking payload." });
       return;
     }

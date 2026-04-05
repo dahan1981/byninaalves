@@ -404,39 +404,7 @@
   <div class="body">
     <div class="section-title">Take a Look Around</div>
 
-    <div class="btn-list">
-
-      <a class="btn-link"
-         data-track-link="cta_pack_estampas"
-         href="https://docs.google.com/forms/d/e/1FAIpQLScCgrwWMDRFSJTb3AVYzRZDfrNIgO0eKPfLpVJHn3UsCTRItw/viewform?usp=publish-editor"
-         target="_blank" rel="noopener">
-        <span class="btn-label">Pack de Estampas — Copo Americano</span>
-        <span class="btn-arrow">→</span>
-      </a>
-
-      <a class="btn-link"
-         data-track-link="cta_guia_destrave"
-         href="/guia-destrave">
-        <span class="btn-label">Destrave suas vendas — Baixe agora</span>
-        <span class="btn-arrow">→</span>
-      </a>
-      <a class="btn-link"
-         data-track-link="cta_shopee"
-         href="https://collshp.com/achadosbyninaalves?view=storefront"
-         target="_blank" rel="noopener">
-        <span class="btn-label">Links — Produtos Shopee</span>
-        <span class="btn-arrow">→</span>
-      </a>
-
-      <a class="btn-link"
-         data-track-link="cta_whatsapp_community"
-         href="https://chat.whatsapp.com/IWhvzBHzhjWBt1EI3rWWG4"
-         target="_blank" rel="noopener">
-        <span class="btn-label">Comunidade Destrave - WhatsApp</span>
-        <span class="btn-arrow">→</span>
-      </a>
-
-    </div>
+    <div class="btn-list" id="bioLinksList"></div>
   </div>
 
   <a class="footer" href="https://www.instagram.com/byninaalves" target="_blank" rel="noopener" data-track-link="footer_instagram">feito com 🤎 por byninaalves</a>
@@ -447,6 +415,60 @@
   const trackingPageKey = 'link_bio';
   const heroImg = document.getElementById('heroImg');
   const hero = heroImg ? heroImg.closest('.hero') : null;
+  const bioLinksList = document.getElementById('bioLinksList');
+  const defaultBioLinks = [
+    {
+      id: 'bio_pack_estampas_000001',
+      label: 'Pack de Estampas — Copo Americano',
+      url: 'https://docs.google.com/forms/d/e/1FAIpQLScCgrwWMDRFSJTb3AVYzRZDfrNIgO0eKPfLpVJHn3UsCTRItw/viewform?usp=publish-editor',
+      opens_new_tab: true
+    },
+    {
+      id: 'bio_guia_destrave_000002',
+      label: 'Destrave suas vendas — Baixe agora',
+      url: '/guia-destrave',
+      opens_new_tab: false
+    },
+    {
+      id: 'bio_produtos_shopee_000003',
+      label: 'Links — Produtos Shopee',
+      url: 'https://collshp.com/achadosbyninaalves?view=storefront',
+      opens_new_tab: true
+    },
+    {
+      id: 'bio_comunidade_destrave_whatsapp_000004',
+      label: 'Comunidade Destrave - WhatsApp',
+      url: 'https://chat.whatsapp.com/IWhvzBHzhjWBt1EI3rWWG4',
+      opens_new_tab: true
+    }
+  ];
+
+  function renderBioLinks(links) {
+    bioLinksList.innerHTML = links.map((link) => {
+      const opensNewTab = link.opens_new_tab !== false;
+      const target = opensNewTab ? ' target="_blank" rel="noopener"' : '';
+      return `
+        <a class="btn-link" data-track-link="${link.id}" href="${link.url}"${target}>
+          <span class="btn-label">${link.label}</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      `;
+    }).join('');
+  }
+
+  async function loadBioLinks() {
+    try {
+      const response = await fetch('/api/link-bio-links');
+      const data = await response.json();
+      if (!response.ok || !data.ok || !Array.isArray(data.links) || !data.links.length) {
+        renderBioLinks(defaultBioLinks);
+        return;
+      }
+      renderBioLinks(data.links);
+    } catch (error) {
+      renderBioLinks(defaultBioLinks);
+    }
+  }
 
   function getTrackingPayload(link) {
     const params = new URLSearchParams(window.location.search);
@@ -480,10 +502,10 @@
     }).catch(() => {});
   }
 
-  document.querySelectorAll('[data-track-link]').forEach((link) => {
-    link.addEventListener('click', () => {
-      sendTrackingEvent(getTrackingPayload(link));
-    });
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('[data-track-link]');
+    if (!link) return;
+    sendTrackingEvent(getTrackingPayload(link));
   });
 
   function onScroll() {
@@ -498,6 +520,7 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  loadBioLinks();
 </script>
 </body>
 </html>

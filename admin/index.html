@@ -16,6 +16,7 @@
       --accent: #d49a62;
       --accent-soft: rgba(212, 154, 98, 0.14);
       --danger: #ff9f8e;
+      --success: #b4dfb0;
     }
 
     * { box-sizing: border-box; }
@@ -31,7 +32,7 @@
     }
 
     .wrap {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1160px, calc(100% - 32px));
       margin: 0 auto;
       padding: 40px 0 56px;
     }
@@ -83,7 +84,8 @@
       margin-bottom: 8px;
     }
 
-    input {
+    input,
+    select {
       width: 100%;
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -91,6 +93,10 @@
       background: rgba(255,255,255,0.04);
       color: var(--text);
       margin-bottom: 16px;
+    }
+
+    input::placeholder {
+      color: rgba(247, 238, 229, 0.46);
     }
 
     button {
@@ -101,6 +107,18 @@
       color: #20140d;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    button.danger {
+      background: rgba(255, 159, 142, 0.14);
+      color: #ffd4cc;
+      border: 1px solid rgba(255, 159, 142, 0.2);
     }
 
     .error {
@@ -122,7 +140,34 @@
       justify-content: space-between;
       align-items: flex-end;
       gap: 16px;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
+    }
+
+    .panel-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .panel-tab {
+      background: var(--accent-soft);
+      color: var(--text);
+      border: 1px solid transparent;
+      padding: 10px 14px;
+    }
+
+    .panel-tab.active {
+      border-color: rgba(212, 154, 98, 0.5);
+      background: rgba(212, 154, 98, 0.22);
+    }
+
+    .panel-section {
+      display: none;
+    }
+
+    .panel-section.active {
+      display: block;
     }
 
     .filters {
@@ -152,7 +197,9 @@
 
     .card,
     .table-card,
-    .chart-card {
+    .chart-card,
+    .form-card,
+    .list-card {
       background: var(--panel-soft);
       border: 1px solid var(--border);
       border-radius: 18px;
@@ -172,10 +219,51 @@
       font-weight: 700;
     }
 
-    .layout {
+    .layout,
+    .links-layout {
       display: grid;
-      grid-template-columns: 1.25fr 1fr;
       gap: 16px;
+    }
+
+    .layout {
+      grid-template-columns: 1.25fr 1fr;
+    }
+
+    .links-layout {
+      grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 120px;
+      gap: 12px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .checkbox-row input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--accent);
+    }
+
+    .inline-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     table {
@@ -190,6 +278,7 @@
       padding: 12px 0;
       border-bottom: 1px solid var(--border);
       font-size: 14px;
+      vertical-align: top;
     }
 
     th {
@@ -198,6 +287,18 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-size: 11px;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .small-btn {
+      padding: 9px 12px;
+      font-size: 12px;
     }
 
     .bars {
@@ -214,7 +315,8 @@
     }
 
     .bar-label,
-    .bar-total {
+    .bar-total,
+    .muted {
       font-size: 13px;
       color: var(--muted);
     }
@@ -236,13 +338,38 @@
       color: var(--muted);
       margin-top: 14px;
       font-size: 14px;
+      min-height: 20px;
     }
 
-    @media (max-width: 860px) {
+    .status.success {
+      color: var(--success);
+    }
+
+    @media (max-width: 980px) {
       .panel-header,
-      .layout {
+      .layout,
+      .links-layout {
         grid-template-columns: 1fr;
         display: grid;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 20px, 100%);
+      }
+
+      .panel,
+      .login {
+        padding: 20px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-actions {
+        justify-content: flex-start;
       }
     }
   </style>
@@ -252,7 +379,7 @@
     <section class="login" id="loginBox">
       <p class="eyebrow">Área restrita</p>
       <h1>Painel oculto</h1>
-      <p class="subtitle">Use a senha do admin para visualizar os cliques do link na bio.</p>
+      <p class="subtitle">Use a senha do admin para visualizar métricas e gerenciar os links do link na bio.</p>
       <label for="password">Senha</label>
       <input id="password" type="password" autocomplete="current-password" />
       <button id="loginButton" type="button">Entrar no painel</button>
@@ -263,40 +390,111 @@
       <div class="panel-header">
         <div>
           <p class="eyebrow">Dashboard</p>
-          <h1>Métricas do link na bio</h1>
-          <p class="subtitle" id="panelSubtitle">Carregando dados...</p>
-        </div>
-        <div class="filters">
-          <button class="filter-btn active" data-period="today" type="button">Hoje</button>
-          <button class="filter-btn" data-period="7d" type="button">7 dias</button>
-          <button class="filter-btn" data-period="30d" type="button">30 dias</button>
-          <button class="filter-btn" data-period="total" type="button">Total</button>
+          <h1>Painel do link na bio</h1>
+          <p class="subtitle" id="panelSubtitle">Métricas e gerenciamento dos links públicos.</p>
         </div>
       </div>
 
-      <div class="stats-grid" id="summaryCards"></div>
-
-      <div class="layout">
-        <div class="table-card">
-          <p class="card-label">Cliques por link</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Link</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="perLinkTable"></tbody>
-          </table>
-        </div>
-
-        <div class="chart-card">
-          <p class="card-label">Cliques por dia</p>
-          <div class="bars" id="perDayChart"></div>
-        </div>
+      <div class="panel-tabs">
+        <button class="panel-tab active" data-view="metrics" type="button">Métricas</button>
+        <button class="panel-tab" data-view="links" type="button">Links</button>
       </div>
 
-      <p class="status" id="statusText"></p>
+      <section class="panel-section active" data-section="metrics">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Métricas</p>
+            <h2 style="font-size:28px; margin-bottom:10px;">Cliques do link na bio</h2>
+            <p class="subtitle" id="metricsSubtitle">Carregando dados...</p>
+          </div>
+          <div class="filters">
+            <button class="filter-btn active" data-period="today" type="button">Hoje</button>
+            <button class="filter-btn" data-period="7d" type="button">7 dias</button>
+            <button class="filter-btn" data-period="30d" type="button">30 dias</button>
+            <button class="filter-btn" data-period="total" type="button">Total</button>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="summaryCards"></div>
+
+        <div class="layout">
+          <div class="table-card">
+            <p class="card-label">Cliques por link</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Link</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="perLinkTable"></tbody>
+            </table>
+          </div>
+
+          <div class="chart-card">
+            <p class="card-label">Cliques por dia</p>
+            <div class="bars" id="perDayChart"></div>
+          </div>
+        </div>
+
+        <p class="status" id="statusText"></p>
+      </section>
+
+      <section class="panel-section" data-section="links">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Gerenciar links</p>
+            <h2 style="font-size:28px; margin-bottom:10px;">Editar o link na bio</h2>
+            <p class="subtitle">Adicione, edite ou exclua os links que aparecem na vitrine pública.</p>
+          </div>
+        </div>
+
+        <div class="links-layout">
+          <div class="form-card">
+            <p class="card-label">Formulário</p>
+            <input id="linkId" type="hidden" />
+            <div class="form-grid">
+              <div class="full">
+                <label for="linkLabel">Nome do link</label>
+                <input id="linkLabel" type="text" placeholder="Ex.: Comunidade Destrave - WhatsApp" />
+              </div>
+              <div class="full">
+                <label for="linkUrl">URL do link</label>
+                <input id="linkUrl" type="url" placeholder="https://..." />
+              </div>
+              <div>
+                <label for="linkPosition">Posição</label>
+                <input id="linkPosition" type="number" min="1" step="1" placeholder="1" />
+              </div>
+            </div>
+            <label class="checkbox-row" for="linkNewTab">
+              <input id="linkNewTab" type="checkbox" checked />
+              <span>Abrir em nova aba</span>
+            </label>
+            <div class="inline-actions">
+              <button id="saveLinkButton" type="button">Salvar link</button>
+              <button class="secondary" id="resetLinkButton" type="button">Novo link</button>
+            </div>
+            <p class="status" id="linksStatus"></p>
+          </div>
+
+          <div class="list-card">
+            <p class="card-label">Links atuais</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>URL</th>
+                  <th>Posição</th>
+                  <th>Janela</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="linksTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </section>
   </div>
 
@@ -311,11 +509,25 @@
     const perLinkTable = document.getElementById("perLinkTable");
     const perDayChart = document.getElementById("perDayChart");
     const statusText = document.getElementById("statusText");
+    const metricsSubtitle = document.getElementById("metricsSubtitle");
     const panelSubtitle = document.getElementById("panelSubtitle");
     const filterButtons = Array.from(document.querySelectorAll("[data-period]"));
+    const tabButtons = Array.from(document.querySelectorAll("[data-view]"));
+    const sections = Array.from(document.querySelectorAll("[data-section]"));
+    const linkIdInput = document.getElementById("linkId");
+    const linkLabelInput = document.getElementById("linkLabel");
+    const linkUrlInput = document.getElementById("linkUrl");
+    const linkPositionInput = document.getElementById("linkPosition");
+    const linkNewTabInput = document.getElementById("linkNewTab");
+    const saveLinkButton = document.getElementById("saveLinkButton");
+    const resetLinkButton = document.getElementById("resetLinkButton");
+    const linksTable = document.getElementById("linksTable");
+    const linksStatus = document.getElementById("linksStatus");
 
     let adminPassword = sessionStorage.getItem("admin_password") || "";
     let currentPeriod = "today";
+    let currentView = "metrics";
+    let linksCache = [];
 
     async function sha256(value) {
       const buffer = new TextEncoder().encode(value);
@@ -325,11 +537,28 @@
         .join("");
     }
 
+    function authHeaders() {
+      return { "x-admin-password": adminPassword };
+    }
+
     function formatPeriodLabel(period) {
       if (period === "today") return "Hoje";
       if (period === "7d") return "Últimos 7 dias";
       if (period === "30d") return "Últimos 30 dias";
       return "Período total";
+    }
+
+    function setView(view) {
+      currentView = view;
+      tabButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.view === view);
+      });
+      sections.forEach((section) => {
+        section.classList.toggle("active", section.dataset.section === view);
+      });
+      panelSubtitle.textContent = view === "metrics"
+        ? "Métricas e gerenciamento dos links públicos."
+        : "Atualize os links do link na bio sem editar o HTML.";
     }
 
     function renderSummary(stats) {
@@ -382,12 +611,10 @@
 
     async function loadStats(period) {
       statusText.textContent = "Carregando métricas...";
-      panelSubtitle.textContent = `${formatPeriodLabel(period)} · dados do link na bio`;
+      metricsSubtitle.textContent = `${formatPeriodLabel(period)} · dados do link na bio`;
 
       const response = await fetch(`/api/admin-stats?period=${encodeURIComponent(period)}`, {
-        headers: {
-          "x-admin-password": adminPassword,
-        },
+        headers: authHeaders(),
       });
 
       const data = await response.json();
@@ -399,6 +626,134 @@
       renderPerLink(data.stats);
       renderPerDay(data.stats);
       statusText.textContent = `Atualizado para ${formatPeriodLabel(period).toLowerCase()}.`;
+      statusText.className = "status";
+    }
+
+    function resetLinkForm() {
+      linkIdInput.value = "";
+      linkLabelInput.value = "";
+      linkUrlInput.value = "";
+      linkPositionInput.value = "";
+      linkNewTabInput.checked = true;
+      saveLinkButton.textContent = "Salvar link";
+    }
+
+    function fillLinkForm(link) {
+      linkIdInput.value = link.id;
+      linkLabelInput.value = link.label || "";
+      linkUrlInput.value = link.url || "";
+      linkPositionInput.value = link.position || "";
+      linkNewTabInput.checked = link.opens_new_tab !== false;
+      saveLinkButton.textContent = "Atualizar link";
+      linksStatus.textContent = `Editando: ${link.label}`;
+      linksStatus.className = "status";
+    }
+
+    function renderLinks(links) {
+      linksCache = links.slice().sort((a, b) => Number(a.position) - Number(b.position));
+      linksTable.innerHTML = linksCache.length
+        ? linksCache.map((link) => `
+            <tr>
+              <td>${link.label}</td>
+              <td class="muted">${link.url}</td>
+              <td>${link.position}</td>
+              <td>${link.opens_new_tab ? "Nova aba" : "Mesma aba"}</td>
+              <td>
+                <div class="table-actions">
+                  <button class="secondary small-btn" type="button" data-action="edit" data-id="${link.id}">Editar</button>
+                  <button class="danger small-btn" type="button" data-action="delete" data-id="${link.id}">Excluir</button>
+                </div>
+              </td>
+            </tr>
+          `).join("")
+        : `
+            <tr>
+              <td colspan="5" class="muted">Nenhum link cadastrado.</td>
+            </tr>
+          `;
+    }
+
+    async function loadLinks() {
+      linksStatus.textContent = "Carregando links...";
+      linksStatus.className = "status";
+
+      const response = await fetch("/api/admin-links", {
+        headers: authHeaders(),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Falha ao carregar links.");
+      }
+
+      renderLinks(data.links || []);
+      linksStatus.textContent = `${(data.links || []).length} links carregados.`;
+      linksStatus.className = "status";
+    }
+
+    async function saveLink() {
+      const id = linkIdInput.value.trim();
+      const payload = {
+        label: linkLabelInput.value.trim(),
+        url: linkUrlInput.value.trim(),
+        position: Number(linkPositionInput.value || 0),
+        opens_new_tab: !!linkNewTabInput.checked,
+      };
+
+      if (!payload.label || !payload.url || !payload.position) {
+        linksStatus.textContent = "Preencha nome, URL e posição.";
+        linksStatus.className = "status";
+        return;
+      }
+
+      linksStatus.textContent = id ? "Atualizando link..." : "Criando link...";
+      linksStatus.className = "status";
+
+      const response = await fetch("/api/admin-links", {
+        method: id ? "PATCH" : "POST",
+        headers: {
+          ...authHeaders(),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(id ? { ...payload, id } : payload),
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Não foi possível salvar o link.");
+      }
+
+      resetLinkForm();
+      await loadLinks();
+      linksStatus.textContent = id ? "Link atualizado com sucesso." : "Link criado com sucesso.";
+      linksStatus.className = "status success";
+    }
+
+    async function removeLink(id) {
+      linksStatus.textContent = "Excluindo link...";
+      linksStatus.className = "status";
+
+      const response = await fetch("/api/admin-links", {
+        method: "DELETE",
+        headers: {
+          ...authHeaders(),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Não foi possível excluir o link.");
+      }
+
+      if (linkIdInput.value === id) {
+        resetLinkForm();
+      }
+
+      await loadLinks();
+      linksStatus.textContent = "Link excluído com sucesso.";
+      linksStatus.className = "status success";
     }
 
     async function login() {
@@ -424,9 +779,10 @@
       panelBox.classList.remove("hidden");
 
       try {
-        await loadStats(currentPeriod);
+        await Promise.all([loadStats(currentPeriod), loadLinks()]);
       } catch (error) {
         statusText.textContent = error.message;
+        linksStatus.textContent = error.message;
       }
     }
 
@@ -451,11 +807,54 @@
       });
     });
 
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => setView(button.dataset.view));
+    });
+
+    saveLinkButton.addEventListener("click", () => {
+      saveLink().catch((error) => {
+        linksStatus.textContent = error.message;
+        linksStatus.className = "status";
+      });
+    });
+
+    resetLinkButton.addEventListener("click", resetLinkForm);
+
+    linksTable.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-action]");
+      if (!trigger) return;
+
+      const { action, id } = trigger.dataset;
+      if (!id) return;
+
+      if (action === "edit") {
+        const link = linksCache.find((item) => item.id === id);
+        if (link) {
+          fillLinkForm(link);
+        }
+        return;
+      }
+
+      if (action === "delete") {
+        const link = linksCache.find((item) => item.id === id);
+        if (!link) return;
+
+        const confirmed = window.confirm(`Excluir o link "${link.label}"?`);
+        if (!confirmed) return;
+
+        removeLink(id).catch((error) => {
+          linksStatus.textContent = error.message;
+          linksStatus.className = "status";
+        });
+      }
+    });
+
     if (adminPassword) {
       loginBox.classList.add("hidden");
       panelBox.classList.remove("hidden");
-      loadStats(currentPeriod).catch((error) => {
+      Promise.all([loadStats(currentPeriod), loadLinks()]).catch((error) => {
         statusText.textContent = error.message;
+        linksStatus.textContent = error.message;
         sessionStorage.removeItem("admin_password");
       });
     }

@@ -1,4 +1,4 @@
-const { listClickEvents } = require("./_lib/supabase");
+const { listClickEvents, listLinkBioLinks } = require("./_lib/supabase");
 
 const PASSWORD = process.env.ADMIN_PASSWORD;
 
@@ -20,22 +20,25 @@ function getRangeStart(period) {
   return null;
 }
 
-function getLabelMap() {
+async function getLabelMap() {
+  const dynamicLinks = await listLinkBioLinks();
+  const dynamicMap = Object.fromEntries(
+    dynamicLinks.map((item) => [item.id, item.label])
+  );
+
   return {
     social_instagram: "Instagram",
     social_tiktok: "TikTok",
     social_threads: "Threads",
-    cta_pack_estampas: "Pack de Estampas",
-    cta_guia_destrave: "Destrave suas vendas",
-    cta_shopee: "Produtos Shopee",
     footer_instagram: "Footer Instagram",
+    ...dynamicMap,
   };
 }
 
-function aggregateEvents(events) {
+async function aggregateEvents(events) {
   const countsByLink = {};
   const countsByDay = {};
-  const labels = getLabelMap();
+  const labels = await getLabelMap();
 
   events.forEach((event) => {
     countsByLink[event.link_id] = (countsByLink[event.link_id] || 0) + 1;
@@ -89,7 +92,7 @@ module.exports = async function handler(req, res) {
     res.status(200).json({
       ok: true,
       period,
-      stats: aggregateEvents(events || []),
+      stats: await aggregateEvents(events || []),
     });
   } catch (error) {
     console.error("admin-stats error", error);
