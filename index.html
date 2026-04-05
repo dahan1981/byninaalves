@@ -204,7 +204,7 @@
     .btn-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .btn-link {
@@ -212,14 +212,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 22px;
+      gap: 14px;
+      padding: 18px 20px;
       text-decoration: none;
       color: var(--text-dark);
-      font-size: 0.66rem;
-      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+      letter-spacing: 0.11em;
       font-weight: 500;
       text-transform: uppercase;
-      border-radius: 16px;
+      line-height: 1.35;
+      border-radius: 18px;
       overflow: hidden;
       background: rgba(250, 245, 235, 0.55);
       backdrop-filter: blur(20px) saturate(160%);
@@ -274,6 +276,8 @@
     .btn-label {
       position: relative;
       z-index: 1;
+      flex: 1;
+      min-width: 0;
     }
 
     .btn-arrow {
@@ -443,12 +447,28 @@
     }
   ];
 
+  function normalizeLinkUrl(value) {
+    const rawValue = String(value || '').trim();
+    if (!rawValue) return '#';
+
+    if (/^(https?:\/\/|mailto:|tel:)/i.test(rawValue) || rawValue.startsWith('/')) {
+      return rawValue;
+    }
+
+    if (/^www\./i.test(rawValue) || (rawValue.includes('.') && !rawValue.includes(' '))) {
+      return `https://${rawValue.replace(/^https?:\/\//i, '')}`;
+    }
+
+    return `/${rawValue.replace(/^\/+/, '')}`;
+  }
+
   function renderBioLinks(links) {
     bioLinksList.innerHTML = links.map((link) => {
       const opensNewTab = link.opens_new_tab !== false;
       const target = opensNewTab ? ' target="_blank" rel="noopener"' : '';
+      const url = normalizeLinkUrl(link.url);
       return `
-        <a class="btn-link" data-track-link="${link.id}" href="${link.url}"${target}>
+        <a class="btn-link" data-track-link="${link.id}" href="${url}"${target}>
           <span class="btn-label">${link.label}</span>
           <span class="btn-arrow">→</span>
         </a>

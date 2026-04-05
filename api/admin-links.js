@@ -17,6 +17,24 @@ function slugify(value) {
     .slice(0, 48);
 }
 
+function normalizeUrl(value) {
+  const rawValue = String(value || "").trim();
+  if (!rawValue) return "";
+
+  if (
+    /^(https?:\/\/|mailto:|tel:)/i.test(rawValue) ||
+    rawValue.startsWith("/")
+  ) {
+    return rawValue;
+  }
+
+  if (/^www\./i.test(rawValue) || (rawValue.includes(".") && !rawValue.includes(" "))) {
+    return `https://${rawValue.replace(/^https?:\/\//i, "")}`;
+  }
+
+  return `/${rawValue.replace(/^\/+/, "")}`;
+}
+
 function ensureAuthorized(req, res) {
   if (!PASSWORD) {
     res.status(500).json({ ok: false, error: "Missing ADMIN_PASSWORD environment variable." });
@@ -46,7 +64,7 @@ module.exports = async function handler(req, res) {
 
     if (req.method === "POST") {
       const label = String(payload.label || "").trim();
-      const url = String(payload.url || "").trim();
+      const url = normalizeUrl(payload.url);
       const opensNewTab = payload.opens_new_tab !== false;
       const position = Number.isFinite(Number(payload.position)) ? Number(payload.position) : Date.now();
 
@@ -78,7 +96,7 @@ module.exports = async function handler(req, res) {
 
       const updatePayload = {};
       if (typeof payload.label === "string") updatePayload.label = payload.label.trim();
-      if (typeof payload.url === "string") updatePayload.url = payload.url.trim();
+      if (typeof payload.url === "string") updatePayload.url = normalizeUrl(payload.url);
       if (typeof payload.opens_new_tab === "boolean") updatePayload.opens_new_tab = payload.opens_new_tab;
       if (typeof payload.active === "boolean") updatePayload.active = payload.active;
       if (Number.isFinite(Number(payload.position))) updatePayload.position = Number(payload.position);
