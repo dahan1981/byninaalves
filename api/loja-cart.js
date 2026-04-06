@@ -1,6 +1,7 @@
-const { buildBootstrap, getCart, getSession, listOwnedProductIds, listProducts, setCartCookie } = require("./_lib/loja-store");
+const { buildBootstrap, getCart, getSession, listOwnedProductIds, listProducts, setCartCookie, setNoStore } = require("./_lib/loja-store");
 
 module.exports = async function handler(req, res) {
+  setNoStore(res);
   if (req.method !== "POST") {
     res.status(405).json({ ok: false, error: "Method not allowed." });
     return;

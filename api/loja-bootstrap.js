@@ -1,6 +1,7 @@
-const { buildBootstrap } = require("./_lib/loja-store");
+const { buildBootstrap, setNoStore } = require("./_lib/loja-store");
 
 module.exports = async function handler(req, res) {
+  setNoStore(res);
   if (req.method !== "GET") {
     res.status(405).json({ ok: false, error: "Method not allowed." });
     return;
