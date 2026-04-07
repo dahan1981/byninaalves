@@ -36,7 +36,7 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; background-color: var(--text); }
 
   body {
     font-family: var(--sans);
@@ -319,7 +319,7 @@
     padding: clamp(116px, 14vw, 176px) 0 100px;
     background: var(--warm-white);
     position: relative;
-    z-index: 1;
+    z-index: 3;
   }
 
   .dor-question {
@@ -1535,7 +1535,7 @@
   .fade-up {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .fade-up.visible {
@@ -1545,13 +1545,13 @@
 
   .scale-up {
     opacity: 0;
-    transform: scale(0.9) translateY(30px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(0.9) translateY(40px) rotate(var(--rot, 0deg));
+    transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .scale-up.visible {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0) rotate(var(--rot, 0deg));
   }
 
   /* Classes auxiliares para os mockups divisores */
@@ -1563,24 +1563,24 @@
   }
 
   .mockup-1 {
-    bottom: -150px;
+    --rot: 6deg;
+    top: -150px;
     right: max(8vw, 20px);
     width: clamp(240px, 30vw, 360px);
-    transform: rotate(6deg);
   }
 
   .mockup-3 {
+    --rot: -10deg;
     top: -120px;
     left: max(5vw, 10px);
     width: clamp(200px, 25vw, 320px);
-    transform: rotate(-10deg);
   }
 
   .mockup-4 {
+    --rot: 8deg;
     top: -100px;
     right: max(10vw, 40px);
     width: clamp(220px, 28vw, 340px);
-    transform: rotate(8deg);
   }
 
   @media (max-width: 860px) {
@@ -1817,7 +1817,7 @@
      DOR / IDENTIFICAÇÃO
 ============================================ -->
 <section id="dor">
-  <img src="/fotos/1.png" alt="Mockup Guia" class="mockup-divider mockup-1 scale-up" loading="lazy">
+  
   <div class="container text-center">
     <div class="divider fade-up"><div class="divider-dot"></div></div>
     <br>
@@ -1865,6 +1865,7 @@
      TRANSIÇÃO
 ============================================ -->
 <section id="transicao">
+  <img src="/fotos/1.png" alt="Mockup Guia" class="mockup-divider mockup-1 scale-up" loading="lazy">
   <div class="container text-center">
     <p class="display fade-up">
       A partir de agora, você terá um <em>mapa de estratégias</em><br>na palma da sua mão.
