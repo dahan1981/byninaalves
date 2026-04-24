@@ -54,6 +54,8 @@ module.exports = async function handler(req, res) {
   if (!ensureAuthorized(req, res)) return;
 
   try {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+
     if (req.method === "GET") {
       const links = await listLinkBioLinks();
       res.status(200).json({ ok: true, links });

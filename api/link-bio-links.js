@@ -7,6 +7,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
     const links = await listLinkBioLinks({ activeOnly: true });
     res.status(200).json({ ok: true, links });
   } catch (error) {

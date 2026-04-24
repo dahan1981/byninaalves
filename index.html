@@ -486,7 +486,9 @@
 
   async function loadBioLinks() {
     try {
-      const response = await fetch('/api/link-bio-links');
+      const response = await fetch(`/api/link-bio-links?ts=${Date.now()}`, {
+        cache: 'no-store'
+      });
       const data = await response.json();
       if (!response.ok || !data.ok || !Array.isArray(data.links) || !data.links.length) {
         renderBioLinks(defaultBioLinks);

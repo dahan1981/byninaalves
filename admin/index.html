@@ -871,8 +871,9 @@
       linksStatus.textContent = "Carregando links...";
       linksStatus.className = "status";
 
-      const response = await fetch("/api/admin-links", {
+      const response = await fetch(`/api/admin-links?ts=${Date.now()}`, {
         headers: authHeaders(),
+        cache: "no-store",
       });
       const data = await response.json();
 
@@ -995,12 +996,13 @@
       linksStatus.textContent = id ? "Atualizando link..." : "Criando link...";
       linksStatus.className = "status";
 
-      const response = await fetch("/api/admin-links", {
+      const response = await fetch(`/api/admin-links?ts=${Date.now()}`, {
         method: id ? "PATCH" : "POST",
         headers: {
           ...authHeaders(),
           "Content-Type": "application/json",
         },
+        cache: "no-store",
         body: JSON.stringify(id ? { ...payload, id } : payload),
       });
 
@@ -1019,12 +1021,13 @@
       linksStatus.textContent = "Excluindo link...";
       linksStatus.className = "status";
 
-      const response = await fetch("/api/admin-links", {
+      const response = await fetch(`/api/admin-links?ts=${Date.now()}`, {
         method: "DELETE",
         headers: {
           ...authHeaders(),
           "Content-Type": "application/json",
         },
+        cache: "no-store",
         body: JSON.stringify({ id }),
       });
 
