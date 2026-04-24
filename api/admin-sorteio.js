@@ -1,4 +1,4 @@
-const { listSorteioEntries } = require("./_lib/supabase");
+const { deleteAllSorteioEntries, listSorteioEntries } = require("./_lib/supabase");
 
 const PASSWORD = process.env.ADMIN_PASSWORD;
 
@@ -37,12 +37,18 @@ function toCsv(entries) {
 module.exports = async function handler(req, res) {
   if (!ensureAuthorized(req, res)) return;
 
-  if (req.method !== "GET") {
-    res.status(405).json({ ok: false, error: "Method not allowed." });
-    return;
-  }
-
   try {
+    if (req.method === "DELETE") {
+      await deleteAllSorteioEntries();
+      res.status(200).json({ ok: true });
+      return;
+    }
+
+    if (req.method !== "GET") {
+      res.status(405).json({ ok: false, error: "Method not allowed." });
+      return;
+    }
+
     const entries = await listSorteioEntries();
 
     if (req.query.format === "csv") {

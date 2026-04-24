@@ -649,7 +649,10 @@
           <div class="table-card">
             <div class="toolbar">
               <p class="card-label" style="margin-bottom:0;">Participantes</p>
-              <button class="secondary" id="downloadSorteioButton" type="button">Baixar relatório CSV</button>
+              <div class="inline-actions">
+                <button class="secondary" id="downloadSorteioButton" type="button">Baixar relatório CSV</button>
+                <button class="danger" id="resetSorteioButton" type="button">Resetar sorteio</button>
+              </div>
             </div>
             <table class="sorteio-table">
               <thead>
@@ -699,6 +702,7 @@
     const sorteioTable = document.getElementById("sorteioTable");
     const sorteioStatus = document.getElementById("sorteioStatus");
     const downloadSorteioButton = document.getElementById("downloadSorteioButton");
+    const resetSorteioButton = document.getElementById("resetSorteioButton");
 
     let adminPassword = sessionStorage.getItem("admin_password") || "";
     let currentPeriod = "today";
@@ -978,6 +982,26 @@
       sorteioStatus.className = "status success";
     }
 
+    async function resetSorteio() {
+      sorteioStatus.textContent = "Resetando sorteio...";
+      sorteioStatus.className = "status";
+
+      const response = await fetch(`/api/admin-sorteio?ts=${Date.now()}`, {
+        method: "DELETE",
+        headers: authHeaders(),
+        cache: "no-store",
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Não foi possível resetar o sorteio.");
+      }
+
+      await loadSorteio();
+      sorteioStatus.textContent = "Sorteio resetado com sucesso.";
+      sorteioStatus.className = "status success";
+    }
+
     async function saveLink() {
       const id = linkIdInput.value.trim();
       const payload = {
@@ -1085,6 +1109,16 @@
 
     downloadSorteioButton.addEventListener("click", () => {
       downloadSorteioReport().catch((error) => {
+        sorteioStatus.textContent = error.message;
+        sorteioStatus.className = "status";
+      });
+    });
+
+    resetSorteioButton.addEventListener("click", () => {
+      const confirmed = window.confirm("Resetar o sorteio vai apagar todas as entradas atuais. Deseja continuar?");
+      if (!confirmed) return;
+
+      resetSorteio().catch((error) => {
         sorteioStatus.textContent = error.message;
         sorteioStatus.className = "status";
       });

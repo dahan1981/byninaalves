@@ -144,9 +144,19 @@ async function createSorteioEntry(payload) {
   });
 }
 
+async function deleteAllSorteioEntries() {
+  return supabaseFetch(`${SORTEIO_ENTRIES_TABLE}?id=not.is.null`, {
+    method: "DELETE",
+    headers: {
+      Prefer: "return=minimal",
+    },
+  });
+}
+
 module.exports = {
   createLinkBioLink,
   createSorteioEntry,
+  deleteAllSorteioEntries,
   deleteLinkBioLink,
   findSorteioEntryByPhoneDigits,
   insertClickEvent,
