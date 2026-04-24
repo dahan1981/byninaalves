@@ -19,18 +19,14 @@ function formatPhone(value) {
   return String(value || "").trim();
 }
 
-function pickRandomAvailableNumber(usedNumbers) {
-  const available = [];
-  for (let number = 1; number <= 1000; number += 1) {
-    if (!usedNumbers.has(number)) {
-      available.push(number);
-    }
-  }
+function pickNextSequentialNumber(entries) {
+  const highestNumber = (entries || []).reduce((max, item) => {
+    const current = Number(item.raffle_number) || 0;
+    return current > max ? current : max;
+  }, 0);
 
-  if (!available.length) return null;
-
-  const index = Math.floor(Math.random() * available.length);
-  return available[index];
+  if (highestNumber >= 1000) return null;
+  return highestNumber + 1;
 }
 
 module.exports = async function handler(req, res) {
@@ -63,8 +59,7 @@ module.exports = async function handler(req, res) {
     }
 
     const entries = await listSorteioEntries();
-    const usedNumbers = new Set((entries || []).map((item) => Number(item.raffle_number)));
-    const raffleNumber = pickRandomAvailableNumber(usedNumbers);
+    const raffleNumber = pickNextSequentialNumber(entries);
 
     if (!raffleNumber) {
       res.status(409).json({
