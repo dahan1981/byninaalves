@@ -24,6 +24,16 @@ create table if not exists public.click_events (
   utm_campaign text
 );
 
+create table if not exists public.sorteio_entries (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  phone text not null,
+  phone_digits text not null unique,
+  raffle_number integer not null unique,
+  created_at timestamptz not null default now(),
+  check (raffle_number between 1 and 1000)
+);
+
 create index if not exists click_events_page_key_clicked_at_idx
   on public.click_events (page_key, clicked_at desc);
 
@@ -32,6 +42,9 @@ create index if not exists click_events_link_id_clicked_at_idx
 
 create index if not exists link_bio_links_position_idx
   on public.link_bio_links (position, active);
+
+create index if not exists sorteio_entries_created_at_idx
+  on public.sorteio_entries (created_at desc);
 
 insert into public.link_bio_links (
   id,

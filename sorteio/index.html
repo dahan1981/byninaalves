@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon%20guia.svg" />
+  <title>Sorteio · byninaalves</title>
+  <style>
+    :root {
+      --bg: #efe7dc;
+      --panel: rgba(250, 245, 238, 0.78);
+      --panel-border: rgba(255, 248, 238, 0.84);
+      --accent: #c4874a;
+      --accent-dark: #a86c33;
+      --text: #2a231a;
+      --muted: #7a6a58;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 25% 25%, rgba(196, 135, 74, 0.28), transparent 45%),
+        radial-gradient(ellipse at 80% 75%, rgba(138, 112, 85, 0.22), transparent 40%),
+        linear-gradient(180deg, #f3ecdf 0%, #e7dece 100%);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: min(100%, 1060px);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 248, 238, 0.55);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero,
+    .form-panel {
+      padding: 42px;
+    }
+
+    .hero {
+      background:
+        linear-gradient(180deg, rgba(42, 31, 22, 0.88), rgba(54, 39, 29, 0.82)),
+        radial-gradient(circle at top, rgba(212, 154, 98, 0.14), transparent 42%);
+      color: #f7eee5;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #e6b480;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 0.94;
+      margin: 0 0 18px;
+    }
+
+    .hero p,
+    .form-panel p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .hero-copy {
+      color: rgba(247, 238, 229, 0.78);
+      max-width: 34ch;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: #f7eee5;
+    }
+
+    .step span {
+      display: block;
+      color: rgba(247, 238, 229, 0.72);
+      font-size: 14px;
+    }
+
+    .form-panel {
+      background: var(--panel);
+      border-left: 1px solid rgba(255, 248, 238, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-wrap {
+      max-width: 420px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .form-panel h2 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      line-height: 1.04;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 24px !important;
+    }
+
+    .input-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(196, 135, 74, 0.16);
+      background: rgba(255, 255, 255, 0.62);
+      padding: 15px 16px;
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: rgba(196, 135, 74, 0.6);
+      box-shadow: 0 0 0 4px rgba(196, 135, 74, 0.12);
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 999px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, var(--accent), #d9a776);
+      color: #20140d;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .helper {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 14px !important;
+    }
+
+    .result,
+    .error {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      display: none;
+    }
+
+    .result {
+      background: rgba(196, 135, 74, 0.12);
+      border: 1px solid rgba(196, 135, 74, 0.2);
+    }
+
+    .error {
+      background: rgba(255, 159, 142, 0.1);
+      border: 1px solid rgba(255, 159, 142, 0.2);
+      color: #8f4030;
+    }
+
+    .result-number {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1;
+      margin: 10px 0 6px !important;
+      color: var(--accent-dark);
+    }
+
+    .result-label {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .result-copy {
+      color: var(--text);
+    }
+
+    @media (max-width: 920px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero,
+      .form-panel {
+        padding: 28px;
+      }
+
+      .form-panel {
+        border-left: 0;
+        border-top: 1px solid rgba(255, 248, 238, 0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Comunidade Destrave</p>
+        <h1>Entre no sorteio da comunidade.</h1>
+        <p class="hero-copy">Preencha seu nome e celular com DDD para receber automaticamente seu número entre 1 e 1000.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <strong>1. Faça seu cadastro</strong>
+          <span>Nome e celular com DDD para validar sua participação.</span>
+        </div>
+        <div class="step">
+          <strong>2. Receba seu número</strong>
+          <span>O sistema gera um número aleatório disponível na hora.</span>
+        </div>
+        <div class="step">
+          <strong>3. Acompanhe o resultado</strong>
+          <span>Sua entrada fica registrada no painel do admin com relatório para download.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-panel">
+      <div class="form-wrap">
+        <p class="eyebrow">Acesso ao sorteio</p>
+        <h2>Cadastre-se para participar.</h2>
+        <p class="subtitle">Depois de enviar seus dados, seu número do sorteio aparece imediatamente na tela.</p>
+
+        <form id="raffleForm">
+          <div class="input-group">
+            <label for="raffleName">Nome</label>
+            <input id="raffleName" name="name" type="text" placeholder="Seu nome completo" autocomplete="name" required />
+          </div>
+          <div class="input-group">
+            <label for="rafflePhone">Celular com DDD</label>
+            <input id="rafflePhone" name="phone" type="tel" inputmode="numeric" placeholder="(11) 99999-9999" autocomplete="tel" required />
+          </div>
+
+          <button class="submit-btn" id="submitButton" type="submit">Gerar meu número</button>
+        </form>
+
+        <p class="helper">Cada celular participa uma vez. Se você já tiver um número, o sistema mostra o mesmo cadastro.</p>
+
+        <div class="result" id="resultBox">
+          <div class="result-label" id="resultState">Inscrição confirmada</div>
+          <div class="result-number" id="resultNumber">000</div>
+          <p class="result-copy" id="resultCopy">Seu número do sorteio foi gerado com sucesso.</p>
+        </div>
+
+        <div class="error" id="errorBox"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const raffleForm = document.getElementById('raffleForm');
+    const rafflePhone = document.getElementById('rafflePhone');
+    const submitButton = document.getElementById('submitButton');
+    const resultBox = document.getElementById('resultBox');
+    const resultState = document.getElementById('resultState');
+    const resultNumber = document.getElementById('resultNumber');
+    const resultCopy = document.getElementById('resultCopy');
+    const errorBox = document.getElementById('errorBox');
+
+    function formatPhoneInput(value) {
+      const digits = String(value || '').replace(/\D+/g, '').slice(0, 11);
+      if (digits.length <= 2) return digits ? `(${digits}` : '';
+      if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+      if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+    }
+
+    rafflePhone.addEventListener('input', (event) => {
+      event.target.value = formatPhoneInput(event.target.value);
+    });
+
+    raffleForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      errorBox.style.display = 'none';
+      resultBox.style.display = 'none';
+      submitButton.disabled = true;
+      submitButton.textContent = 'Gerando...';
+
+      try {
+        const payload = {
+          name: document.getElementById('raffleName').value.trim(),
+          phone: rafflePhone.value.trim(),
+        };
+
+        const response = await fetch('/api/sorteio-entry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.ok || !data.entry) {
+          throw new Error(data.error || 'Não foi possível gerar seu número agora.');
+        }
+
+        resultState.textContent = data.already_exists ? 'Você já estava participando' : 'Inscrição confirmada';
+        resultNumber.textContent = String(data.entry.raffle_number).padStart(3, '0');
+        resultCopy.textContent = data.already_exists
+          ? 'Encontramos seu cadastro e mantivemos o mesmo número para este celular.'
+          : 'Seu número do sorteio foi gerado com sucesso.';
+        resultBox.style.display = 'block';
+      } catch (error) {
+        errorBox.textContent = error.message;
+        errorBox.style.display = 'block';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Gerar meu número';
+      }
+    });
+  </script>
+</body>
+</html>

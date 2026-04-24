@@ -2,6 +2,7 @@ const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const CLICK_EVENTS_TABLE = "click_events";
 const LINK_BIO_LINKS_TABLE = "link_bio_links";
+const SORTEIO_ENTRIES_TABLE = "sorteio_entries";
 
 function ensureEnv() {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
@@ -108,11 +109,49 @@ async function deleteLinkBioLink(id) {
   });
 }
 
+async function listSorteioEntries() {
+  const params = new URLSearchParams({
+    select: "id,name,phone,phone_digits,raffle_number,created_at",
+    order: "created_at.desc",
+  });
+
+  return supabaseFetch(`${SORTEIO_ENTRIES_TABLE}?${params.toString()}`, {
+    method: "GET",
+  });
+}
+
+async function findSorteioEntryByPhoneDigits(phoneDigits) {
+  const params = new URLSearchParams({
+    select: "id,name,phone,phone_digits,raffle_number,created_at",
+    phone_digits: `eq.${phoneDigits}`,
+    limit: "1",
+  });
+
+  const rows = await supabaseFetch(`${SORTEIO_ENTRIES_TABLE}?${params.toString()}`, {
+    method: "GET",
+  });
+
+  return rows && rows[0] ? rows[0] : null;
+}
+
+async function createSorteioEntry(payload) {
+  return supabaseFetch(SORTEIO_ENTRIES_TABLE, {
+    method: "POST",
+    headers: {
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
 module.exports = {
   createLinkBioLink,
+  createSorteioEntry,
   deleteLinkBioLink,
+  findSorteioEntryByPhoneDigits,
   insertClickEvent,
   listLinkBioLinks,
   listClickEvents,
+  listSorteioEntries,
   updateLinkBioLink,
 };

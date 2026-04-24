@@ -17,6 +17,10 @@
       "destination": "/guia-destrave/index.html"
     },
     {
+      "source": "/sorteio",
+      "destination": "/sorteio/index.html"
+    },
+    {
       "source": "/nina-admin",
       "destination": "/admin/index.html"
     }
