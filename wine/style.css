@@ -4281,8 +4281,24 @@ body{
 .wine-price-wrap{
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  text-align: center;
+}
+
+.wine-offer-card{
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  grid-template-areas:
+    "copy media"
+    "copy actions";
+  align-items: center;
+  gap: 1.5rem 3rem;
+}
+
+.wine-offer-copy{
+  grid-area: copy;
 }
 
 .wine-old-price{
@@ -4301,11 +4317,21 @@ body{
 }
 
 .wine-offer-media{
+  grid-area: media;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border-radius: 1.5rem;
+}
+
+.wine-offer-actions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
 }
 
 .wine-offer-image{
@@ -4327,6 +4353,15 @@ body{
 }
 
 @media (max-width: 767px){
+  .wine-offer-card{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "media"
+      "actions";
+    gap: 1.25rem;
+  }
+
   .wine-current-price{
     font-size: 1.75rem;
   }
