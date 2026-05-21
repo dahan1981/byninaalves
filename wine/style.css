@@ -4277,3 +4277,53 @@ body{
 [data-side=right] .\[\[data-side\=right\]_\&\]\:cursor-e-resize{
   cursor: e-resize;
 }
+
+.wine-price-wrap{
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.wine-old-price{
+  color: rgb(102 78 66 / 0.5);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.wine-current-price{
+  color: rgb(86 63 52);
+  font-size: 2.125rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.wine-offer-media{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.wine-offer-image{
+  width: 100%;
+  max-height: 430px;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 767px){
+  .wine-current-price{
+    font-size: 1.75rem;
+  }
+
+  .wine-offer-media{
+    padding: 1rem;
+  }
+
+  .wine-offer-image{
+    max-height: 320px;
+  }
+}
