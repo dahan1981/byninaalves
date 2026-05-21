@@ -4301,6 +4301,11 @@ body{
   grid-area: copy;
 }
 
+.wine-offer-list{
+  display: grid;
+  gap: 0.75rem;
+}
+
 .wine-old-price{
   color: rgb(102 78 66 / 0.5);
   text-decoration: line-through;
@@ -4352,18 +4357,111 @@ body{
   padding: 0.75rem;
 }
 
-@media (max-width: 767px){
+.wine-hero{
+  padding-top: 4rem;
+}
+
+.wine-hero h1{
+  font-size: clamp(3rem, 7vw, 5.25rem);
+}
+
+.wine-hero-points{
+  flex-wrap: wrap;
+}
+
+body{
+  overflow-x: hidden;
+}
+
+@media (max-width: 1023px){
+  .wine-hero{
+    min-height: auto;
+    padding-top: 5.5rem;
+  }
+
+  .wine-hero .grid{
+    gap: 2.75rem;
+  }
+
+  .wine-hero-media img{
+    max-height: 460px;
+    width: 100%;
+  }
+
   .wine-offer-card{
     grid-template-columns: 1fr;
     grid-template-areas:
       "copy"
       "media"
       "actions";
+    gap: 1.5rem;
+  }
+
+  .wine-offer-copy{
+    text-align: center;
+  }
+
+  .wine-offer-list{
+    justify-items: center;
+  }
+}
+
+@media (max-width: 767px){
+  .wine-offer-card{
     gap: 1.25rem;
+  }
+
+  .wine-hero{
+    padding-top: 5.75rem;
+  }
+
+  .wine-hero h1{
+    font-size: clamp(2.5rem, 11vw, 3.6rem);
+    line-height: 0.98;
+  }
+
+  .wine-hero p{
+    text-align: center;
+  }
+
+  .wine-hero .inline-flex.items-center.gap-2.bg-primary\/10{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wine-hero .mt-8.flex.flex-col.sm\:flex-row.gap-4{
+    align-items: stretch;
+  }
+
+  .wine-hero .mt-8.flex.flex-col.sm\:flex-row.gap-4 a{
+    width: 100%;
+  }
+
+  .wine-hero-points{
+    justify-content: center;
+    row-gap: 0.75rem;
+    text-align: center;
+  }
+
+  .wine-hero-media{
+    width: 100%;
+  }
+
+  .wine-hero-media img{
+    max-height: 360px;
+    width: 100%;
+  }
+
+  .wine-mobile-menu .inline-flex{
+    width: 100%;
   }
 
   .wine-current-price{
     font-size: 1.75rem;
+  }
+
+  .wine-old-price{
+    font-size: 1rem;
   }
 
   .wine-offer-media{
@@ -4378,5 +4476,16 @@ body{
   .wine-benefit-image{
     height: 18rem;
     padding: 0.5rem;
+  }
+
+  .wine-faq-toggle{
+    font-size: 1rem;
+    line-height: 1.4;
+    gap: 1rem;
+  }
+
+  .wine-faq-content{
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 }
