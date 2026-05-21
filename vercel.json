@@ -21,6 +21,10 @@
       "destination": "/sorteio/index.html"
     },
     {
+      "source": "/wine",
+      "destination": "/wine/index.html"
+    },
+    {
       "source": "/nina-admin",
       "destination": "/admin/index.html"
     }

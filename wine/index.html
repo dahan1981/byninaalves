@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pack Wine - Rótulos Personalizados</title>
+  <meta
+    name="description"
+    content="Transforme uma garrafa de vinho em um presente inesquecível com rótulos personalizados, prontos para editar no Canva."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" href="/favicon%20guia.svg" />
+  <link rel="stylesheet" href="/wine/style.css" />
+</head>
+<body class="bg-background text-foreground antialiased">
+  <div class="min-h-screen bg-background font-inter">
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/90 backdrop-blur-xl shadow-sm border-b border-border/50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a class="flex items-center gap-2 text-foreground font-bold text-lg hover:no-underline" href="#topo">
+            <svg class="lucide lucide-heart w-5 h-5 text-primary fill-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+            </svg>
+            Pack Wine
+          </a>
+          <div class="hidden md:flex items-center gap-8">
+            <a class="text-sm text-muted-foreground hover:text-primary transition-colors" href="#pack">Benefícios</a>
+            <a class="text-sm text-muted-foreground hover:text-primary transition-colors" href="#duvidas">Dúvidas</a>
+            <a class="inline-flex items-center justify-center gap-2 whitespace-nowrap shadow h-8 px-3 text-xs bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg" href="#comprar">
+              Comprar — R$19,90
+            </a>
+          </div>
+          <button class="md:hidden text-foreground wine-mobile-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <svg class="lucide lucide-menu w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="wine-mobile-menu hidden md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-3">
+          <a class="text-sm text-muted-foreground hover:text-primary transition-colors" href="#pack">Benefícios</a>
+          <a class="text-sm text-muted-foreground hover:text-primary transition-colors" href="#duvidas">Dúvidas</a>
+          <a class="inline-flex items-center justify-center gap-2 whitespace-nowrap shadow h-10 px-6 text-sm bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl" href="#comprar">
+            Comprar por R$19,90
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center overflow-hidden wine-hero" id="topo">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background"></div>
+      <div class="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary/5 blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-accent/10 blur-3xl"></div>
+      <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-12">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="order-2 lg:order-1">
+            <div class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <svg class="lucide lucide-sparkles w-4 h-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+                <path d="M20 3v4"></path>
+                <path d="M22 5h-4"></path>
+                <path d="M4 17v2"></path>
+                <path d="M5 18H3"></path>
+              </svg>
+              <span>+15 templates editáveis no Canva</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-foreground">
+              Transforme uma garrafa de vinho em um
+              <span class="text-primary">presente inesquecível</span>
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl">
+              Rótulos personalizados, prontos para editar no Canva. Sem precisar saber design. Sem complicação.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row gap-4">
+              <a class="inline-flex items-center justify-center gap-2 h-10 bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl font-bold" href="#comprar">
+                <svg class="lucide lucide-heart w-5 h-5 mr-2" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+                Quero meu Pack Wine — R$19,90
+              </a>
+            </div>
+            <div class="mt-8 flex items-center gap-6 text-sm text-muted-foreground wine-hero-points">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                Entrega imediata
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                Canva gratuito ou Pro
+              </div>
+            </div>
+          </div>
+          <div class="order-1 lg:order-2 flex justify-center">
+            <div class="relative wine-hero-media">
+              <div class="absolute -inset-4 bg-gradient-to-br from-primary/20 via-accent/10 to-transparent rounded-3xl blur-2xl"></div>
+              <img alt="Garrafa de vinho com rótulo personalizado" class="relative rounded-2xl shadow-2xl max-h-[500px] lg:max-h-[600px] object-cover" src="/wine/images/wine-03.jpeg" />
+            </div>
+          </div>
+        </div>
+        <div class="hidden lg:flex justify-center mt-12">
+          <a href="#pack" class="text-muted-foreground/50">
+            <svg class="lucide lucide-arrow-down w-5 h-5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5v14"></path>
+              <path d="m19 12-7 7-7-7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 lg:py-28 bg-secondary/50" id="pack">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <p class="text-primary font-semibold text-sm uppercase tracking-wider mb-3">Benefícios</p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-foreground">Tudo que você precisa em um só lugar</h2>
+          <p class="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            Um pack pensado para presentear melhor, vender com mais facilidade e editar em poucos minutos.
+          </p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="wine-collage">
+            <img alt="Template de vinho personalizado 1" class="wine-collage-main" src="/wine/images/wine-04.jpeg" />
+            <img alt="Template de vinho personalizado 2" class="wine-collage-small wine-collage-small-top" src="/wine/images/wine-01.jpeg" />
+            <img alt="Template de vinho personalizado 3" class="wine-collage-small wine-collage-small-bottom" src="/wine/images/wine-02.jpeg" />
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-card rounded-2xl p-6 border border-border/50">
+              <h3 class="font-bold text-foreground mb-2">+15 templates de rótulos</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Designs variados: românticos, minimalistas, florais, modernos e elegantes.</p>
+            </div>
+            <div class="bg-card rounded-2xl p-6 border border-border/50">
+              <h3 class="font-bold text-foreground mb-2">100% editáveis no Canva</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Mude cores, textos, fontes e fotos com poucos cliques.</p>
+            </div>
+            <div class="bg-card rounded-2xl p-6 border border-border/50">
+              <h3 class="font-bold text-foreground mb-2">Canva gratuito ou Pro</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Funciona perfeitamente nas duas versões, no celular ou computador.</p>
+            </div>
+            <div class="bg-card rounded-2xl p-6 border border-border/50">
+              <h3 class="font-bold text-foreground mb-2">Acesso imediato</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Após o pagamento, você recebe tudo na hora. Sem espera.</p>
+            </div>
+            <div class="bg-card rounded-2xl p-6 border border-border/50">
+              <h3 class="font-bold text-foreground mb-2">Ideal para presentear</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Dia dos namorados, aniversários, datas especiais ou só porque sim.</p>
+            </div>
+            <div class="bg-card rounded-2xl p-6 border border-border/50">
+              <h3 class="font-bold text-foreground mb-2">Perfeito para renda extra</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Personalize e venda para clientes. O investimento se paga no primeiro pedido.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 lg:py-28" id="duvidas">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-primary font-semibold text-sm uppercase tracking-wider mb-3">Dúvidas frequentes</p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-foreground">Tudo que você precisa saber</h2>
+        </div>
+        <div class="space-y-4">
+          <div class="bg-card border border-border/50 rounded-2xl overflow-hidden wine-faq-item">
+            <button class="w-full px-6 py-5 flex items-center justify-between text-left font-semibold text-foreground wine-faq-toggle" type="button" aria-expanded="false">
+              Preciso saber design para usar?
+              <span class="wine-faq-icon">+</span>
+            </button>
+            <div class="px-6 pb-5 text-muted-foreground wine-faq-content hidden">
+              Não. Os templates já estão prontos. Você só precisa abrir no Canva e trocar o que quiser.
+            </div>
+          </div>
+          <div class="bg-card border border-border/50 rounded-2xl overflow-hidden wine-faq-item">
+            <button class="w-full px-6 py-5 flex items-center justify-between text-left font-semibold text-foreground wine-faq-toggle" type="button" aria-expanded="false">
+              Funciona no Canva gratuito?
+              <span class="wine-faq-icon">+</span>
+            </button>
+            <div class="px-6 pb-5 text-muted-foreground wine-faq-content hidden">
+              Sim. O pack foi pensado para funcionar tanto no Canva gratuito quanto no Canva Pro.
+            </div>
+          </div>
+          <div class="bg-card border border-border/50 rounded-2xl overflow-hidden wine-faq-item">
+            <button class="w-full px-6 py-5 flex items-center justify-between text-left font-semibold text-foreground wine-faq-toggle" type="button" aria-expanded="false">
+              Como recebo o produto?
+              <span class="wine-faq-icon">+</span>
+            </button>
+            <div class="px-6 pb-5 text-muted-foreground wine-faq-content hidden">
+              O acesso é imediato após a compra. Você recebe os arquivos e links para edição sem precisar esperar aprovação manual.
+            </div>
+          </div>
+          <div class="bg-card border border-border/50 rounded-2xl overflow-hidden wine-faq-item">
+            <button class="w-full px-6 py-5 flex items-center justify-between text-left font-semibold text-foreground wine-faq-toggle" type="button" aria-expanded="false">
+              Posso vender os rótulos personalizados?
+              <span class="wine-faq-icon">+</span>
+            </button>
+            <div class="px-6 pb-5 text-muted-foreground wine-faq-content hidden">
+              Sim. A proposta também serve para renda extra com personalização e revenda do serviço final.
+            </div>
+          </div>
+          <div class="bg-card border border-border/50 rounded-2xl overflow-hidden wine-faq-item">
+            <button class="w-full px-6 py-5 flex items-center justify-between text-left font-semibold text-foreground wine-faq-toggle" type="button" aria-expanded="false">
+              Como faço para imprimir?
+              <span class="wine-faq-icon">+</span>
+            </button>
+            <div class="px-6 pb-5 text-muted-foreground wine-faq-content hidden">
+              Você pode imprimir em casa, em papel adesivo, ou enviar para uma gráfica rápida com a arte já pronta.
+            </div>
+          </div>
+          <div class="bg-card border border-border/50 rounded-2xl overflow-hidden wine-faq-item">
+            <button class="w-full px-6 py-5 flex items-center justify-between text-left font-semibold text-foreground wine-faq-toggle" type="button" aria-expanded="false">
+              Serve para qualquer garrafa de vinho?
+              <span class="wine-faq-icon">+</span>
+            </button>
+            <div class="px-6 pb-5 text-muted-foreground wine-faq-content hidden">
+              Sim, desde que você ajuste a escala do rótulo para o modelo da garrafa que vai usar.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 lg:py-28" id="comprar">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="wine-offer-card">
+          <div class="wine-offer-copy">
+            <p class="text-primary-foreground/80 text-sm uppercase tracking-wider font-semibold">Oferta especial</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-primary-foreground leading-tight">Pack Wine</h2>
+            <p class="mt-4 text-primary-foreground/80 text-lg leading-relaxed">
+              +15 templates de rótulos de vinho editáveis no Canva. Tudo pronto para você personalizar e impressionar.
+            </p>
+            <div class="wine-offer-list">
+              <div class="flex items-center gap-2 text-primary-foreground"><span class="wine-check">✓</span>Acesso imediato após o pagamento</div>
+              <div class="flex items-center gap-2 text-primary-foreground"><span class="wine-check">✓</span>Compra 100% segura</div>
+              <div class="flex items-center gap-2 text-primary-foreground"><span class="wine-check">✓</span>Suporte se precisar de ajuda</div>
+            </div>
+            <div class="wine-price-wrap">
+              <span class="wine-old-price">R$49,90</span>
+              <span class="wine-current-price">R$19,90</span>
+            </div>
+            <a class="inline-flex items-center justify-center gap-2 h-12 bg-primary-foreground text-primary px-8 rounded-xl font-bold shadow-lg" href="https://byninaalves.site/loja" target="_blank" rel="noopener noreferrer">
+              Quero meu Pack Wine
+            </a>
+            <p class="mt-4 text-xs text-primary-foreground/50">Pagamento via Pix, cartão de crédito ou boleto.</p>
+          </div>
+          <div class="wine-offer-media">
+            <img alt="Pack Wine - presente personalizado" class="rounded-2xl shadow-2xl w-full object-cover max-h-[450px]" src="/wine/images/wine-07.jpeg" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-10 border-t border-border/50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-2 text-foreground font-bold">
+            <svg class="lucide lucide-heart w-4 h-4 text-primary fill-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+            </svg>
+            Pack Wine
+          </div>
+          <p class="text-sm text-muted-foreground text-center">Pack Wine © 2026. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileToggle = document.querySelector('.wine-mobile-toggle');
+      const mobileMenu = document.querySelector('.wine-mobile-menu');
+      if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener('click', function () {
+          const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+          mobileToggle.setAttribute('aria-expanded', String(!expanded));
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      document.querySelectorAll('.wine-faq-toggle').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const item = button.closest('.wine-faq-item');
+          const content = item.querySelector('.wine-faq-content');
+          const icon = item.querySelector('.wine-faq-icon');
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          content.classList.toggle('hidden');
+          icon.textContent = expanded ? '+' : '−';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
