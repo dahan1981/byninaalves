@@ -4360,10 +4360,9 @@ body{
 
 .wine-benefit-image{
   height: 20rem;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  background: rgb(250 245 239);
-  padding: 0.75rem;
+  display: block;
 }
 
 .wine-hero{
@@ -4476,7 +4475,6 @@ body{
 
   .wine-benefit-image{
     height: 18rem;
-    padding: 0.5rem;
   }
 
   .wine-faq-toggle{
