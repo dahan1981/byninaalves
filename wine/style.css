@@ -4381,6 +4381,28 @@ body{
   overflow-x: hidden;
 }
 
+.wine-footer{
+  background: rgb(33 29 26);
+  padding: 2rem 1.5rem;
+}
+
+.wine-footer-inner{
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.wine-footer-copy,
+.wine-footer-credit{
+  color: rgb(214 196 180);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.wine-footer-credit{
+  margin-top: 0.2rem;
+}
+
 @media (max-width: 1023px){
   .wine-hero{
     min-height: auto;
