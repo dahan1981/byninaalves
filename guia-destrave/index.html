@@ -1750,18 +1750,29 @@
 
     /* No mobile, os mockups deixam de ser elementos de transição.
        Mantemos apenas o visual contextual dos bônus para preservar a leitura. */
-    .hero-visual,
     .mockup-divider,
     .transition-side-mockup {
       display: none !important;
     }
 
     #hero {
-      padding-bottom: 64px;
+      padding-bottom: 24px;
     }
 
     #dor {
       padding-top: 88px;
+    }
+
+    .hero-visual {
+      display: flex !important;
+      position: relative !important;
+      inset: auto !important;
+      width: min(58vw, 230px) !important;
+      max-width: calc(100vw - 32px) !important;
+      margin: 22px auto 0 !important;
+      justify-content: center;
+      transform: none !important;
+      z-index: 4;
     }
 
     .bonus-floating-mockup {
@@ -1904,7 +1915,7 @@
       padding-right: 0;
     }
     #hero {
-      padding-bottom: 56px;
+      padding-bottom: 20px;
     }
     .material-checklist li {
       padding: 18px 18px;
