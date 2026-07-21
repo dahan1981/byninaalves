@@ -1748,6 +1748,28 @@
       height: auto;
     }
 
+    /* No mobile, os mockups deixam de ser elementos de transição.
+       Mantemos apenas o visual contextual dos bônus para preservar a leitura. */
+    .hero-visual,
+    .mockup-divider,
+    .transition-side-mockup {
+      display: none !important;
+    }
+
+    #hero {
+      padding-bottom: 64px;
+    }
+
+    #dor {
+      padding-top: 88px;
+    }
+
+    .bonus-floating-mockup {
+      position: relative;
+      top: 0 !important;
+      margin: 28px auto 0 !important;
+    }
+
     #transicao {
     z-index: 10;
     position: relative;
@@ -1851,7 +1873,7 @@
 
     #dor {
       z-index: 20;
-      padding-top: clamp(154px, 42vw, 206px);
+      padding-top: 76px;
     }
     .hero-visual {
       bottom: clamp(-152px, -37vw, -116px);
@@ -1880,6 +1902,9 @@
     position: relative;
       padding-left: 0;
       padding-right: 0;
+    }
+    #hero {
+      padding-bottom: 56px;
     }
     .material-checklist li {
       padding: 18px 18px;
